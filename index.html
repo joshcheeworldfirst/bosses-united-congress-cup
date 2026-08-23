@@ -99,6 +99,8 @@
   .venue .tag{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--wfred)}
   .venue h4{margin:6px 0 4px; font-size:17px; font-weight:700; text-wrap:balance}
   .venue .addr{font-size:13px; color:var(--muted); flex:1; font-weight:400; text-wrap:pretty}
+  .maplink{margin-top:12px; display:inline-flex; align-items:center; gap:6px; align-self:flex-start; font-size:13px; font-weight:700; color:#fff; text-decoration:none; background:var(--orange); padding:8px 13px; border-radius:10px; transition:background .15s}
+  .maplink:hover{background:var(--orange-d)}
 
   /* industry panels with member chips (team-card pattern) */
   .team-grid{display:grid; gap:14px; grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -134,10 +136,10 @@
   .dcard{margin:0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; display:flex; gap:16px; align-items:center}
   .dfig{width:74px; flex:none}
   .d-skin{fill:#F3C9A8}
-  .d-top{fill:#FFE1EC; stroke:var(--wfred); stroke-width:2}
-  .d-line{fill:none; stroke:var(--wfred); stroke-width:2; stroke-linecap:round}
-  .d-bottom{fill:#E8EAF0; stroke:#9AA0AC; stroke-width:1.5}
-  .d-shoe{fill:var(--ink)}
+  .d-blazer{fill:#2E3A59}
+  .d-white{fill:#FFFFFF; stroke:#D8DBE2; stroke-width:1.5}
+  .d-black{fill:#23262B}
+  .d-shoe{fill:#17191D}
   .dcard b{display:block; font-size:15px; margin-bottom:3px}
   .dcard span{font-size:13.5px; color:var(--ink-soft)}
 
@@ -163,7 +165,7 @@
       <div class="facts">
         <div class="fact"><div class="k">Date</div><div class="v">Wed 26 Aug</div><div class="s">2026</div></div>
         <div class="fact"><div class="k">Report by</div><div class="v">5:15 PM</div><div class="s">sharp</div></div>
-        <div class="fact"><div class="k">Venue</div><div class="v">Pan Pacific</div><div class="s">Singapore · room TBC</div></div>
+        <div class="fact"><div class="k">Venue</div><div class="v">Pan Pacific</div><div class="s">7 Raffles Blvd · room TBC</div></div>
         <div class="fact"><div class="k">Dress</div><div class="v">Business casual</div><div class="s">see guide below</div></div>
       </div>
       <div class="cd-wrap">
@@ -199,6 +201,16 @@
       <div class="row"><div class="time">On stage</div><div class="act"><div class="t">Token of appreciation <span class="pill">formal photo moment</span></div><div class="place">Presented on stage — details of the token and recipient to be confirmed</div></div></div>
       <div class="row"><div class="time">TBC</div><div class="act"><div class="t">End time &amp; day-of contact</div><div class="place">Check day-of comms once the run-of-show is issued</div></div></div>
     </div>
+    <div class="grid" style="margin-bottom:16px">
+      <div class="venue" style="grid-column:1/-1; flex-direction:row; align-items:center; gap:18px; flex-wrap:wrap">
+        <div style="flex:1 1 260px">
+          <div class="tag">Venue</div>
+          <h4>Pan Pacific Singapore</h4>
+          <div class="addr">7 Raffles Boulevard, Marina Square, Singapore 039595 &middot; room/level TBC &mdash; check day-of comms</div>
+        </div>
+        <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Pan%20Pacific%20Singapore%207%20Raffles%20Boulevard" target="_blank" rel="noopener">Open in Maps &rarr;</a>
+      </div>
+    </div>
     <div class="grid" id="markets">
       <div class="venue"><div class="tag">Host</div><h4>Singapore 🇸🇬</h4><div class="addr">Home market — the Bosses United community and all profiled members</div></div>
       <div class="venue"><div class="tag">On site</div><h4>Malaysia 🇲🇾</h4><div class="addr">Nearest trade corridor — member exporters ship here today</div></div>
@@ -213,26 +225,31 @@
     <div class="sec-h"><span class="eyebrow">Dress code</span><h2>Business casual</h2><span class="note">There will be a stage, a Minister and cameras</span></div>
     <div class="dress-grid">
       <figure class="dcard">
-        <svg viewBox="0 0 120 150" role="img" aria-label="Men's business casual" class="dfig">
-          <circle cx="60" cy="22" r="13" class="d-skin"/>
-          <path d="M35 55 Q60 42 85 55 L88 100 L32 100 Z" class="d-top"/>
-          <path d="M52 46 L60 56 L68 46" class="d-line"/>
-          <rect x="40" y="100" width="16" height="42" rx="3" class="d-bottom"/>
-          <rect x="64" y="100" width="16" height="42" rx="3" class="d-bottom"/>
-          <rect x="37" y="142" width="21" height="6" rx="3" class="d-shoe"/>
-          <rect x="62" y="142" width="21" height="6" rx="3" class="d-shoe"/>
+        <svg viewBox="0 0 120 150" role="img" aria-label="Men's look: navy blazer over white tee, dark trousers" class="dfig">
+          <circle cx="60" cy="21" r="12" class="d-skin"/>
+          <path d="M48 44 L60 100 L72 44 L66 40 L54 40 Z" class="d-white"/>
+          <path d="M34 52 Q47 40 54 40 L60 62 L48 100 L33 100 Z" class="d-blazer"/>
+          <path d="M86 52 Q73 40 66 40 L60 62 L72 100 L87 100 Z" class="d-blazer"/>
+          <rect x="40" y="100" width="17" height="42" rx="3" class="d-black"/>
+          <rect x="63" y="100" width="17" height="42" rx="3" class="d-black"/>
+          <rect x="36" y="142" width="22" height="6" rx="3" class="d-shoe"/>
+          <rect x="62" y="142" width="22" height="6" rx="3" class="d-shoe"/>
         </svg>
-        <figcaption><b>Gentlemen</b><span>Polo or open-collar shirt, chinos or tailored trousers, loafers or clean sneakers. Jacket optional. Skip tees, shorts, sandals.</span></figcaption>
+        <figcaption><b>Gentlemen</b><span>Blazer over a plain tee or open-collar shirt, dark tailored trousers, dress shoes or clean leather sneakers. Skip shorts and sandals.</span></figcaption>
       </figure>
       <figure class="dcard">
-        <svg viewBox="0 0 120 150" role="img" aria-label="Ladies' business casual" class="dfig">
-          <circle cx="60" cy="22" r="13" class="d-skin"/>
-          <path d="M38 55 Q60 42 82 55 L80 92 L40 92 Z" class="d-top"/>
-          <path d="M40 92 L34 138 L86 138 L80 92 Z" class="d-bottom"/>
-          <rect x="42" y="140" width="15" height="6" rx="3" class="d-shoe"/>
-          <rect x="63" y="140" width="15" height="6" rx="3" class="d-shoe"/>
+        <svg viewBox="0 0 120 150" role="img" aria-label="Ladies' look: blazer over white top or dress" class="dfig">
+          <circle cx="60" cy="21" r="12" class="d-skin"/>
+          <path d="M50 42 L60 96 L70 42 L66 39 L54 39 Z" class="d-white"/>
+          <path d="M37 52 Q48 39 54 39 L60 60 L49 98 L36 96 Z" class="d-blazer"/>
+          <path d="M83 52 Q72 39 66 39 L60 60 L71 98 L84 96 Z" class="d-blazer"/>
+          <path d="M47 96 L42 134 L78 134 L73 96 Z" class="d-white"/>
+          <path d="M50 134 L48 142 L56 142 L57 134 Z" class="d-skin"/>
+          <path d="M64 134 L63 142 L71 142 L72 134 Z" class="d-skin"/>
+          <path d="M46 142 L58 142 L58 148 L44 148 Z" class="d-shoe"/>
+          <path d="M62 142 L74 142 L76 148 L62 148 Z" class="d-shoe"/>
         </svg>
-        <figcaption><b>Ladies</b><span>Blouse with slacks or a skirt, or a knee-length dress. Flats or low heels — you may be standing a while. A light layer for the aircon.</span></figcaption>
+        <figcaption><b>Ladies</b><span>Blazer over a blouse with tailored trousers or a skirt — or a knee-length dress with a jacket. Heels or smart flats; a light layer for the aircon.</span></figcaption>
       </figure>
     </div>
     <div class="callout" style="margin-top:16px"><b>If in doubt:</b> what you'd wear to meet a customer, not what you'd wear to a match.</div>
