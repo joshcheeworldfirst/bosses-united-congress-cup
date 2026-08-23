@@ -31,7 +31,7 @@ var HEADERS = [
   'First and last name',
   'Company name',
   'Email',
-  'Mobile number (with country code. Eg 6596788655)',
+  'Mobile number (with country code. Eg 6591234567)',
   'Industry',
   'By ticking this box and registering for this event, you consent to receiving ' +
     'post-event communications from participating organisations'
