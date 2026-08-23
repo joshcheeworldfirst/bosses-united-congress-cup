@@ -21,7 +21,6 @@
     --line:#ECEDEE; --muted:#6F6F6F;
     --shadow:0 12px 34px rgba(125,0,66,.10);
     --radius:18px;
-    --placeholder-fg:#8A8F8F;   /* muted grey on the black placeholder tile */
     --ok:#0A7D6F;               /* confirmation green */
     --scrim:rgba(31,35,35,.62);
   }
@@ -116,9 +115,6 @@
   .intgrid{display:grid; gap:10px; margin-top:12px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
   .intgrid figure{margin:0}
   .intgrid img{width:100%; aspect-ratio:4/3; object-fit:cover; display:block; border-radius:10px; border:1px solid var(--line); background:var(--bg-alt)}
-  .intgrid .ph{width:100%; aspect-ratio:4/3; border-radius:10px; border:1px solid var(--ink);
-    background:var(--ink); display:flex; align-items:center; justify-content:center}
-  .intgrid .ph span{font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; color:var(--placeholder-fg)}
   .intgrid figcaption{font-size:11.5px; margin-top:5px; line-height:1.35}
   .intgrid b{display:block; font-weight:600; color:var(--ink)}
   .intgrid span{color:var(--muted)}
@@ -255,7 +251,7 @@
       <p class="lede">One evening, six markets, 150+ business owners — and WorldFirst on stage as official payment partner.</p>
       <div class="facts">
         <div class="fact"><div class="k">Date</div><div class="v">Wed 26 Aug</div><div class="s">2026</div></div>
-        <div class="fact"><div class="k">Report by</div><div class="v">5:00 PM</div></div>
+        <div class="fact"><div class="k">Report by</div><div class="v">5:00 PM</div><div class="s">Working crew &middot; everyone else 5:30 PM</div></div>
         <div class="fact"><div class="k">Venue</div><div class="v">Pan Pacific</div><div class="s">7 Raffles Blvd · Marina Square</div></div>
         <div class="fact"><div class="k">Dress</div><div class="v">Business casual</div><div class="s">Lookbook below</div></div>
       </div>
@@ -264,7 +260,7 @@
         <span class="cta-note">Takes under a minute</span>
       </div>
       <div class="cd-wrap">
-        <div class="count-label" id="cd-label">Until report time — 5:00 PM, 26 Aug 🏆</div>
+        <div class="count-label" id="cd-label">Until first report time — 5:00 PM, 26 Aug 🏆</div>
         <div class="count" id="countdown" aria-label="Countdown to the Opening Ceremony">
           <div class="box"><div class="n" id="cd-d">–</div><div class="l">Days</div></div>
           <div class="box"><div class="n" id="cd-h">–</div><div class="l">Hrs</div></div>
@@ -306,9 +302,9 @@
         <div class="daychip d1">26<small>WED</small></div>
         <div><h3>Congress Cup Opening Ceremony</h3><div class="sub">Pan Pacific Singapore &middot; guest of honour: Minister of State Dinesh Vasu Dash</div></div>
       </div>
-      <div class="row"><div class="time">5:00 PM</div><div class="act"><div class="t">Report at Pan Pacific Singapore</div><div class="place">Working crew. All to note peak traffic crowd</div></div></div>
+      <div class="row"><div class="time">5:00 PM</div><div class="act"><div class="t">Working crew reports</div><div class="place">Pan Pacific Singapore &middot; all to note peak traffic crowd</div></div></div><div class="row"><div class="time">5:30 PM</div><div class="act"><div class="t">All others report</div><div class="place">Pan Pacific Singapore</div></div></div>
       <div class="row"><div class="time">5:00&ndash;5:45 PM</div><div class="act"><div class="t">Advance party preparation</div></div></div>
-      <div class="row"><div class="time">5:45&ndash;6:15 PM</div><div class="act"><div class="t">Guest arrival &amp; registration</div></div></div>
+      <div class="row"><div class="time">5:30&ndash;6:00 PM</div><div class="act"><div class="t">Guest arrival &amp; registration</div></div></div>
       <div class="row"><div class="time">6:15 PM</div><div class="act"><div class="t">Arrival of Clara Shi, CEO, WorldFirst <span class="pill hot">VIP</span></div></div></div>
       <div class="row"><div class="time">6:30 PM</div><div class="act"><div class="t">Welcome Dinesh Vasu Dash <span class="pill hot">Guest of Honour</span></div><div class="place">Minister of State, Ministry of Culture, Community and Youth &amp; Ministry of Manpower; Mayor, South East District</div></div></div>
       <div class="row"><div class="time">6:35 PM</div><div class="act"><div class="t">Speech by Bosses United</div></div></div>
@@ -446,7 +442,7 @@
         <div><h3>The partnership goes official</h3><div class="sub">Signing, stories, and the Cup</div></div>
       </div>
       <div class="row"><div class="time">7 Aug</div><div class="act"><div class="t">Partnership signing ceremony <span class="pill done">Completed</span></div><div class="place">Wheeler's Estate — agreement signed, team bus unveiled with the WorldFirst lockup. MOS Dinesh attended.<div class="evpics"><figure><img src="assets/ev-0807-1.jpg" alt="Certificate presentation" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Certificate presentation</figcaption></figure><figure><img src="assets/ev-0807-3.jpg" alt="The full room at the official partnership launch" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>The full room, Wheeler&rsquo;s Estate</figcaption></figure><figure><img src="assets/ev-0807-4.jpg" alt="The Bosses United team bus" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>The Bosses United team bus</figcaption></figure></div></div></div></div>
-      <div class="row"><div class="time">21 Aug</div><div class="act"><div class="t">Bosses United interview series <span class="pill done">Completed</span></div><div class="place">Nine founder interviews filmed multi-cam — the partnership's content engine<div class="intgrid"><figure><img src="assets/int-1-yz-albert.jpg" alt="Interview in progress &mdash; Bosses United" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Bosses United</b></figcaption></figure><figure><img src="assets/int-2-rigel.jpg" alt="Interview in progress &mdash; Rigel" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Rigel</b></figcaption></figure><figure><img src="assets/int-3-eltraco.jpg" alt="Interview in progress &mdash; Eltraco" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Eltraco</b></figcaption></figure><figure><img src="assets/int-4-minfeng.jpg" alt="Interview in progress &mdash; Min Feng" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Min Feng</b></figcaption></figure><figure><img src="assets/int-5-tehc.jpg" alt="Interview in progress &mdash; TEHC International" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>TEHC International</b></figcaption></figure><figure><img src="assets/int-6-upleev.jpg" alt="Interview in progress &mdash; UPLEEV" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>UPLEEV</b></figcaption></figure><figure><div class="ph"><span>Not captured</span></div><figcaption><b>Tour The Game</b></figcaption></figure><figure><img src="assets/int-7-friends-of-bus.jpg" alt="Interview in progress &mdash; Friends of BUS" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Friends of BUS</b></figcaption></figure><figure><img src="assets/int-8-wayfengshui.jpg" alt="Interview in progress &mdash; Way Fengshui" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Way Fengshui</b></figcaption></figure></div></div></div></div>
+      <div class="row"><div class="time">21 Aug</div><div class="act"><div class="t">Bosses United interview series <span class="pill done">Completed</span></div><div class="place">Nine founder interviews filmed multi-cam — the partnership's content engine<div class="intgrid"><figure><img src="assets/int-1-yz-albert.jpg" alt="Interview in progress &mdash; Bosses United" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Bosses United</b></figcaption></figure><figure><img src="assets/int-2-rigel.jpg" alt="Interview in progress &mdash; Rigel" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Rigel</b></figcaption></figure><figure><img src="assets/int-3-eltraco.jpg" alt="Interview in progress &mdash; Eltraco" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Eltraco</b></figcaption></figure><figure><img src="assets/int-4-minfeng.jpg" alt="Interview in progress &mdash; Min Feng" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Min Feng</b></figcaption></figure><figure><img src="assets/int-5-tehc.jpg" alt="Interview in progress &mdash; TEHC International" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>TEHC International</b></figcaption></figure><figure><img src="assets/int-6-upleev.jpg" alt="Interview in progress &mdash; UPLEEV" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>UPLEEV</b></figcaption></figure><figure><img src="assets/int-9-set.jpg" alt="Production shoot rig &mdash; stand-in image, this interview was not photographed" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Tour The Game</b></figcaption></figure><figure><img src="assets/int-7-friends-of-bus.jpg" alt="Interview in progress &mdash; Friends of BUS" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Friends of BUS</b></figcaption></figure><figure><img src="assets/int-8-wayfengshui.jpg" alt="Interview in progress &mdash; Way Fengshui" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Way Fengshui</b></figcaption></figure></div></div></div></div>
       <div class="row"><div class="time">26 Aug</div><div class="act"><div class="t">Congress Cup Opening Ceremony <span class="pill hot">this Wednesday</span></div><div class="place">Pan Pacific Singapore — you are here</div></div></div>
       <div class="row"><div class="time">28 Aug</div><div class="act"><div class="t">Exhibition match — WorldFirst vs Singapore Xin Hua Sports Club</div><div class="place">Our Tampines Hub Football Field</div></div></div>
       <div class="row"><div class="time">30 Aug</div><div class="act"><div class="t">Congress Cup Closing Ceremony</div><div class="place">Winners' presentation — trophy presented to WorldFirst</div></div></div>
@@ -645,7 +641,7 @@ kvInit();
     <div class="rsvp-done" id="rsvp-done" hidden>
       <div class="tick" aria-hidden="true">&#10003;</div>
       <h3>You&rsquo;re registered</h3>
-      <p>See you at Pan Pacific Singapore on Wednesday 26 August. Please report by 5:00&nbsp;PM.</p>
+      <p>See you at Pan Pacific Singapore on Wednesday 26 August. Please report by 5:00&nbsp;PM (working crew) or 5:30&nbsp;PM (all).</p>
       <button class="btn-solid" type="button" data-rsvp-close>Close</button>
     </div>
   </div>
