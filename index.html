@@ -668,7 +668,7 @@ kvInit();
    tab, so registration keeps working either way.
 ======================================================================== */
 var RSVP = {
-  ENDPOINT: '',
+  ENDPOINT: 'https://script.google.com/macros/s/AKfycbylOGBaPlynFiQkPAUDU7PHqV87jkREUbKAWf_RRUaxmLmDcBWy16p4Qie8JZOLKSyG/exec',
   FORM_URL: 'https://docs.google.com/forms/d/1z0ZI6EjWi2kWxks2kIen1UBFZAY6kxN7t-WpNZ9tmyA/viewform',
   CONSENT_VALUE: 'Yes'
 };
@@ -759,8 +759,7 @@ var RSVP = {
     timer = setTimeout(function(){
       if(!sent) return;
       err.hidden = false;
-      err.innerHTML = 'That is taking longer than expected. ' +
-        '<a href="' + RSVP.FORM_URL + '" target="_blank" rel="noopener">Open the Google Form</a> instead.';
+      err.textContent = 'That is taking longer than expected. Please try submitting again.';
       btn.disabled = false; btn.textContent = 'Submit registration';
     }, 9000);
   });
