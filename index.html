@@ -22,6 +22,8 @@
     --shadow:0 12px 34px rgba(125,0,66,.10);
     --radius:18px;
     --placeholder-fg:#8A8F8F;   /* muted grey on the black placeholder tile */
+    --ok:#0A7D6F;               /* confirmation green */
+    --scrim:rgba(31,35,35,.62);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth; color-scheme:light}
@@ -147,16 +149,69 @@
   @media (max-width:560px){ .team-grid{grid-template-columns:1fr} .member-list{grid-template-columns:1fr} }
 
 
-  /* Q&A */
-  .qa{display:grid; gap:12px}
-  .qa details{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:0 18px; box-shadow:var(--shadow)}
-  .qa details[open]{border-color:var(--wfred)}
-  .qa summary{cursor:pointer; list-style:none; padding:15px 0; font-size:15px; font-weight:600; display:flex; gap:12px; align-items:flex-start}
-  .qa summary::-webkit-details-marker{display:none}
-  .qa summary::after{content:"+"; margin-left:auto; flex:none; font-size:21px; line-height:1; color:var(--wfred); font-weight:400}
-  .qa details[open] summary::after{content:"\2212"}
-  .qa .ans{padding:12px 0 16px; border-top:1px dashed var(--line); font-size:14px; color:var(--ink-soft)}
-  .qa .ans b{color:var(--ink)}
+  /* about us */
+  .about-grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .about{background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
+  .about-media{background:var(--bg-alt)}
+  .about-media img{width:100%; aspect-ratio:16/9; object-fit:cover; display:block}
+  .about-body{padding:20px 22px 22px}
+  .about-body h3{margin:0 0 8px; font-size:19px; font-weight:700; color:var(--ink)}
+  .about-body p{margin:0; font-size:14.5px; color:var(--ink-soft)}
+  .about-body .btn-solid{display:inline-block; margin-top:16px; text-decoration:none}
+
+  /* registration CTA + modal */
+  .cta-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:22px}
+  .btn-primary{font:inherit; font-weight:700; font-size:16px; cursor:pointer; border:0; border-radius:999px;
+    padding:14px 26px; background:var(--bg); color:var(--plum); box-shadow:0 8px 22px rgba(0,0,0,.18)}
+  .btn-primary:hover{transform:translateY(-1px)}
+  .btn-primary:active{transform:translateY(0)}
+  .cta-note{font-size:13px; color:rgba(255,255,255,.88); font-weight:500}
+  .btn-solid{font:inherit; font-weight:700; font-size:15px; cursor:pointer; border:0; border-radius:999px;
+    padding:13px 24px; background:var(--wfred-d); color:var(--bg)}
+  .btn-solid:hover{background:var(--plum)}
+  .btn-solid[disabled]{opacity:.6; cursor:default}
+  .btn-ghost{font:inherit; font-weight:600; font-size:14px; cursor:pointer; border:1px solid var(--line);
+    border-radius:999px; padding:12px 20px; background:var(--card); color:var(--ink-soft)}
+  .cta-block{text-align:center}
+  .cta-block h2{font-size:clamp(23px,3.6vw,32px); margin:0 0 8px; color:var(--wfred); font-weight:700; letter-spacing:-.01em}
+  .cta-block p{margin:0 auto 20px; max-width:52ch; color:var(--ink-soft); font-size:15px}
+
+  .rsvp{border:0; padding:0; background:transparent; max-width:560px; width:calc(100% - 32px);
+    max-height:calc(100vh - 32px); overflow:auto; overscroll-behavior:contain}
+  .rsvp::backdrop{background:var(--scrim)}
+  .rsvp-card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:24px}
+  .rsvp-head{display:flex; align-items:flex-start; gap:12px; margin-bottom:18px}
+  .rsvp-head h3{margin:0; font-size:20px; font-weight:700; color:var(--ink)}
+  .rsvp-head p{margin:4px 0 0; font-size:13px; color:var(--muted)}
+  .rsvp-x{margin-left:auto; flex:0 0 auto; width:32px; height:32px; border-radius:50%; border:1px solid var(--line);
+    background:var(--card); color:var(--ink-soft); font-size:19px; line-height:1; cursor:pointer}
+  .fld{margin-bottom:14px}
+  .fld label{display:block; font-size:12.5px; font-weight:600; color:var(--ink); margin-bottom:5px}
+  .fld .hint{font-weight:400; color:var(--muted)}
+  .fld input,.fld select{width:100%; font:inherit; font-size:15px; color:var(--ink); background:var(--bg);
+    border:1px solid var(--line); border-radius:10px; padding:11px 12px}
+  .fld input:focus,.fld select:focus{outline:none; border-color:var(--wfred); box-shadow:0 0 0 3px rgba(255,0,81,.18)}
+  .fld.bad input,.fld.bad select{border-color:var(--wfred-d); background:rgba(255,0,81,.04)}
+  .fld .msg{display:none; font-size:12px; color:var(--wfred-d); margin-top:4px; font-weight:500}
+  .fld.bad .msg{display:block}
+  .chk{display:flex; gap:10px; align-items:flex-start; font-size:13px; color:var(--ink-soft);
+    line-height:1.5; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:var(--bg-alt)}
+  .chk input{flex:0 0 auto; margin-top:3px; width:16px; height:16px; accent-color:var(--wfred)}
+  .chk.bad{border-color:var(--wfred-d)}
+  .rsvp-err{margin:14px 0 0; font-size:13px; font-weight:500; color:var(--wfred-d)}
+  .rsvp-foot{display:flex; gap:10px; align-items:center; margin-top:18px; flex-wrap:wrap}
+  .rsvp-priv{font-size:11.5px; color:var(--muted); margin:12px 0 0; line-height:1.45}
+  .rsvp-done{text-align:center; padding:12px 4px}
+  .rsvp-done .tick{width:52px; height:52px; margin:0 auto 14px; border-radius:50%; background:rgba(14,159,142,.14);
+    color:var(--ok); font-size:26px; font-weight:700; display:flex; align-items:center; justify-content:center}
+  .rsvp-done h3{margin:0 0 6px; font-size:20px; font-weight:700; color:var(--ink)}
+  .rsvp-done p{margin:0 auto 18px; max-width:40ch; font-size:14px; color:var(--ink-soft)}
+  #rsvp-sink{display:none}
+  @media (max-width:560px){
+    .rsvp-foot .btn-solid,.rsvp-foot .btn-ghost{width:100%}
+  }
+
 
   /* dress lookbook carousel */
   .lookbook{display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 4px 14px; -webkit-overflow-scrolling:touch}
@@ -203,6 +258,10 @@
         <div class="fact"><div class="k">Report by</div><div class="v">5:00 PM</div></div>
         <div class="fact"><div class="k">Venue</div><div class="v">Pan Pacific</div><div class="s">7 Raffles Blvd · Marina Square</div></div>
         <div class="fact"><div class="k">Dress</div><div class="v">Business casual</div><div class="s">Lookbook below</div></div>
+      </div>
+      <div class="cta-row">
+        <button class="btn-primary" type="button" data-rsvp-open>Register to attend</button>
+        <span class="cta-note">Takes under a minute</span>
       </div>
       <div class="cd-wrap">
         <div class="count-label" id="cd-label">Until report time — 5:00 PM, 26 Aug 🏆</div>
@@ -379,14 +438,14 @@
         <div><h3>The opening moves</h3><div class="sub">Two events in nine days</div></div>
       </div>
       <div class="row"><div class="time">13 Jul</div><div class="act"><div class="t">‘Dear You’ 给阿媷的情书 Client Appreciation Evening <span class="pill done">Completed</span></div><div class="place">Golden Village Suntec City — 100+ guests behind the “Road to WorldFirst” banner. The film is about qiaopi: remittance letters home. Our business, a century early.<div class="evpics"><figure><img src="assets/ev-0713-1.jpg" alt="Registration desk, Golden Village Suntec City" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Registration desk, Golden Village Suntec City</figcaption></figure><figure><img src="assets/ev-0713-2.jpg" alt="With members of Bosses United with &lsquo;Dear You&rsquo; movie poster" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>With members of Bosses United with &lsquo;Dear You&rsquo; movie poster</figcaption></figure></div></div></div></div>
-      <div class="row"><div class="time">22 Jul</div><div class="act"><div class="t">Friendly match — WorldFirst vs Bosses United <span class="pill done">Completed</span></div><div class="place">SAFRA, under floodlights. Our own fifteen in red.<div class="evpics"><figure><img src="assets/ev-0722-1.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-2.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-4.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0807-2.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure></div></div></div></div>
+      <div class="row"><div class="time">22 Jul</div><div class="act"><div class="t">Friendly match — WorldFirst vs Bosses United <span class="pill done">Completed</span></div><div class="place">SAFRA, under floodlights. Our own fifteen in red.<div class="evpics"><figure><img src="assets/ev-0807-2.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-1.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-2.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-4.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure></div></div></div></div>
     </div>
     <div class="day">
       <div class="day-top">
         <div class="daychip d2">AUG<small>2026</small></div>
         <div><h3>The partnership goes official</h3><div class="sub">Signing, stories, and the Cup</div></div>
       </div>
-      <div class="row"><div class="time">7 Aug</div><div class="act"><div class="t">Partnership signing ceremony <span class="pill done">Completed</span></div><div class="place">Wheeler's Estate — agreement signed, team bus unveiled with the WorldFirst lockup. MOS Dinesh attended.<div class="evpics"><figure><img src="assets/ev-0807-1.jpg" alt="Certificate presentation" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Certificate presentation</figcaption></figure><figure><img src="assets/ev-0807-4.jpg" alt="The Bosses United team bus" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>The Bosses United team bus</figcaption></figure></div></div></div></div>
+      <div class="row"><div class="time">7 Aug</div><div class="act"><div class="t">Partnership signing ceremony <span class="pill done">Completed</span></div><div class="place">Wheeler's Estate — agreement signed, team bus unveiled with the WorldFirst lockup. MOS Dinesh attended.<div class="evpics"><figure><img src="assets/ev-0807-1.jpg" alt="Certificate presentation" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Certificate presentation</figcaption></figure><figure><img src="assets/ev-0807-3.jpg" alt="The full room at the official partnership launch" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>The full room, Wheeler&rsquo;s Estate</figcaption></figure><figure><img src="assets/ev-0807-4.jpg" alt="The Bosses United team bus" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>The Bosses United team bus</figcaption></figure></div></div></div></div>
       <div class="row"><div class="time">21 Aug</div><div class="act"><div class="t">Bosses United interview series <span class="pill done">Completed</span></div><div class="place">Nine founder interviews filmed multi-cam — the partnership's content engine<div class="intgrid"><figure><img src="assets/int-1-yz-albert.jpg" alt="Interview in progress &mdash; Bosses United" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Bosses United</b></figcaption></figure><figure><img src="assets/int-2-rigel.jpg" alt="Interview in progress &mdash; Rigel" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Rigel</b></figcaption></figure><figure><img src="assets/int-3-eltraco.jpg" alt="Interview in progress &mdash; Eltraco" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Eltraco</b></figcaption></figure><figure><img src="assets/int-4-minfeng.jpg" alt="Interview in progress &mdash; Min Feng" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Min Feng</b></figcaption></figure><figure><img src="assets/int-5-tehc.jpg" alt="Interview in progress &mdash; TEHC International" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>TEHC International</b></figcaption></figure><figure><img src="assets/int-6-upleev.jpg" alt="Interview in progress &mdash; UPLEEV" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>UPLEEV</b></figcaption></figure><figure><div class="ph"><span>Not captured</span></div><figcaption><b>Tour The Game</b></figcaption></figure><figure><img src="assets/int-7-friends-of-bus.jpg" alt="Interview in progress &mdash; Friends of BUS" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Friends of BUS</b></figcaption></figure><figure><img src="assets/int-8-wayfengshui.jpg" alt="Interview in progress &mdash; Way Fengshui" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Way Fengshui</b></figcaption></figure></div></div></div></div>
       <div class="row"><div class="time">26 Aug</div><div class="act"><div class="t">Congress Cup Opening Ceremony <span class="pill hot">this Wednesday</span></div><div class="place">Pan Pacific Singapore — you are here</div></div></div>
       <div class="row"><div class="time">28 Aug</div><div class="act"><div class="t">Exhibition match — WorldFirst vs Singapore Xin Hua Sports Club</div><div class="place">Our Tampines Hub Football Field</div></div></div>
@@ -402,32 +461,43 @@
   </div></section>
 
 
-  <section id="questions"><div class="wrap">
-    <div class="sec-h"><span class="eyebrow">If asked</span><h2>Quick answers</h2></div>
-    <div class="qa">
-      <details open>
-        <summary>How big is Bosses United?</summary>
-        <div class="ans"><b>150+ members and counting, across all chapters.</b> Never quote a smaller number — the businesses we profile are just the recognisable names, not the community's size.</div>
-      </details>
-      <details>
-        <summary>Are we the “official” or “preferred” payment partner?</summary>
-        <div class="ans"><b>Official payment partner of Bosses United</b> — confirmed, signed 7 August.</div>
-      </details>
-      <details>
-        <summary>What has the partnership actually done?</summary>
-        <div class="ans">Since 13 July: a 100+ guest film screening, a friendly match, a signing ceremony at Wheeler's Estate, and nine filmed founder interviews. The Cup runs this week; monthly clinics start October.</div>
-      </details>
-      <details>
-        <summary>Where's the cross-border angle?</summary>
-        <div class="ans">Documented, not assumed — rice imports from nine countries, ASEAN subsidiaries, regional recruitment. The businesses section above has the names.</div>
-      </details>
-      <details>
-        <summary>Why is Korea represented?</summary>
-        <div class="ans">It's the one market with no existing member link — treat it as a forward-looking corridor rather than claiming a connection.</div>
-      </details>
+  <section class="alt" id="about"><div class="wrap">
+    <div class="sec-h"><span class="eyebrow">About us</span><h2>The partners</h2></div>
+    <div class="about-grid">
+
+      <article class="about">
+        <div class="about-media"><img src="assets/about-bu.jpg"
+             alt="Bosses United" loading="lazy"
+             onerror="this.closest('.about-media').remove()"></div>
+        <div class="about-body">
+          <h3>Bosses United</h3>
+          <p>Bosses United, founded in Singapore in 2022, is a community of business owners, CEOs and senior
+          business leaders across Asia who train, compete and grow together in football.</p>
+          <a class="btn-solid" href="https://bossesunited.com/" target="_blank" rel="noopener">Visit bossesunited.com &rarr;</a>
+        </div>
+      </article>
+
+      <article class="about">
+        <div class="about-media"><img src="assets/antfamily.png"
+             alt="Ant International brand family" loading="lazy"
+             onerror="this.closest('.about-media').remove()"></div>
+        <div class="about-body">
+          <h3>WorldFirst</h3>
+          <p>WorldFirst, a brand of Ant International, supports Singapore&rsquo;s SMEs in simplifying key financial
+          operations, including international payments, collections, currency conversions, and treasury
+          management, all in a one-stop account.</p>
+        </div>
+      </article>
+
     </div>
   </div></section>
 
+  <section id="register"><div class="wrap cta-block">
+    <span class="eyebrow">Registration</span>
+    <h2>Register to attend</h2>
+    <p>Confirm your place at the Opening Ceremony &mdash; Wednesday 26 August, Pan Pacific Singapore, report by 5:00&nbsp;PM.</p>
+    <button class="btn-solid" type="button" data-rsvp-open>Register to attend</button>
+  </div></section>
 </main>
 
 <footer>
@@ -499,6 +569,216 @@ document.getElementById('kv-track').addEventListener('scroll', function(){
 window.addEventListener('load', kvInit);
 setTimeout(kvInit, 900);
 kvInit();
+</script>
+
+<dialog class="rsvp" id="rsvp" aria-labelledby="rsvp-title">
+  <div class="rsvp-card">
+    <form id="rsvp-form" method="POST" target="rsvp-sink" novalidate>
+      <div class="rsvp-head">
+        <div>
+          <h3 id="rsvp-title">Register to attend</h3>
+          <p>Congress Cup Opening Ceremony &middot; Wed 26 Aug 2026 &middot; Pan Pacific Singapore</p>
+        </div>
+        <button class="rsvp-x" type="button" aria-label="Close" data-rsvp-close>&times;</button>
+      </div>
+
+      <div class="fld" id="fld-name">
+        <label for="f-name">First and last name</label>
+        <input id="f-name" data-k="name" autocomplete="name">
+        <div class="msg">Please enter your first and last name.</div>
+      </div>
+      <div class="fld" id="fld-company">
+        <label for="f-company">Company name</label>
+        <input id="f-company" data-k="company" autocomplete="organization">
+        <div class="msg">Please enter your company name.</div>
+      </div>
+      <div class="fld" id="fld-email">
+        <label for="f-email">Email</label>
+        <input id="f-email" type="email" data-k="email" autocomplete="email" inputmode="email">
+        <div class="msg">Please enter a valid email address.</div>
+      </div>
+      <div class="fld" id="fld-mobile">
+        <label for="f-mobile">Mobile number <span class="hint">&mdash; with country code, e.g. 6596788655</span></label>
+        <input id="f-mobile" type="tel" data-k="mobile" autocomplete="tel" inputmode="tel">
+        <div class="msg">Please enter your number with the country code.</div>
+      </div>
+      <div class="fld" id="fld-industry">
+        <label for="f-industry">Industry</label>
+        <select id="f-industry" data-k="industry">
+          <option value="">Select an industry</option>
+            <option>Accommodation and Food Service Activities</option>
+            <option>Arts, Entertainment and Recreation</option>
+            <option>Construction</option>
+            <option>Education</option>
+            <option>Electricity, Gas, Steam and Air-Conditioning Supply</option>
+            <option>Financial and Insurance Activities</option>
+            <option>Information and Communications</option>
+            <option>Manufacturing</option>
+            <option>Other Service Activities</option>
+            <option>Professional, Scientific and Technical Activities</option>
+            <option>Public Administration and Defence</option>
+            <option>Real Estate Activities</option>
+            <option>Transportation and Storage</option>
+            <option>Wholesale and Retail Trade</option>
+            <option>Others</option>
+        </select>
+        <div class="msg">Please choose your industry.</div>
+      </div>
+
+      <label class="chk" id="fld-consent">
+        <input type="checkbox" id="f-consent">
+        <span>By ticking this box and registering for this event, you consent to receiving post-event
+        communications from participating organisations</span>
+      </label>
+
+      <p class="rsvp-err" id="rsvp-err" hidden></p>
+
+      <div class="rsvp-foot">
+        <button class="btn-solid" type="submit" id="rsvp-submit">Submit registration</button>
+        <button class="btn-ghost" type="button" data-rsvp-close>Cancel</button>
+      </div>
+      <p class="rsvp-priv">Your details go to the Bosses United &times; WorldFirst event registration sheet and are
+      used to run this event.</p>
+    </form>
+
+    <div class="rsvp-done" id="rsvp-done" hidden>
+      <div class="tick" aria-hidden="true">&#10003;</div>
+      <h3>You&rsquo;re registered</h3>
+      <p>See you at Pan Pacific Singapore on Wednesday 26 August. Please report by 5:00&nbsp;PM.</p>
+      <button class="btn-solid" type="button" data-rsvp-close>Close</button>
+    </div>
+  </div>
+</dialog>
+<iframe name="rsvp-sink" id="rsvp-sink" title="Registration submission target" tabindex="-1" aria-hidden="true"></iframe>
+
+<script>
+/* ===== Registration =====================================================
+   Posts straight into the Google Form behind the spreadsheet
+   "Bosses United x WorldFirst Event Registration" - no server needed.
+
+   TO GO LIVE, fill in ACTION and the six field ids below.
+   In the Google Form: kebab menu -> "Get pre-filled link" -> put any value in
+   every question -> "Get link". The link it produces looks like
+     .../forms/d/e/1FAIpQL.../viewform?entry.123456=Ada&entry.789012=Acme&...
+   Copy the /forms/d/e/<ID>/ part into ACTION (ending in /formResponse) and
+   each entry.NNN number into the matching field below, in question order.
+
+   While ACTION is empty the buttons open the Google Form in a new tab, so
+   registration keeps working either way.
+======================================================================== */
+var RSVP = {
+  ACTION: '',
+  FORM_URL: 'https://docs.google.com/forms/d/1z0ZI6EjWi2kWxks2kIen1UBFZAY6kxN7t-WpNZ9tmyA/viewform',
+  FIELDS: {
+    name:     '',   /* entry.NNNNNNNN — First and last name */
+    company:  '',   /* entry.NNNNNNNN — Company name */
+    email:    '',   /* entry.NNNNNNNN — Email */
+    mobile:   '',   /* entry.NNNNNNNN — Mobile number */
+    industry: '',   /* entry.NNNNNNNN — Industry */
+    consent:  ''    /* entry.NNNNNNNN — consent checkbox */
+  },
+  CONSENT_VALUE: 'Yes'
+};
+
+(function(){
+  var dlg = document.getElementById('rsvp');
+  var form = document.getElementById('rsvp-form');
+  var done = document.getElementById('rsvp-done');
+  var err = document.getElementById('rsvp-err');
+  var sink = document.getElementById('rsvp-sink');
+  var btn = document.getElementById('rsvp-submit');
+  var sent = false, timer = null;
+
+  function wired(){
+    return !!RSVP.ACTION && !!RSVP.FIELDS.name;
+  }
+  function field(k){ return form.querySelector('[data-k="' + k + '"]'); }
+  function mark(id, bad){
+    document.getElementById(id).classList[bad ? 'add' : 'remove']('bad');
+  }
+
+  function open(){
+    if(!wired()){ window.open(RSVP.FORM_URL, '_blank', 'noopener'); return; }
+    form.hidden = false; done.hidden = true; err.hidden = true; sent = false;
+    btn.disabled = false; btn.textContent = 'Submit registration';
+    if(dlg.showModal) dlg.showModal(); else dlg.setAttribute('open','');
+    var f = field('name'); if(f) f.focus();
+  }
+  function close(){
+    if(timer){ clearTimeout(timer); timer = null; }
+    if(dlg.close) dlg.close(); else dlg.removeAttribute('open');
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-rsvp-open]'), function(b){
+    b.addEventListener('click', open);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-rsvp-close]'), function(b){
+    b.addEventListener('click', close);
+  });
+
+  function validate(){
+    var ok = true, v;
+
+    v = field('name').value.trim();
+    var nameOk = v.length >= 2 && v.indexOf(' ') > 0;
+    mark('fld-name', !nameOk); ok = ok && nameOk;
+
+    v = field('company').value.trim();
+    mark('fld-company', !v); ok = ok && !!v;
+
+    v = field('email').value.trim();
+    var mailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    mark('fld-email', !mailOk); ok = ok && mailOk;
+
+    v = field('mobile').value.replace(/[\s()-]/g, '');
+    var telOk = /^\+?\d{8,15}$/.test(v);
+    mark('fld-mobile', !telOk); ok = ok && telOk;
+
+    v = field('industry').value;
+    mark('fld-industry', !v); ok = ok && !!v;
+
+    var consent = document.getElementById('f-consent').checked;
+    mark('fld-consent', !consent); ok = ok && consent;
+
+    return ok;
+  }
+
+  form.addEventListener('submit', function(e){
+    if(!validate() || !wired()){
+      e.preventDefault();
+      err.hidden = false;
+      err.textContent = wired()
+        ? 'Please complete the highlighted fields.'
+        : 'Registration is not connected yet — use the Google Form instead.';
+      return;
+    }
+    err.hidden = true;
+    /* stamp the Google Form field names on just before the native POST */
+    ['name','company','email','mobile','industry'].forEach(function(k){
+      field(k).name = RSVP.FIELDS[k];
+    });
+    var c = document.getElementById('f-consent');
+    c.name = RSVP.FIELDS.consent;
+    c.value = RSVP.CONSENT_VALUE;
+    form.action = RSVP.ACTION;
+    sent = true;
+    btn.disabled = true; btn.textContent = 'Submitting…';
+    timer = setTimeout(function(){
+      if(!sent) return;
+      err.hidden = false;
+      err.innerHTML = 'That is taking longer than expected. ' +
+        '<a href="' + RSVP.FORM_URL + '" target="_blank" rel="noopener">Open the Google Form</a> instead.';
+      btn.disabled = false; btn.textContent = 'Submit registration';
+    }, 9000);
+  });
+
+  sink.addEventListener('load', function(){
+    if(!sent) return;               /* ignore the iframe's initial load */
+    sent = false;
+    if(timer){ clearTimeout(timer); timer = null; }
+    form.hidden = true; done.hidden = false;
+  });
+})();
 </script>
 </body>
 </html>
