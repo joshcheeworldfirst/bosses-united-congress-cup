@@ -150,7 +150,7 @@
 
 
   /* about us */
-  .about-grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .about-grid{display:grid; gap:20px; align-items:start; grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
   .about{background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
     box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
   .about-media{background:var(--bg-alt)}
@@ -478,7 +478,7 @@
       </article>
 
       <article class="about">
-        <div class="about-media"><img src="assets/antfamily.png"
+        <div class="about-media"><img src="assets/antfamily.jpg"
              alt="Ant International brand family" loading="lazy"
              onerror="this.closest('.about-media').remove()"></div>
         <div class="about-body">
