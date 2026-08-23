@@ -1,0 +1,912 @@
+<title>Bosses United</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+/* ==========================================================================
+   WorldFirst Global Brand Guide (v. 29 May 2025) — applied.
+
+   COLOUR  Core Palette, read from the brand guide:
+     WorldFirst Red  #FF0051  (Pantone 192C)  — the hero. "#HeroTheWFRed"
+     Orange          #FF8000  (Pantone 164C)  — belt gradient only, NOT a hero
+     Purple          #32006E   Dark Purple    #13002D
+     Off-White       #FFFAF4   White          #FFFFFF
+     Light Grey      #DCD7D2   Grey           #484F56
+     WF Black        #1F2323   WF Light Grey  #ECEDEE
+     Accents         Turquoise #00D8C6  Yellow #F7FF80  Light Purple #D8C9E8
+   Hero band uses the brand RED GRADIENT (WF Red -> Dark Purple, 70/30).
+   Values marked "derived" are tints/shades not specified in the guide.
+
+   TYPE  Poppins. Headline + Sub-Head 1 Medium, tracking -3%. Sub-Head 2
+   SemiBold, tracking -2%. Body Regular and Captions Medium, tracking -1%.
+   Sentence case and left-aligned throughout, per the guide.
+   ========================================================================== */
+:root {
+  --ground:      #FFFAF4;  /* Off-White */
+  --surface:     #FFFFFF;  /* White */
+  --sunk:        #ECEDEE;  /* WF Light Grey */
+  --ink:         #1F2323;  /* WF Black */
+  --muted:       #484F56;  /* Grey */
+  --accent:      #FF0051;  /* WorldFirst Red */
+  --accent-soft: #FFE9EF;  /* derived tint of WF Red */
+  --accent-2:    #32006E;  /* Purple */
+  --line:        #DCD7D2;  /* Light Grey */
+  --line-hi:     #B3ADA7;  /* derived shade of Light Grey */
+  --hero-a:      #FF0051;  /* WF Red — hero panel, fixed in both themes */
+  --hero-deep:   #13002D;  /* Dark Purple — red gradient end */
+  --on-hero:     #13002D;  /* Dark Purple type on WF Red — 5.04:1 */
+
+  --font: "Poppins", "Helvetica Neue", Arial, sans-serif;
+
+  --measure: 68ch;
+  --pad: clamp(1.15rem, 4vw, 3.25rem);
+  --nav-h: 3.25rem;
+  --r: 12px;   /* rounded corners — brand shape language */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:      #13002D;  /* Dark Purple */
+    --surface:     #1C0838;  /* derived */
+    --sunk:        #0D0020;  /* derived */
+    --ink:         #FFFAF4;  /* Off-White */
+    --muted:       #D8C9E8;  /* Light Purple */
+    --accent:      #FF3D74;  /* derived lift of WF Red for dark grounds */
+    --accent-soft: #330E24;  /* derived */
+    --accent-2:    #D8C9E8;  /* Light Purple */
+    --line:        #32006E;  /* Purple */
+    --line-hi:     #5B3A8F;  /* derived */
+    --hero-a:      #FF0051;  /* hero stays the brand panel in dark mode */
+    --hero-deep:   #13002D;
+    --on-hero:     #13002D;
+  }
+}
+:root[data-theme="dark"] {
+  --ground:      #13002D;
+  --surface:     #1C0838;
+  --sunk:        #0D0020;
+  --ink:         #FFFAF4;
+  --muted:       #D8C9E8;
+  --accent:      #FF3D74;
+  --accent-soft: #330E24;
+  --accent-2:    #D8C9E8;
+  --line:        #32006E;
+  --line-hi:     #5B3A8F;
+  --hero-a:      #FF0051;
+  --hero-deep:   #13002D;
+  --on-hero:     #13002D;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: clamp(0.95rem, 0.91rem + 0.2vw, 1.05rem);
+  font-weight: 400;              /* Body: Regular */
+  line-height: 1.5;
+  letter-spacing: -0.01em;       /* Body: tracking -1% */
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Headline / Sub-Head 1: Medium, tracking -3%. Sub-Head 2: SemiBold, -2%. */
+h1, h2 {
+  font-family: var(--font);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  margin: 0;
+  text-wrap: balance;
+}
+h3, h4 {
+  font-family: var(--font);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin: 0;
+  text-wrap: balance;
+}
+h2 { font-size: clamp(1.65rem, 1.3rem + 1.6vw, 2.5rem); }
+h3 { font-size: 1.1rem; }
+
+p { margin: 0 0 1.05em; }
+p:last-child { margin-bottom: 0; }
+a { color: var(--accent); text-underline-offset: 2px; }
+b, strong { font-weight: 600; }
+
+/* Captions / labels: Medium, tracking -1%, sentence case. */
+.eyebrow, .stat span, .kv .k, .countdown dt, .ev-state, .cred,
+.slot-k, .flabel, .s-name, .rost thead th, .c-name .sec, .tfoot-note {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+/* ---------- shared ---------- */
+
+.band { padding: clamp(2.4rem, 6vw, 4.25rem) var(--pad); scroll-margin-top: calc(var(--nav-h) + 1rem); }
+.band + .band { border-top: 1px solid var(--line); }
+.wrap { max-width: 78rem; margin: 0 auto; }
+.col { max-width: var(--measure); }
+
+.eyebrow { font-size: 0.79rem; color: var(--accent-2); margin: 0 0 0.85rem; }
+.eyebrow b { color: var(--accent); font-weight: 500; }
+
+.hdr { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: clamp(1.8rem, 3.5vw, 2.7rem); }
+.lede { font-size: clamp(1.02rem, 0.98rem + 0.4vw, 1.18rem); line-height: 1.45; color: var(--muted); letter-spacing: -0.015em; }
+
+/* ---------- sticky nav ---------- */
+
+.nav {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  height: var(--nav-h);
+  display: flex; align-items: center;
+  padding: 0 var(--pad);
+}
+.nav-in { max-width: 78rem; margin: 0 auto; width: 100%; display: flex; align-items: center; gap: 1.25rem; }
+.nav-brand { font-weight: 600; font-size: 0.88rem; letter-spacing: -0.02em; white-space: nowrap; display: flex; align-items: center; gap: 0.45rem; }
+.nav-brand::before { content: ""; width: 0.55rem; height: 0.55rem; background: var(--accent); border-radius: 50%; flex: none; }
+.nav-links { display: flex; gap: 0.15rem; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  font-size: 0.8rem; font-weight: 500; letter-spacing: -0.01em;
+  color: var(--muted); text-decoration: none;
+  padding: 0.4rem 0.62rem; white-space: nowrap; border-radius: 999px;
+}
+.nav-links a:hover { color: var(--accent-2); background: var(--accent-soft); }
+@media (max-width: 46rem) { .nav-brand { display: none; } }
+
+/* ---------- hero: brand RED GRADIENT ---------- */
+
+.hero {
+  background: linear-gradient(118deg, var(--hero-a) 0%, var(--hero-a) 60%, var(--hero-deep) 100%);
+  color: var(--on-hero);
+}
+.hero-grid { display: grid; gap: clamp(1.8rem, 4vw, 3.25rem); }
+@media (min-width: 64rem) { .hero-grid { grid-template-columns: minmax(0,1.55fr) minmax(17rem,0.82fr); align-items: end; } }
+
+.hero .eyebrow { color: var(--on-hero); }
+.hero .eyebrow b { color: var(--on-hero); }
+.hero h1 {
+  font-size: clamp(2.35rem, 1.2rem + 5.6vw, 4.5rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--on-hero);
+}
+.hero h1 em {
+  display: block; font-style: normal;
+  font-size: 0.3em; font-weight: 500; letter-spacing: -0.015em;
+  margin-top: 0.9em;
+}
+.hero-sub {
+  margin-top: 1.2rem; max-width: 46ch;
+  font-size: clamp(1rem,0.96rem + 0.4vw,1.15rem); line-height: 1.45;
+  color: var(--on-hero); letter-spacing: -0.015em;
+}
+
+.countdown {
+  background: var(--surface); color: var(--ink);
+  border-radius: var(--r); padding: 1.35rem 1.45rem;
+  display: grid; gap: 0.85rem;
+}
+.countdown .big { font-weight: 700; font-size: clamp(1.4rem,1.15rem + 1.1vw,1.85rem); line-height: 1.15; color: var(--accent); letter-spacing: -0.03em; }
+.countdown dl { margin: 0; display: grid; gap: 0.62rem; }
+.countdown div { display: grid; gap: 0.08rem; }
+.countdown dt { font-size: 0.74rem; color: var(--muted); }
+.countdown dd { margin: 0; font-size: 0.94rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.02em; }
+
+/* ---------- key/value ---------- */
+
+.brief { background: var(--sunk); }
+.kv { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.kv li { background: var(--surface); padding: 1.2rem clamp(1rem,2.4vw,1.7rem); display: grid; gap: 0.25rem; }
+.kv .k { font-size: 0.79rem; color: var(--accent-2); }
+.kv .v { font-size: 0.98rem; line-height: 1.5; }
+
+/* ---------- stats ---------- */
+
+.stats {
+  display: grid; gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+@media (min-width: 52rem) { .stats { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+.stats.five { grid-template-columns: repeat(2, minmax(0,1fr)); }
+@media (min-width: 60rem) { .stats.five { grid-template-columns: repeat(5, minmax(0,1fr)); } }
+
+.stat { background: var(--surface); padding: 1.3rem clamp(0.9rem,2.2vw,1.35rem); display: grid; gap: 0.2rem; align-content: start; }
+.stat b {
+  font-weight: 500; line-height: 1.05;
+  font-size: clamp(1.65rem, 1.3rem + 1.5vw, 2.3rem);
+  color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -0.03em;
+}
+.stat span { font-size: 0.78rem; color: var(--muted); }
+
+/* ---------- rows ---------- */
+
+.rows { border-top: 1px solid var(--line-hi); }
+.row { display: grid; gap: 0.28rem 1.6rem; padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 46rem) { .row { grid-template-columns: 7rem minmax(0,1fr); } }
+.row-d { font-size: 0.85rem; font-weight: 600; color: var(--accent-2); font-variant-numeric: tabular-nums; padding-top: 0.2rem; letter-spacing: -0.01em; }
+.row-b { display: grid; gap: 0.32rem; }
+.row-b p { font-size: 0.94rem; color: var(--muted); }
+.row.key .row-d { color: var(--ink); font-weight: 700; }
+
+.tag {
+  display: inline-block; font-size: 0.72rem; font-weight: 500; letter-spacing: -0.01em;
+  padding: 0.24rem 0.55rem; border: 1px solid var(--line-hi); color: var(--muted);
+  border-radius: 999px;
+}
+.tag.hot { color: var(--accent-2); border-color: var(--accent); background: var(--accent-soft); }
+.tag.gap { color: var(--accent-2); border-color: var(--accent-2); border-style: dashed; }
+
+/* ---------- roster ---------- */
+
+.roster { background: var(--surface); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; align-items: center; }
+.filters .flabel { font-size: 0.78rem; color: var(--muted); margin-right: 0.25rem; }
+.fbtn {
+  font-family: var(--font); font-size: 0.78rem; font-weight: 500; letter-spacing: -0.01em;
+  padding: 0.42rem 0.82rem; cursor: pointer; border-radius: 999px;
+  background: var(--surface); color: var(--muted); border: 1px solid var(--line-hi);
+}
+.fbtn:hover { color: var(--accent-2); border-color: var(--accent-2); }
+.fbtn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--hero-deep); font-weight: 600; }
+
+.tscroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); }
+table.rost { width: 100%; min-width: 62rem; border-collapse: collapse; font-size: 0.87rem; }
+.rost thead th {
+  position: sticky; top: 0; z-index: 1;
+  background: var(--sunk); text-align: left;
+  font-size: 0.76rem; color: var(--muted);
+  padding: 0.72rem 0.8rem; border-bottom: 1px solid var(--line-hi); white-space: nowrap;
+}
+.rost td { padding: 0.68rem 0.8rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.rost tbody tr:hover td { background: var(--sunk); }
+.rost tr.isdup td { opacity: 0.55; }
+.rost tr.hide { display: none; }
+
+.c-name { min-width: 15rem; }
+.c-name .nm { font-size: 0.95rem; font-weight: 600; display: block; line-height: 1.3; letter-spacing: -0.02em; }
+.c-name .sec { font-size: 0.75rem; color: var(--muted); display: block; margin-top: 0.14rem; }
+.duptag { font-size: 0.7rem; font-weight: 500; color: var(--accent-2); border: 1px dashed var(--accent-2); padding: 0.02rem 0.34rem; border-radius: 999px; }
+
+.chip {
+  display: inline-block; font-size: 0.73rem; font-weight: 500; letter-spacing: -0.01em;
+  padding: 0.22rem 0.55rem; white-space: nowrap;
+  border: 1px solid var(--line-hi); color: var(--muted); border-radius: 999px;
+}
+.chip.ex { color: var(--accent-2); border-color: var(--accent); background: var(--accent-soft); }
+.chip.dor { color: var(--accent-2); border-color: var(--accent-2); }
+
+.tierbadge {
+  display: inline-block; font-size: 0.76rem; font-weight: 600; letter-spacing: -0.01em;
+  min-width: 2.3rem; text-align: center; padding: 0.18rem 0.4rem;
+  border: 1px solid var(--line-hi); color: var(--muted); border-radius: 999px;
+}
+.tierbadge.t0 { color: var(--hero-deep); background: var(--accent); border-color: var(--accent); font-weight: 700; }
+.tierbadge.t1 { color: var(--ink); border-color: var(--line-hi); }
+
+.c-turn { min-width: 9.5rem; }
+.c-turn .num { font-size: 0.85rem; font-weight: 500; font-variant-numeric: tabular-nums; display: block; letter-spacing: -0.01em; }
+.bar { display: block; height: 3px; background: var(--line); margin-top: 0.36rem; border-radius: 999px; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 999px; }
+
+.c-xb { text-align: center; }
+.xbyes { color: var(--accent); font-size: 1rem; }
+.xbno { color: var(--line-hi); }
+.c-note { font-size: 0.81rem; line-height: 1.45; color: var(--muted); min-width: 22rem; }
+
+.tfoot-note { font-size: 0.81rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.5; }
+
+.sectors { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
+.sectors li { display: grid; grid-template-columns: 11rem 1fr 2rem; gap: 0.75rem; align-items: center; }
+.s-name { font-size: 0.79rem; color: var(--muted); }
+.s-bar { height: 9px; background: var(--sunk); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.s-bar i { display: block; height: 100%; background: var(--accent); }
+.s-n { font-size: 0.84rem; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+
+.split { display: grid; gap: clamp(1.9rem,4vw,3rem); }
+@media (min-width: 58rem) { .split { grid-template-columns: minmax(0,1fr) minmax(0,1fr); } }
+
+/* ---------- programme ---------- */
+
+.prog { background: var(--sunk); }
+.ev { display: grid; gap: 0.42rem 1.5rem; padding: 1.35rem 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 48rem) { .ev { grid-template-columns: 9.5rem minmax(0,1fr); } }
+.ev:first-of-type { border-top: 1px solid var(--line-hi); }
+.ev-rail { display: grid; gap: 0.2rem; align-content: start; }
+.ev-date { font-size: 1.28rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.03em; }
+.ev-state { font-size: 0.76rem; color: var(--muted); }
+.ev-body h3 { margin-bottom: 0.2rem; }
+.ev-body p { font-size: 0.94rem; color: var(--muted); }
+.ev-body p b { color: var(--ink); }
+.ev-ask { font-size: 0.89rem; }
+
+.ev.done .ev-date { color: var(--muted); }
+.ev.next .ev-date { color: var(--ink); }
+.ev.now {
+  background: var(--surface); border-left: 4px solid var(--accent);
+  border-radius: 0 var(--r) var(--r) 0;
+  padding-left: clamp(0.9rem, 2vw, 1.35rem); padding-right: clamp(0.9rem, 2vw, 1.35rem);
+  margin: 0.35rem 0;
+}
+.ev.now .ev-date { color: var(--accent); }
+.ev.now .ev-state { color: var(--accent-2); font-weight: 600; }
+
+/* ---------- markets ---------- */
+
+.markets { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; grid-template-columns: repeat(2, minmax(0,1fr)); }
+@media (min-width: 46rem) { .markets { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+@media (min-width: 68rem) { .markets { grid-template-columns: repeat(6, minmax(0,1fr)); } }
+.markets li { background: var(--surface); padding: 1.1rem 0.95rem; display: grid; gap: 0.22rem; align-content: start; }
+.mk-code { font-size: 1.5rem; font-weight: 500; line-height: 1; color: var(--accent); letter-spacing: -0.03em; }
+.mk-name { font-size: 0.9rem; font-weight: 600; letter-spacing: -0.02em; }
+.mk-note { font-size: 0.78rem; line-height: 1.4; color: var(--muted); }
+
+/* ---------- cards ---------- */
+
+.cards { display: grid; gap: 1.1rem; }
+@media (min-width: 54rem) { .cards { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.card { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: var(--r); padding: clamp(1.15rem,2.6vw,1.6rem); display: grid; gap: 0.55rem; align-content: start; }
+.card p { font-size: 0.93rem; color: var(--muted); }
+.card .say { font-style: italic; color: var(--ink); font-size: 0.96rem; line-height: 1.45; border-top: 1px solid var(--line); padding-top: 0.58rem; }
+
+.runsheet { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent-2); border-radius: 0 var(--r) var(--r) 0; padding: clamp(1.15rem,2.8vw,1.7rem); display: grid; gap: 0.75rem; }
+.runsheet ol { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.48rem; font-size: 0.95rem; }
+
+.pull { border-left: 3px solid var(--accent-2); padding: 0.22rem 0 0.22rem 1rem; margin: 0; font-size: 0.97rem; line-height: 1.5; }
+
+/* run-of-show table */
+.ros { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.ros li { background: var(--surface); display: grid; grid-template-columns: 5.2rem minmax(0,1fr); gap: 0.9rem; padding: 0.72rem 0.95rem; font-size: 0.9rem; align-items: baseline; }
+.ros .t { font-weight: 600; color: var(--accent-2); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+
+/* ---------- Q&A ---------- */
+
+.qa { display: grid; gap: 0.6rem; }
+.qa details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 0 clamp(1rem,2.4vw,1.4rem); }
+.qa details[open] { border-color: var(--accent); }
+.qa summary {
+  cursor: pointer; list-style: none; padding: 0.95rem 0;
+  font-size: 1rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.35;
+  display: flex; align-items: flex-start; gap: 0.8rem;
+}
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary::after { content: "+"; margin-left: auto; flex: none; font-weight: 500; font-size: 1.35rem; line-height: 1; color: var(--accent-2); }
+.qa details[open] summary::after { content: "\2212"; }
+.qa .ans { padding: 0.85rem 0 1.05rem; font-size: 0.94rem; color: var(--muted); border-top: 1px solid var(--line); }
+.qa .ans p { font-size: 0.94rem; }
+.qa .ans b { color: var(--ink); }
+
+/* ---------- photo record ---------- */
+
+.shots { display: grid; gap: 1.1rem; margin-top: clamp(1.6rem,3.5vw,2.4rem); }
+@media (min-width: 54rem) { .shots { grid-template-columns: repeat(2, minmax(0,1fr)); align-items: start; } }
+.shot { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.shot img { display: block; width: 100%; height: auto; }
+.shot .slot { display: grid; place-items: center; text-align: center; background: var(--sunk); border-bottom: 1px solid var(--line); padding: 1.5rem 1.25rem; }
+.shot .slot-in { display: grid; gap: 0.35rem; max-width: 30ch; }
+.shot .slot-k { font-size: 0.78rem; color: var(--accent-2); }
+.shot .slot-t { font-size: 0.86rem; line-height: 1.45; color: var(--muted); }
+.shot figcaption { padding: 0.95rem clamp(0.9rem,2.2vw,1.2rem); display: grid; gap: 0.25rem; }
+.shot figcaption .cap { font-size: 0.9rem; line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; }
+.shot figcaption .cred { font-size: 0.78rem; color: var(--muted); }
+
+/* ---------- asks ---------- */
+
+.asks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.asks li { display: grid; grid-template-columns: 1.1rem 1fr; gap: 0.6rem; font-size: 0.96rem; align-items: start; }
+.asks li::before { content: ""; width: 0.5rem; height: 0.5rem; border: 2px solid var(--accent); border-radius: 50%; margin-top: 0.45rem; }
+
+.note { border: 1px dashed var(--line-hi); border-radius: var(--r); padding: 1.05rem 1.25rem; font-size: 0.89rem; color: var(--muted); margin-top: clamp(1.5rem,3vw,2.2rem); }
+.note b { color: var(--ink); }
+
+footer.band { background: var(--sunk); font-size: 0.79rem; font-weight: 500; letter-spacing: -0.01em; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+</style>
+<nav class="nav">
+  <div class="nav-in">
+    <span class="nav-brand">WorldFirst &times; Bosses United</span>
+    <div class="nav-links">
+      <a href="#brief">Summary</a>
+      <a href="#background">Background</a>
+      <a href="#businesses">Businesses</a>
+      <a href="#programme">Programme</a>
+      <a href="#ceremony">Ceremony</a>
+      <a href="#questions">Questions</a>
+      <a href="#talking">Talking points</a>
+      <a href="#open">Open items</a>
+    </div>
+  </div>
+</nav>
+
+<header class="band hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow"><b>&#9646;</b> CEO Briefing &nbsp;&middot;&nbsp; 23 August 2026</p>
+      <h1>Bosses<br>United<em>Congress Cup &middot; Opening Ceremony</em></h1>
+      <p class="hero-sub">A Singapore football team made entirely of business owners &mdash; 150+ members and counting, roughly $400M of turnover among the businesses we can already name, and seven weeks of shared history with WorldFirst before anyone reaches the podium.</p>
+    </div>
+    <aside class="countdown">
+      <span class="big">26 Aug &middot; T&minus;3</span>
+      <dl>
+        <div><dt>Guest of honour</dt><dd>MOS Dinesh Vasu Dash &mdash; his second appearance</dd></div>
+        <div><dt>Set piece</dt><dd>Token of appreciation</dd></div>
+        <div><dt>Markets on site</dt><dd>SG &middot; MY &middot; TH &middot; JP &middot; KR &middot; HK</dd></div>
+        <div><dt>Our standing</dt><dd>Official payment partner</dd></div>
+        <div><dt>Touchpoints to date</dt><dd>4 delivered, 4 to come</dd></div>
+      </dl>
+    </aside>
+  </div>
+</header>
+
+<section class="band brief" id="brief">
+  <div class="wrap">
+    <div class="hdr col">
+      <p class="eyebrow"><b>&#9646;</b> Read this if you read nothing else</p>
+      <h2>The one-minute version</h2>
+    </div>
+    <ul class="kv">
+      <li><span class="k">Who they are</span><span class="v">A competitive football team whose squad is business owners and company directors, formed in 2022 out of the Bosses Network Young Chapter. They train, tour and play organised fixtures &mdash; this is not a corporate kickabout.</span></li>
+      <li><span class="k">Who is actually in the room</span><span class="v"><b>150+ members and counting</b> across the wider Bosses United community. 44 are the Singapore businesses we can name and profile with public evidence &mdash; 41 of those reach $1M turnover or more, and 13 sit in the $5M&ndash;$80M band. The 44 is the recognisable tip, not the whole membership.</span></li>
+      <li><span class="k">Why it converts</span><span class="v">16 member companies have documented cross-border trade &mdash; importers, exporters, regional subsidiaries. That is FX and payments demand we can evidence, not assume.</span></li>
+      <li><span class="k">What we have already built</span><span class="v">Four touchpoints since 13 July: a film screening, a friendly match, a launch ceremony and an interview series. Three more land within the week, then monthly clinics from October.</span></li>
+      <li><span class="k">The line to land</span><span class="v">They built the cross-border bridge to Hong Kong themselves, through an MOU with the Hong Kong Amateur Football Association. We are the partner for what happens after the handshake.</span></li>
+    </ul>
+    <div class="stats five" style="margin-top:clamp(1.6rem,3vw,2.4rem)">
+      <div class="stat"><b>150+</b><span>Members, and counting</span></div>
+      <div class="stat"><b>41</b><span>Reaching $1M+ turnover</span></div>
+      <div class="stat"><b>$406M</b><span>Aggregate turnover, midpoint</span></div>
+      <div class="stat"><b>16</b><span>With cross-border trade evidence</span></div>
+      <div class="stat"><b>4</b><span>Already WorldFirst accounts</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="background">
+  <div class="wrap">
+    <div class="hdr col">
+      <p class="eyebrow"><b>&#9646;</b> Background</p>
+      <h2>A team sheet of company directors</h2>
+    </div>
+    <div class="split">
+      <div>
+        <p>Bosses United Singapore was established in <b>2022</b> by members of the <b>Bosses Network Young Chapter (BNYC)</b>. It was never meant to be another amateur social side. The founding idea was simple: business owners rarely get an excuse to be in the same place every week with a shared objective, so build one.</p>
+        <p>What the team gives its members is a standing appointment &mdash; a reason to stay active, form friendships that aren't transactional, trade knowledge between businesses, and put something back into the community. Their own framing is that success isn't confined to office walls; it can also be built on grass and sweat.</p>
+        <p>The football has become genuinely serious. From casual kickabouts the squad moved to organised, competitive fixtures, with real gains in tactics, fitness and the chemistry that only comes from playing together across several seasons. Spokesperson <b>Albert Ng</b> speaks for the team publicly.</p>
+      </div>
+      <div>
+        <p class="eyebrow"><b>&#9646;</b> Lineage &mdash; credit the older dates</p>
+        <div class="rows" style="border-top-color:var(--line-hi)">
+          <div class="row"><div class="row-d">1996</div><div class="row-b"><h3>The Bosses Network</h3><p>Founded to unite business leaders in lifelong learning and growth &mdash; owners of all ages, sharing a goal of broadening their business knowledge.</p></div></div>
+          <div class="row"><div class="row-d">2015</div><div class="row-b"><h3>Bosses Network Young Chapter</h3><p>The same mission for second-generation owners and entrepreneurs aged 40 and under, through company visits, overseas learning trips and celebrations.</p></div></div>
+          <div class="row"><div class="row-d">2022</div><div class="row-b"><h3>Bosses United Singapore</h3><p>BNYC members put a team on the pitch, turning a learning network into a squad that meets, trains and travels together.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hdr col" style="margin-top:clamp(2.4rem,5vw,3.5rem)">
+      <p class="eyebrow"><b>&#9646;</b> On the pitch</p>
+      <h2>Track record</h2>
+    </div>
+    <div class="rows">
+      <div class="row"><div class="row-d">2023</div><div class="row-b"><h3>Bangkok friendly tour</h3><p>First overseas outing &mdash; as much a business trip as a football one.</p></div></div>
+      <div class="row"><div class="row-d">Apr 2025</div><div class="row-b"><h3>Hong Kong tour</h3><p>The tour that opened the door to a formal Hong Kong relationship.</p></div></div>
+      <div class="row key"><div class="row-d">2025</div><div class="row-b"><span class="tag hot">Most relevant to us</span><h3>MOU with the Hong Kong Amateur Football Association</h3><p>Signed with HKAFA to create cross-border fixtures and player exposure between the two cities &mdash; but written deliberately wider than football. It gives HKAFA access to Singapore's football-business ecosystem and gives Bosses United a route into Hong Kong's entrepreneurial network. Their own words: a foundation, not a conclusion. Both HKAFA and a Bosses United Hong Kong chapter now sit on the member list.</p></div></div>
+      <div class="row"><div class="row-d">Notable</div><div class="row-b"><h3>Sharing the pitch with the game's names</h3><p>The squad has played alongside former Singapore international <b>Abbas Saad</b>, and had the rare chance to meet Japanese international <b>Keisuke Honda</b>.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band roster" id="businesses">
+  <div class="wrap">
+    <div class="hdr col">
+      <p class="eyebrow"><b>&#9646;</b> Profile of businesses</p>
+      <h2>Who is on the member list</h2>
+      <p class="lede">Bosses United counts 150+ members community-wide. What follows is the subset we can actually name and evidence &mdash; 44 distinct Singapore businesses out of 47 source rows, owner-run, overwhelmingly domestic-founded, and heavier at the top than the label &ldquo;amateur football club&rdquo; suggests.</p>
+    </div>
+
+    <div class="split" style="margin-bottom:clamp(1.8rem,3.5vw,2.6rem)">
+      <div>
+        <div class="stats" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+          <div class="stat"><b>14</b><span>Tier 0 &mdash; priority targets</span></div>
+          <div class="stat"><b>11</b><span>Tier 1 &mdash; mid-market</span></div>
+          <div class="stat"><b>20</b><span>Tier 2 &mdash; long tail</span></div>
+          <div class="stat"><b>$476M</b><span>Tier 0 upper-bound turnover</span></div>
+        </div>
+        <p class="tfoot-note">Aggregate estimated turnover across the 44 profiled entities: <b>$226M &ndash; $586M</b>, midpoint ~$406M. That is a floor, not a ceiling &mdash; it excludes the other 100+ members community-wide, whose businesses simply aren&rsquo;t individually evidenced here. The 13 distinct Tier 0 companies alone account for <b>$191M &ndash; $476M</b> of the profiled total.</p>
+      </div>
+      <div>
+        <p class="eyebrow"><b>&#9646;</b> Sector mix &mdash; 45 commercial rows</p>
+        <ul class="sectors">
+          <li><span class="s-name">Food &amp; beverage</span><span class="s-bar"><i style="width:100%"></i></span><span class="s-n">9</span></li>
+<li><span class="s-name">Food trade</span><span class="s-bar"><i style="width:44%"></i></span><span class="s-n">4</span></li>
+<li><span class="s-name">Consumer retail</span><span class="s-bar"><i style="width:89%"></i></span><span class="s-n">8</span></li>
+<li><span class="s-name">Built environment</span><span class="s-bar"><i style="width:67%"></i></span><span class="s-n">6</span></li>
+<li><span class="s-name">Professional services</span><span class="s-bar"><i style="width:78%"></i></span><span class="s-n">7</span></li>
+<li><span class="s-name">Sports &amp; leisure</span><span class="s-bar"><i style="width:56%"></i></span><span class="s-n">5</span></li>
+<li><span class="s-name">Industrial trade</span><span class="s-bar"><i style="width:22%"></i></span><span class="s-n">2</span></li>
+<li><span class="s-name">Other services</span><span class="s-bar"><i style="width:44%"></i></span><span class="s-n">4</span></li>
+        </ul>
+        <p class="tfoot-note">Food is the single largest bloc &mdash; 13 rows across F&amp;B outlets and food import/wholesale. Built environment is the heaviest by value.</p>
+      </div>
+    </div>
+
+    <div class="filters">
+      <span class="flabel">Filter</span>
+      <button class="fbtn" type="button" data-f="all" aria-pressed="true">All 47</button>
+      <button class="fbtn" type="button" data-f="t0" aria-pressed="false">Tier 0</button>
+      <button class="fbtn" type="button" data-f="t1" aria-pressed="false">Tier 1</button>
+      <button class="fbtn" type="button" data-f="t2" aria-pressed="false">Tier 2</button>
+      <button class="fbtn" type="button" data-f="ex" aria-pressed="false">Active a/c</button>
+      <button class="fbtn" type="button" data-f="dor" aria-pressed="false">Dormant a/c</button>
+      <button class="fbtn" type="button" data-f="xb" aria-pressed="false">Cross-border</button>
+      <span class="flabel" id="fcount" aria-live="polite">47 shown</span>
+    </div>
+
+    <div class="tscroll">
+      <table class="rost">
+        <thead>
+          <tr>
+            <th scope="col">Company</th>
+            <th scope="col">Status</th>
+            <th scope="col">Tier</th>
+            <th scope="col">Est. annual turnover</th>
+            <th scope="col">X-border</th>
+            <th scope="col">Key evidence / notes</th>
+          </tr>
+        </thead>
+        <tbody id="rbody">
+          <tr data-tier="t0" data-status="dor" data-xb="y"><td class="c-name"><span class="nm">TEHC International Pte Ltd</span><span class="sec">Built environment</span></td><td class="c-stat"><span class="chip dor">Existing · dormant</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$30M–$80M</span><span class="bar"><i style="width:100%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">SG&#x27;s oldest/largest landscaping company; 50+ yrs; golf course design + construction; Gardens by the Bay contractor; 4241 import shipments from 17 suppliers; paid up $6.5M; exporter to Malaysia/India/Vietnam</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Song He Rice / Tong Seng Produce Pte Ltd</span><span class="sec">Food trade</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$30M–$60M</span><span class="bar"><i style="width:87%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Leading SG rice importer since 1990; 9+ source countries; Singapore&#x27;s only chilled rice warehouse; Most Trusted Brand (Rice) since 2010; Amazon Fresh + NTUC presence</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="y" class="isdup"><td class="c-name"><span class="nm">Tong Seng Produce Pte Ltd</span> <span class="duptag">duplicate</span><span class="sec">Food trade</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$30M–$60M</span><span class="bar"><i style="width:87%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">DUPLICATE - same entity as Song He Rice above</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Wang-Fu</span><span class="sec">Food trade</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$20M–$60M</span><span class="bar"><i style="width:87%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Global food &amp; provisions importer; 80000 sq ft warehouse at Tuas; distributes dried foods to hotels/resorts/wholesalers across SEA/India/Africa</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Eltraco International Group</span><span class="sec">Built environment</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$20M–$50M</span><span class="bar"><i style="width:79%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Roofing/facades/thermal insulation group since 1977; multiple entities; paid up $2.6M; covered 1M+ sq metres of SG space</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Rigel Group (Rigel Technology)</span><span class="sec">Built environment</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$20M–$40M</span><span class="bar"><i style="width:71%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Smart sanitary/washroom tech; 112 employees; 3 continents/10+ countries; subsidiaries in China/Malaysia/Indonesia/Vietnam; raised $1.65M (Heliconia Capital); Changi Airport + MBS + Gardens by the Bay</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Luxe Montre</span><span class="sec">Consumer retail</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$10M–$40M</span><span class="bar"><i style="width:71%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Pre-owned luxury watches (Rolex/Patek/AP/Richard Mille); ASP $10K-$200K+ per watch</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Thiam Aik Hardware &amp; Machinery Co Pte Ltd</span><span class="sec">Industrial trade</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$10M–$30M</span><span class="bar"><i style="width:61%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Structural/mild steel stockist since 1980; wholesale of metals and metal ores; Geylang Road</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">D Wall Pte Ltd</span><span class="sec">Built environment</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$10M–$30M</span><span class="bar"><i style="width:61%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Dormitory operator + construction; 5 dormitories (Mandai/Woodlands/Sungei Kadut/Shaw Rd/Changi); clients incl Changi Airport + BCA + LTA; recruits workers from Bangladesh/India/Thailand</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Jack&#x27;s Place (JP Pepperdine)</span><span class="sec">Food &amp; beverage</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$13M</span><span class="bar"><i style="width:40%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">RocketReach confirmed 2026; 13 outlets; Western steak chain since 1966</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">JP Pepperdine Group</span><span class="sec">Food &amp; beverage</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$13M</span><span class="bar"><i style="width:40%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">RocketReach confirmed 2026; 42 employees; parent holding group of Jack&#x27;s Place</td></tr>
+<tr data-tier="t0" data-status="dor" data-xb="y"><td class="c-name"><span class="nm">Min Feng Pte Ltd</span><span class="sec">Food trade</span></td><td class="c-stat"><span class="chip dor">Existing · dormant</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$5M–$20M</span><span class="bar"><i style="width:50%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Rice wholesale; incorporated 1996; 11 employees (up from 4 as at Jul 2025); paid up $500K; 38 yrs in rice</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">BBL Pte Ltd</span><span class="sec">Consumer retail</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$5M–$20M</span><span class="bar"><i style="width:50%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Entity unconfirmed. If BBL Home Holding (furniture importer from Vietnam, 213 recorded shipments) then $5-20M plausible</td></tr>
+<tr data-tier="t0" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Gold Plus Construction</span><span class="sec">Built environment</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t0">T0</span></td><td class="c-turn"><span class="num">$5M–$20M</span><span class="bar"><i style="width:50%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Mid-tier SG construction; no public data</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Two Men Bagel House</span><span class="sec">Food &amp; beverage</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$5M–$10M</span><span class="bar"><i style="width:35%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">5+ outlets (Tanjong Pagar/Novena/Holland V/Joo Chiat/Punggol); brand since 2014; Punggol Digital District outlet Apr 2026</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Mei De Coffeeshops &amp; Canteens</span><span class="sec">Food &amp; beverage</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$3M–$10M</span><span class="bar"><i style="width:35%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Coffeeshop/canteen operator; multiple outlets likely; SG F&amp;B typical $1-3M per outlet</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Way Fengshui Group</span><span class="sec">Professional services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$3M–$8M</span><span class="bar"><i style="width:32%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Largest SG fengshui firm since 1984; 17 employees; consultancy + lifestyle retail + academy; ~100 corporate clients/yr; ISO 9001</td></tr>
+<tr data-tier="t1" data-status="ex" data-xb="y"><td class="c-name"><span class="nm">Stewart Engineering Works (S) Pte Ltd</span><span class="sec">Industrial trade</span></td><td class="c-stat"><span class="chip ex">Existing</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$3M</span><span class="bar"><i style="width:19%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">RocketReach confirmed 2025; marine/oil &amp; gas diesel engine repair; 5 employees; roots since 1970</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Three Star Brand</span><span class="sec">Consumer retail</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$2M–$8M</span><span class="bar"><i style="width:32%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Medicated oil + aromatherapy brand since 1937; distributed to SG households; 15700+ Facebook followers</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Vintage Management Pte Ltd</span><span class="sec">Professional services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$2M–$8M</span><span class="bar"><i style="width:32%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Employment agency; Republic Plaza address; incorporated 2007; 18 yrs operating</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Bencoolen Enterprises Pte Ltd</span><span class="sec">Food &amp; beverage</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$2M–$6M</span><span class="bar"><i style="width:27%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Ice cream franchise/wholesale (Andersen&#x27;s of Denmark); 5 employees; incorporated 1992; paid up $300K</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Yikowei Pte Ltd</span><span class="sec">Food &amp; beverage</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$2M–$6M</span><span class="bar"><i style="width:27%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Traditional SG snacks (pineapple tarts/popiah) since 1983; retail at Takashimaya and Changi Airport T3; multiple national awards; Harmony Cookies sub-brand</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Mascot Enterprise</span><span class="sec">Sports &amp; leisure</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$1M–$5M</span><span class="bar"><i style="width:25%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Entertainment/events; 20 employees (RocketReach)</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Recruit Advance</span><span class="sec">Professional services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$1M–$5M</span><span class="bar"><i style="width:25%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">SG recruitment firm; no public data</td></tr>
+<tr data-tier="t1" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Starbalm Sport Care</span><span class="sec">Consumer retail</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t1">T1</span></td><td class="c-turn"><span class="num">$1M–$5M</span><span class="bar"><i style="width:25%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Sports care product distributor for SG market; regional brand</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Accretive Consultancy Pte Ltd</span><span class="sec">Professional services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$1M–$3M</span><span class="bar"><i style="width:19%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">B2B consultancy; small team format; no public data</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Boons&#x27; Carwash</span><span class="sec">Other services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$1M–$3M</span><span class="bar"><i style="width:19%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Carwash operator; small/medium format; no public data</td></tr>
+<tr data-tier="t2" data-status="dor" data-xb="n"><td class="c-name"><span class="nm">See Hai Tat Medical Hall</span><span class="sec">Consumer retail</span></td><td class="c-stat"><span class="chip dor">Existing · dormant</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$1M–$3M</span><span class="bar"><i style="width:19%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">TCM retail; heritage SG brand; no public revenue data</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Trident Strategy</span><span class="sec">Professional services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$1M–$3M</span><span class="bar"><i style="width:19%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Strategy consultancy; likely boutique; no public data</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Tour the Game</span><span class="sec">Sports &amp; leisure</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$500K–$3M</span><span class="bar"><i style="width:19%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Sports experience/golf tourism operator; no confirmed public data</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">101 Club</span><span class="sec">Sports &amp; leisure</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$500K–$2M</span><span class="bar"><i style="width:16%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Private SG business community group; no commercial revenue entity found</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">ClubFACE</span><span class="sec">Sports &amp; leisure</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$500K–$2M</span><span class="bar"><i style="width:16%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Sports/fitness club format; no public data</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">MadeToMeasure</span><span class="sec">Consumer retail</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$500K–$2M</span><span class="bar"><i style="width:16%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Bespoke tailoring/fashion; no public data</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">PA-TATA-TATA</span><span class="sec">Professional services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$500K–$2M</span><span class="bar"><i style="width:16%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Creative/digital marketing agency; branding/social/influencer/e-commerce (ZoomInfo confirmed)</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Sky Park Padel</span><span class="sec">Sports &amp; leisure</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$500K–$2M</span><span class="bar"><i style="width:16%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Padel sports club; nascent SG market</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Spatial Format</span><span class="sec">Built environment</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$500K–$2M</span><span class="bar"><i style="width:16%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Design/architecture/interior firm; no public data</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">AMK Nonya Kueh Pte Ltd</span><span class="sec">Food &amp; beverage</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$500K–$1.5M</span><span class="bar"><i style="width:14%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Traditional kueh maker; single or few outlets; no public data</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Edufarm</span><span class="sec">Other services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$300K–$1M</span><span class="bar"><i style="width:11%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Agri-education startup; no public data</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Ransack SG Pte Ltd</span><span class="sec">Professional services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$300K–$1M</span><span class="bar"><i style="width:11%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Gamification creative agency; incorporated Jun 2021; paid up $60K; at JTC BizHub28</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">UPleev</span><span class="sec">Other services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$300K–$1M</span><span class="bar"><i style="width:11%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Startup; no confirmed data found</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Its Bubblin</span><span class="sec">Food &amp; beverage</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$300K–$1.5M</span><span class="bar"><i style="width:14%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">F&amp;B/experiential business; specific entity unconfirmed</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Dulukala</span><span class="sec">Food &amp; beverage</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$300K–$800K</span><span class="bar"><i style="width:10%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Single Peranakan cze char stall at Silat Ave kopitiam; family-run; min catering order $80</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Joof Holistic Pet Pte Ltd</span><span class="sec">Consumer retail</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$300K–$800K</span><span class="bar"><i style="width:10%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Online pet store; incorporated Aug 2023; single outlet at Centropod Changi</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Sim Kim Poh Reflexology Therapy Centre</span><span class="sec">Other services</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$300K–$800K</span><span class="bar"><i style="width:10%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Single reflexology therapy centre; small</td></tr>
+<tr data-tier="t2" data-status="pro" data-xb="y"><td class="c-name"><span class="nm">Paliano Casa SG Pte Ltd</span><span class="sec">Consumer retail</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge t2">T2</span></td><td class="c-turn"><span class="num">$200K–$500K</span><span class="bar"><i style="width:8%"></i></span></td><td class="c-xb"><span class="xbyes" title="Documented cross-border trade">●</span></td><td class="c-note">Furniture retail; incorporated May 2025; single showroom at Beauty World Centre</td></tr>
+<tr data-tier="na" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Bosses United Hong Kong</span><span class="sec">Association</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge na">—</span></td><td class="c-turn"><span class="num">—</span><span class="bar"><i style="width:0%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Association/community group; no commercial revenue</td></tr>
+<tr data-tier="na" data-status="pro" data-xb="n"><td class="c-name"><span class="nm">Hong Kong Amateur Football Association</span><span class="sec">Association</span></td><td class="c-stat"><span class="chip pro">Prospect</span></td><td class="c-tier"><span class="tierbadge na">—</span></td><td class="c-turn"><span class="num">—</span><span class="bar"><i style="width:0%"></i></span></td><td class="c-xb"><span class="xbno">–</span></td><td class="c-note">Amateur sports association; not commercial</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tfoot-note">Turnover figures are estimates, not filed accounts &mdash; treat the bands as sizing, not fact. &ldquo;X-border&rdquo; marks companies with documented import, export or overseas-subsidiary activity. Tong Seng Produce appears twice in the source list; it is the same entity as Song He Rice, so headline counts here treat it once.</p>
+
+    <div class="note">
+      <b>Two numbers, two different jobs.</b> <b>150+ members</b> is the number for the room &mdash; the true scale of the community, and the one to lead with. <b>44</b> is not a headcount, it is the count of Singapore businesses in this briefing with a public, verifiable trading profile; do not present it as &ldquo;Bosses United has 44 members&rdquo; or as a ceiling on the community&rsquo;s size. Of those 44, 41 reach $1M turnover or more.
+    </div>
+  </div>
+</section>
+
+<section class="band prog" id="programme">
+  <div class="wrap">
+    <div class="hdr col">
+      <p class="eyebrow"><b>&#9646;</b> WorldFirst &times; Bosses United</p>
+      <h2>The Road to WorldFirst</h2>
+      <p class="lede">The banner at the July screening already named this programme &mdash; <i>The Road to WorldFirst: International Payments Made Simple</i>. Eight touchpoints, 13 July through December, with Wednesday's ceremony sitting exactly at the midpoint.</p>
+    </div>
+    <div class="stats" style="margin-bottom:clamp(1.8rem,3.5vw,2.6rem)">
+      <div class="stat"><b>100+</b><span>Guests at the 13 Jul screening</span></div>
+      <div class="stat"><b>71</b><span>Match frames confirmed in Drive</span></div>
+      <div class="stat"><b>3</b><span>Photographers on the friendly</span></div>
+      <div class="stat"><b>60</b><span>Curated clinic seats, Oct&ndash;Dec</span></div>
+    </div>
+    <article class="ev done"><div class="ev-rail"><span class="ev-date">13 Jul</span><span class="ev-state">Completed</span></div><div class="ev-body"><h3>‘Dear You’ Movie Client Screening</h3><p><b>Golden Village, Suntec City</b> — Monday 13 July 2026, billed on the standee as a client appreciation evening hosted by WorldFirst. The film took RMB 1.8bn and sold out its Singapore run in two hours. Its subject is <b>qiaopi</b> — the remittance letters overseas Chinese sent home. Cross-border payments, a century early. Two group photos received: around two dozen guests at the standee in the foyer, and a full hall of more than a hundred behind the “Road to WorldFirst” banner.</p></div></article>
+<article class="ev done"><div class="ev-rail"><span class="ev-date">22 Jul</span><span class="ev-state">Completed</span></div><div class="ev-body"><h3>WorldFirst × Bosses United Friendly Match</h3><p>Played at SAFRA under floodlights. <b>WorldFirst fielded its own XI</b> in red FBT kit — fifteen in the squad photo — against Bosses United in yellow and blue. Photos show the handshake line, a defensive wall at a free kick, and a combined group shot of roughly forty people. Covered by three photographers: Jason (@lightstoriesbyj), Shan (@art.of.shan) and Victor (@victor.chick), with 71 frames confirmed in the two Drive galleries.</p><p class="ev-ask"><span class="tag gap">Need from you</span> Date to settle — your latest note says 21 Jul; both photographers’ folders and all 71 filenames say 22 Jul.</p></div></article>
+<article class="ev done"><div class="ev-rail"><span class="ev-date">7 Aug</span><span class="ev-state">Completed</span></div><div class="ev-body"><h3>Partnership Agreement Signing Ceremony</h3><p><b>Wheeler’s Estate.</b> Billed on screen as the <b>Official Partnership Launch</b>, with a formal <b>Partnership Agreement Signing Ceremony</b> — signed folders, a Bosses United pennant and match ball exchanged for a WorldFirst gift box, and a celadon figurine presented. Group photo of roughly seventy guests. The <b>Bosses United team bus</b> was also unveiled, carrying the WorldFirst lockup and a wall of member-company logos. <b>Minister of State Dinesh Vasu Dash attended</b> and received the figurine — confirmed, this is his second appearance with WorldFirst in three weeks by 26 Aug.</p></div></article>
+<article class="ev done"><div class="ev-rail"><span class="ev-date">21 Aug</span><span class="ev-state">Completed</span></div><div class="ev-body"><h3>Bosses United Interview Series</h3><p>Member interviews captured two days ago. <b>Ten interviews in total</b>, shot as a professional multi-cam production &mdash; an interviewer paired with a business owner (one segment ran three-up), filmed on synced cameras with a WorldFirst-branded red bottle as the on-camera talent gift. This is the content engine behind the partnership: named founders telling their own growth stories on video, not just photos. <b>Eight of the ten confirmed</b> from behind-the-scenes monitor shots; the remaining two took place but weren&rsquo;t photographed.</p><p class="ev-ask"><span class="tag gap">Need from you</span> The finished footage and every interviewee&amp;rsquo;s name &amp;mdash; nobody in the monitor shots is identified yet.</p></div></article>
+<article class="ev now"><div class="ev-rail"><span class="ev-date">26 Aug</span><span class="ev-state">Next · 3 days</span></div><div class="ev-body"><h3>Congress Cup Opening Ceremony</h3><p>Graced by Minister of State Dinesh Vasu Dash. Token of appreciation presentation. Six markets represented on the ground: Singapore, Malaysia, Thailand, Japan, Korea and Hong Kong. <b>This is the briefing.</b></p></div></article>
+<article class="ev next"><div class="ev-rail"><span class="ev-date">28 Aug</span><span class="ev-state">Upcoming</span></div><div class="ev-body"><h3>WorldFirst × Bosses United Exhibition Match</h3><p>WorldFirst versus Singapore Xin Hua Sports Club. We have a working XI already — the 22 July squad photo is effectively the team sheet.</p></div></article>
+<article class="ev next"><div class="ev-rail"><span class="ev-date">30 Aug</span><span class="ev-state">Upcoming</span></div><div class="ev-body"><h3>Congress Cup Closing Ceremony</h3><p>Winners’ presentation, with the trophy presented to WorldFirst. The natural place to announce the Q4 clinics while the room is still together.</p></div></article>
+<article class="ev next"><div class="ev-rail"><span class="ev-date">Oct–Dec</span><span class="ev-state">Upcoming</span></div><div class="ev-body"><h3>WorldFirst Topical Clinics with Curated Bosses</h3><p>One session a month, capped at 20 people each — three sessions, up to 60 curated seats. This is where the relationship converts: small rooms, named attendees, real treasury and FX problems.</p></div></article>
+
+    <div class="hdr col" style="margin-top:clamp(2.4rem,5vw,3.4rem)">
+      <p class="eyebrow"><b>&#9646;</b> Photo record</p>
+      <h2>What the photos establish</h2>
+      <p class="lede">Four events now have images. Captions are written and the frames are sized &mdash; the files themselves drop in once they reach somewhere this environment can read.</p>
+    </div>
+    <div class="shots">
+      <figure class="shot">
+        <div class="slot" style="aspect-ratio:3/2"><span class="slot-in"><span class="slot-k">13 Jul &middot; awaiting file</span><span class="slot-t">Foyer group shot at the film standee.</span></span></div>
+        <figcaption>
+          <span class="cap">Around two dozen guests at the &lsquo;Dear You&rsquo; standee, Golden Village Suntec City.</span>
+          <span class="cred">Screening &middot; foyer</span>
+        </figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="slot" style="aspect-ratio:40/21"><span class="slot-in"><span class="slot-k">13 Jul &middot; awaiting file</span><span class="slot-t">Full hall behind the campaign banner.</span></span></div>
+        <figcaption>
+          <span class="cap">More than a hundred guests behind the &ldquo;Road to WorldFirst &mdash; International Payments Made Simple&rdquo; banner. The frame that names the campaign.</span>
+          <span class="cred">Screening &middot; hall</span>
+        </figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="slot" style="aspect-ratio:3/2"><span class="slot-in"><span class="slot-k">22 Jul &middot; awaiting file</span><span class="slot-t">WorldFirst XI in red FBT kit.</span></span></div>
+        <figcaption>
+          <span class="cap">The WorldFirst squad photo &mdash; fifteen players in red. This is effectively the team sheet for the 28 August exhibition match.</span>
+          <span class="cred">Friendly &middot; SAFRA</span>
+        </figcaption>
+      </figure>
+      <figure class="shot">
+        <div class="slot" style="aspect-ratio:3/2"><span class="slot-in"><span class="slot-k">7 Aug &middot; awaiting file</span><span class="slot-t">Signing ceremony and the team bus.</span></span></div>
+        <figcaption>
+          <span class="cap">Signed partnership folders at Wheeler&rsquo;s Estate, and the Bosses United bus carrying the WorldFirst lockup and a wall of member logos.</span>
+          <span class="cred">Launch &middot; Wheeler&rsquo;s Estate</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="split" style="margin-top:clamp(2rem,4vw,2.8rem)">
+      <div>
+        <h3 style="margin-bottom:0.7rem">13 July run-of-show</h3>
+        <ul class="ros">
+          <li><span class="t">6:00pm</span><span>Dinner reception</span></li>
+          <li><span class="t">7:00pm</span><span>Doors open, Hall 5 &mdash; seated by 7:15pm</span></li>
+          <li><span class="t">7:15pm</span><span>&lsquo;Dear You&rsquo; screening, about two hours</span></li>
+          <li><span class="t">9:20pm</span><span>Thank you and farewell</span></li>
+        </ul>
+        <p class="tfoot-note">Read off the standee in the photograph, so check it against the original invitation before reusing the format. It is a useful template for Wednesday: reception first, hard seating call, hosted close.</p>
+      </div>
+      <div>
+        <h3 style="margin-bottom:0.7rem">Partnership designation &mdash; two different wordings</h3>
+        <p>The launch screen on 7 August reads <b>&ldquo;Official Payment Partner&rdquo;</b>. The team bus reads <b>&ldquo;Preferred Payment Partner&rdquo;</b>. Those are not the same claim, and both are now in circulation on physical assets.</p>
+        <p class="pull">Worth settling which one the signed agreement actually says before Wednesday, because whichever the CEO says from the stage becomes the one people quote. The bus also names <b>Weston Corp</b> as Preferred Apparel Partner, so the &ldquo;Preferred&rdquo; tier looks like the house convention.</p>
+      </div>
+    </div>
+    <p class="tfoot-note">The 22 July friendly is separately covered: <b>71 frames confirmed</b> across Jason&rsquo;s and Shan&rsquo;s Drive galleries, which this environment can read, plus Victor&rsquo;s piufoto set. Interview series (21 Aug) photos are still outstanding.</p>
+  </div>
+</section>
+
+<section class="band" id="ceremony">
+  <div class="wrap">
+    <div class="hdr col">
+      <p class="eyebrow"><b>&#9646;</b> 26 August</p>
+      <h2>The Opening Ceremony</h2>
+      <p class="lede">Six markets on the ground, a Minister of State on the stage, and a token of appreciation to present.</p>
+    </div>
+
+    <ul class="markets">
+      <li><span class="mk-code">SG</span><span class="mk-name">Singapore</span><span class="mk-note">Host market · all 44 member companies</span></li>
+<li><span class="mk-code">MY</span><span class="mk-name">Malaysia</span><span class="mk-note">TEHC exports here; nearest trade corridor</span></li>
+<li><span class="mk-code">TH</span><span class="mk-name">Thailand</span><span class="mk-note">D Wall recruits here; 2023 Bangkok tour</span></li>
+<li><span class="mk-code">JP</span><span class="mk-name">Japan</span><span class="mk-note">Bencoolen’s Andersen’s franchise; Honda link</span></li>
+<li><span class="mk-code">KR</span><span class="mk-name">Korea</span><span class="mk-note">New corridor — no existing member link found</span></li>
+<li><span class="mk-code">HK</span><span class="mk-name">Hong Kong</span><span class="mk-note">HKAFA MOU + Bosses United Hong Kong chapter</span></li>
+    </ul>
+    <p class="tfoot-note">Five of the six markets already have a thread back to someone on the member list. Korea is the one that doesn't &mdash; worth knowing before anyone asks why it's represented.</p>
+
+    <div class="split" style="margin-top:clamp(2rem,4vw,3rem)">
+      <div class="runsheet">
+        <h3>Guest of honour &mdash; get this right</h3>
+        <p><b>Mr Dinesh Vasu Dash</b> is Minister of State at the Ministry of Culture, Community and Youth <i>and</i> the Ministry of Manpower, and Mayor of South East District. <b>Confirmed:</b> he attended the 7 Aug launch at Wheeler&rsquo;s Estate and received the presentation there, and he is confirmed for 26 Aug.</p>
+        <ol>
+          <li><b>This is his second appearance, not his first.</b> Greet him as a returning supporter of the partnership, not as a new guest being introduced to it &mdash; the tone of the welcome should reflect that he has already put his name to this once.</li>
+          <li><b>Sport sits under MCCY.</b> He is the portfolio minister for this room, not a courtesy guest &mdash; the acknowledgement can be specific.</li>
+          <li><b>Manpower is his other hat</b>, and it lands directly on this member list: dormitory operators, employment agencies and recruiters are all on it.</li>
+          <li><b>Confirm which title he attends under</b> &mdash; MCCY, MOM or Mayor &mdash; so the salutation and the printed programme match.</li>
+        </ol>
+      </div>
+      <div>
+        <h3 style="margin-bottom:0.7rem">Token of appreciation</h3>
+        <p>The presentation is the photograph that gets used afterwards, so it is worth being deliberate about who stands where and what the token actually is.</p>
+        <p class="pull">If the token can carry the <b>qiaopi</b> idea &mdash; a letter, a seal, something that reads as correspondence rather than a plaque &mdash; it ties Wednesday back to the July screening and makes the whole seven weeks look designed rather than accumulated. Worth ten minutes with whoever is sourcing it.</p>
+        <p class="tfoot-note">Still to confirm: run-of-show timing, who receives on the Bosses United side, and whether the six markets are acknowledged individually or as a group.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="questions">
+  <div class="wrap">
+    <div class="hdr col">
+      <p class="eyebrow"><b>&#9646;</b> Anticipated Q&amp;A</p>
+      <h2>Questions the CEO may be asked</h2>
+      <p class="lede">Eight things a member, a journalist or the Minister&rsquo;s office could reasonably ask on Wednesday &mdash; and the answer that holds up.</p>
+    </div>
+    <div class="qa col" style="max-width:56rem">
+      <details open>
+        <summary>How many members does Bosses United actually have?</summary>
+        <div class="ans"><p><b>150+ members and counting.</b> That is the number to say from the stage. The 44 companies profiled elsewhere on this page are the Singapore businesses with a public, verifiable trading profile &mdash; the recognisable tip, not the total membership. Never present 44 (or 47, which includes a duplicate and two non-commercial associations) as the size of the community. 41 of the 44 profiled reach $1M turnover or more.</p></div>
+      </details>
+      <details>
+        <summary>What is this community worth commercially?</summary>
+        <div class="ans"><p>Aggregate estimated turnover is <b>$226M&ndash;$586M</b>, midpoint around $406M. It is heavily concentrated: the 13 distinct Tier 0 companies account for $191M&ndash;$476M &mdash; roughly four-fifths of the value in under a third of the names. These are estimates for sizing, not filed accounts, so avoid quoting a single precise figure.</p></div>
+      </details>
+      <details>
+        <summary>Why football? Isn&rsquo;t this just a sponsorship?</summary>
+        <div class="ans"><p>No. Every player is an owner or director, so the pitch is a room full of decision-makers who meet weekly by choice. The team exists so that business owners have a standing reason to be in the same place with a shared goal. We are not buying attention &mdash; we are joining something that already convenes our exact customer.</p></div>
+      </details>
+      <details>
+        <summary>What has WorldFirst actually done with them so far?</summary>
+        <div class="ans"><p>Four touchpoints since 13 July: the &lsquo;Dear You&rsquo; client screening at Golden Village with over a hundred guests, a friendly match at SAFRA covered by three photographers, the launch ceremony on 7 August, and the interview series on 21 August. Three more land this week, then monthly clinics from October.</p></div>
+      </details>
+      <details>
+        <summary>Where is the cross-border business in this?</summary>
+        <div class="ans"><p><b>Sixteen member companies have documented cross-border activity</b> &mdash; rice imported from nine or more source countries, 4,241 recorded import shipments at TEHC, Rigel operating subsidiaries in China, Malaysia, Indonesia and Vietnam, furniture imported from Vietnam, steel stock, and workforce recruitment from Bangladesh, India and Thailand. That is evidenced FX and payments demand, not an assumption.</p></div>
+      </details>
+      <details>
+        <summary>Why are six markets represented at a Singapore event?</summary>
+        <div class="ans"><p>Singapore, Malaysia, Thailand, Japan, Korea and Hong Kong. Five of the six already have a thread back to someone on the member list &mdash; exports to Malaysia, recruitment from Thailand, a Japanese franchise, and the Hong Kong MOU plus a Bosses United Hong Kong chapter. <b>Korea is the exception</b> with no existing member link, so treat it as a forward-looking corridor rather than claiming a connection.</p></div>
+      </details>
+      <details>
+        <summary>What is the relationship with Hong Kong?</summary>
+        <div class="ans"><p>Bosses United signed an MOU with the <b>Hong Kong Amateur Football Association</b> after touring Hong Kong in April 2025. It creates cross-border fixtures, but was written deliberately wider than football &mdash; giving HKAFA access to Singapore&rsquo;s football-business ecosystem and Bosses United a route into Hong Kong&rsquo;s entrepreneurial network. Their own framing: a foundation, not a conclusion. Credit it as their initiative, not ours.</p></div>
+      </details>
+      <details>
+        <summary>What are we asking of them next?</summary>
+        <div class="ans"><p>The Q4 clinics: one session a month from October to December, capped at 20 people each &mdash; up to <b>60 curated seats</b>. Position the cap as selectivity rather than a constraint, and use Wednesday to make attendance feel earned.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="band prog" id="talking">
+  <div class="wrap">
+    <div class="hdr col">
+      <p class="eyebrow"><b>&#9646;</b> For the briefing</p>
+      <h2>Talking points</h2>
+      <p class="lede">Five things the CEO can say that show we know exactly who we're standing next to.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <h3>Every player is our customer</h3>
+        <p>Not a sponsorship at arm's length. The community runs to 150+ owners and directors, and the 44 Singapore businesses we can name already show $1M+ turnover in 41 of them. The audience is the target market, standing in kit.</p>
+        <p class="say">&ldquo;A hundred and fifty business owners, and we&rsquo;ve only put names to forty-four of them so far.&rdquo;</p>
+      </article>
+      <article class="card">
+        <h3>Qiaopi to WorldFirst</h3>
+        <p>From the 13 July screening. The remittance letters in <i>Dear You</i> are the ancestor of what we do &mdash; an earned link between the film we hosted and the company hosting it, and a warmer opening than a product line.</p>
+        <p class="say">&ldquo;We watched a film about qiaopi together in July. We've been in that business ever since &mdash; just faster.&rdquo;</p>
+      </article>
+      <article class="card">
+        <h3>They crossed the border first</h3>
+        <p>The HKAFA MOU was their initiative, not ours, and explicitly about more than fixtures. Acknowledging it signals we read past the football to the business intent.</p>
+        <p class="say">&ldquo;You signed Hong Kong before we ever brought it up. We'd like to be useful for what comes after the MOU.&rdquo;</p>
+      </article>
+      <article class="card">
+        <h3>Thirty years of community</h3>
+        <p>Credit the lineage, not just the team: The Bosses Network since 1996, BNYC since 2015, the squad since 2022. The older dates land better with the founders in the room than praise for the football.</p>
+        <p class="say">&ldquo;The team is four years old. The community behind it is thirty.&rdquo;</p>
+      </article>
+      <article class="card">
+        <h3>Name the trade, not the product</h3>
+        <p>Sixteen member companies have documented cross-border activity &mdash; rice from nine source countries, steel stock, Vietnamese furniture, subsidiaries in four ASEAN markets. Naming a specific flow beats naming a WorldFirst feature.</p>
+        <p class="say">&ldquo;Rice from nine countries, furniture from Vietnam, washroom tech in ten markets. That's our day job.&rdquo;</p>
+      </article>
+      <article class="card">
+        <h3>The programme already has a name</h3>
+        <p>The July screening banner read <i>The Road to WorldFirst &mdash; International Payments Made Simple</i>. Using that phrase on Wednesday makes seven weeks of separate events read as one deliberate campaign rather than a series of favours.</p>
+        <p class="say">&ldquo;We called it the Road to WorldFirst in July. Wednesday is the part of the road where we hand something over.&rdquo;</p>
+      </article>
+      <article class="card">
+        <h3>Welcome him back, not for the first time</h3>
+        <p>MoS Dinesh Vasu Dash was at the 7 August launch and receives the ceremonial presentation there on record. Wednesday is his second appearance with this partnership inside three weeks &mdash; the welcome should read that way.</p>
+        <p class="say">&ldquo;Minister, thank you for being with us again &mdash; twice in three weeks is its own kind of endorsement.&rdquo;</p>
+      </article>
+      <article class="card">
+        <h3>Use their words, not ours</h3>
+        <p>The team bus carries their own tagline: <b>&ldquo;Football is our passion. Business is our mission.&rdquo;</b> Quoting it back is the single cheapest way to show the CEO knows this community rather than having been briefed on it an hour earlier.</p>
+        <p class="say">&ldquo;Football is your passion, business is your mission. The second half of that sentence is where we come in.&rdquo;</p>
+      </article>
+      <article class="card">
+        <h3>Close on the clinics</h3>
+        <p>The Q4 clinics are the ask: three sessions, 20 people each, up to 60 curated seats. Wednesday is the right moment to make attendance feel selective rather than solicited.</p>
+        <p class="say">&ldquo;Twenty seats a month from October. We'd rather have the right twenty than a full room.&rdquo;</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="open">
+  <div class="wrap">
+    <div class="hdr col">
+      <p class="eyebrow"><b>&#9646;</b> Before this goes to the CEO</p>
+      <h2>Still open</h2>
+    </div>
+    <div class="col">
+      <ul class="asks">
+        <li><b>The 150+ figure could not be independently tallied.</b> You asked me to check it against the AsiaOne article and bossesunited.com &mdash; both are still blocked by this environment&rsquo;s network proxy, and web search surfaced no membership count from either source. The page now leads with 150+ as you&rsquo;ve stated it, but I have not verified it myself; worth having someone with direct access to those two sources confirm the number before it&rsquo;s spoken on stage.</li>
+        <li><b>&ldquo;Official&rdquo; or &ldquo;Preferred&rdquo; Payment Partner.</b> The launch screen and the team bus disagree. Whichever the signed agreement says is the one for the stage.</li>
+        <li><b>The 22 vs 21 July date.</b> Your first brief said 22 Jul, your latest note said 21 Jul. Both photographers&rsquo; Drive folders are named for 22 July and all 71 filenames begin 22_07_2026. The page keeps 22 Jul.</li>
+        <li><b>Seven companies on the bus that aren&rsquo;t on the member list</b> &mdash; H3 Geospatial Technologies, Arthesdam Jewellery, Tem Tem Curry Puff, Nueva Technologies, UMII, Weston Corp and Drive U Home. At 150+ members community-wide, they plausibly are members &mdash; worth adding to the profiled list rather than treating as a discrepancy.</li>
+        <li><b>Photo files.</b> Everything you have sent arrived as chat attachments or on <span style="font-weight:600">file.alibaba-inc.com</span>, neither of which this environment can read into a file. A Drive folder works &mdash; that is how I read the 71 match frames.</li>
+        <li><b>21 Aug interview series &mdash; footage and names.</b> Confirmed as a ten-interview video production; 8 of the 10 are documented from behind-the-scenes monitor shots (the other 2 happened but weren&rsquo;t photographed). The finished cuts and every interviewee&rsquo;s name are still to come &mdash; nobody in the monitor shots is identified.</li>
+        <li><b>What the token of appreciation is</b> on Wednesday, and who receives it. The 7 August precedent was a pennant and match ball one way, a gift box and figurine the other.</li>
+        <li><b>Run-of-show</b> for Wednesday, and whether the six markets get individual acknowledgement.</li>
+        <li><b>Exact headcounts</b> &mdash; 13 Jul screening and 7 Aug launch are both counted off photographs. Take the real numbers from the RSVP lists.</li>
+        <li><b>Squad roster.</b> The 22 July photo gives us fifteen WorldFirst players but no names.</li>
+      </ul>
+
+      <div class="note">
+        <b>Sourcing note.</b> Background on Bosses United comes from public reporting reached through web search &mdash; bossesunited.com, AsiaOne, Junpiter Futbol, Instagram and Facebook are all blocked by this environment's network proxy, so nothing was read from the original pages directly. The member list, turnover bands and tiering are your data, transcribed as given; the only edits are flagging the duplicate row and separating the two associations from the company count. Confirm names, dates and the MOU wording against primary sources before any of it is spoken from a stage.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="band">
+  <div class="wrap">Internal briefing &nbsp;&middot;&nbsp; Prepared 23 August 2026 &nbsp;&middot;&nbsp; Open items listed above &nbsp;&middot;&nbsp; Turnover figures are estimates</div>
+</footer>
+
+<script>
+(function () {
+  var btns = Array.prototype.slice.call(document.querySelectorAll(".fbtn"));
+  var body = document.getElementById("rbody");
+  var out  = document.getElementById("fcount");
+  if (!btns.length || !body || !out) { return; }
+  var rows = Array.prototype.slice.call(body.querySelectorAll("tr"));
+
+  function match(tr, f) {
+    if (f === "all") { return true; }
+    if (f === "xb")  { return tr.getAttribute("data-xb") === "y"; }
+    if (f === "ex" || f === "dor") { return tr.getAttribute("data-status") === f; }
+    return tr.getAttribute("data-tier") === f;
+  }
+
+  function apply(f) {
+    var n = 0;
+    rows.forEach(function (tr) {
+      var ok = match(tr, f);
+      tr.classList.toggle("hide", !ok);
+      if (ok) { n++; }
+    });
+    btns.forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-f") === f));
+    });
+    out.textContent = n + (n === 1 ? " shown" : " shown");
+  }
+
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () { apply(b.getAttribute("data-f")); });
+  });
+})();
+</script>
