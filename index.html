@@ -653,30 +653,22 @@ kvInit();
 
 <script>
 /* ===== Registration =====================================================
-   Posts straight into the Google Form behind the spreadsheet
-   "Bosses United x WorldFirst Event Registration" - no server needed.
+   Posts into the "Bosses United x WorldFirst Event Registration" spreadsheet,
+   tab gid 1478474401, via the Apps Script web app in apps-script/Code.gs.
 
-   TO GO LIVE, fill in ACTION and the six field ids below.
-   In the Google Form: kebab menu -> "Get pre-filled link" -> put any value in
-   every question -> "Get link". The link it produces looks like
-     .../forms/d/e/1FAIpQL.../viewform?entry.123456=Ada&entry.789012=Acme&...
-   Copy the /forms/d/e/<ID>/ part into ACTION (ending in /formResponse) and
-   each entry.NNN number into the matching field below, in question order.
+   A Google Form can only write to the response tab it owns, so submissions go
+   through Apps Script instead - that is what lets rows land in that exact tab.
 
-   While ACTION is empty the buttons open the Google Form in a new tab, so
-   registration keeps working either way.
+   TO GO LIVE: deploy apps-script/Code.gs (Deploy > New deployment > Web app,
+   "Execute as: Me", "Who has access: Anyone") and paste the /exec URL into
+   ENDPOINT below. Nothing else needs changing.
+
+   While ENDPOINT is empty the buttons open the existing Google Form in a new
+   tab, so registration keeps working either way.
 ======================================================================== */
 var RSVP = {
-  ACTION: '',
+  ENDPOINT: '',
   FORM_URL: 'https://docs.google.com/forms/d/1z0ZI6EjWi2kWxks2kIen1UBFZAY6kxN7t-WpNZ9tmyA/viewform',
-  FIELDS: {
-    name:     '',   /* entry.NNNNNNNN — First and last name */
-    company:  '',   /* entry.NNNNNNNN — Company name */
-    email:    '',   /* entry.NNNNNNNN — Email */
-    mobile:   '',   /* entry.NNNNNNNN — Mobile number */
-    industry: '',   /* entry.NNNNNNNN — Industry */
-    consent:  ''    /* entry.NNNNNNNN — consent checkbox */
-  },
   CONSENT_VALUE: 'Yes'
 };
 
@@ -690,7 +682,7 @@ var RSVP = {
   var sent = false, timer = null;
 
   function wired(){
-    return !!RSVP.ACTION && !!RSVP.FIELDS.name;
+    return !!RSVP.ENDPOINT;
   }
   function field(k){ return form.querySelector('[data-k="' + k + '"]'); }
   function mark(id, bad){
@@ -753,14 +745,14 @@ var RSVP = {
       return;
     }
     err.hidden = true;
-    /* stamp the Google Form field names on just before the native POST */
+    /* name the inputs just before the native POST into the hidden iframe */
     ['name','company','email','mobile','industry'].forEach(function(k){
-      field(k).name = RSVP.FIELDS[k];
+      field(k).name = k;
     });
     var c = document.getElementById('f-consent');
-    c.name = RSVP.FIELDS.consent;
+    c.name = 'consent';
     c.value = RSVP.CONSENT_VALUE;
-    form.action = RSVP.ACTION;
+    form.action = RSVP.ENDPOINT;
     sent = true;
     btn.disabled = true; btn.textContent = 'Submitting…';
     timer = setTimeout(function(){
