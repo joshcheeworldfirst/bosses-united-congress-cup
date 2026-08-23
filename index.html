@@ -21,6 +21,7 @@
     --line:#ECEDEE; --muted:#6F6F6F;
     --shadow:0 12px 34px rgba(125,0,66,.10);
     --radius:18px;
+    --placeholder-fg:#8A8F8F;   /* muted grey on the black placeholder tile */
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth; color-scheme:light}
@@ -113,6 +114,9 @@
   .intgrid{display:grid; gap:10px; margin-top:12px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
   .intgrid figure{margin:0}
   .intgrid img{width:100%; aspect-ratio:4/3; object-fit:cover; display:block; border-radius:10px; border:1px solid var(--line); background:var(--bg-alt)}
+  .intgrid .ph{width:100%; aspect-ratio:4/3; border-radius:10px; border:1px solid var(--ink);
+    background:var(--ink); display:flex; align-items:center; justify-content:center}
+  .intgrid .ph span{font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:600; color:var(--placeholder-fg)}
   .intgrid figcaption{font-size:11.5px; margin-top:5px; line-height:1.35}
   .intgrid b{display:block; font-weight:600; color:var(--ink)}
   .intgrid span{color:var(--muted)}
@@ -142,12 +146,6 @@
   @media (max-width:860px){ .team-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
   @media (max-width:560px){ .team-grid{grid-template-columns:1fr} .member-list{grid-template-columns:1fr} }
 
-  /* key messages */
-  .msg-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px}
-  .msg{background:var(--card); border:1px solid var(--line); border-top:4px solid var(--wfred); border-radius:14px; padding:18px; box-shadow:var(--shadow)}
-  .msg h4{margin:0 0 6px; font-size:15px; font-weight:700}
-  .msg p{margin:0; font-size:14px; color:var(--ink-soft)}
-  .msg .say{margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); font-style:italic; font-size:14px; color:var(--plum); font-weight:500}
 
   /* Q&A */
   .qa{display:grid; gap:12px}
@@ -381,37 +379,28 @@
         <div><h3>The opening moves</h3><div class="sub">Two events in nine days</div></div>
       </div>
       <div class="row"><div class="time">13 Jul</div><div class="act"><div class="t">‘Dear You’ 给阿媷的情书 Client Appreciation Evening <span class="pill done">Completed</span></div><div class="place">Golden Village Suntec City — 100+ guests behind the “Road to WorldFirst” banner. The film is about qiaopi: remittance letters home. Our business, a century early.<div class="evpics"><figure><img src="assets/ev-0713-1.jpg" alt="Registration desk, Golden Village Suntec City" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Registration desk, Golden Village Suntec City</figcaption></figure><figure><img src="assets/ev-0713-2.jpg" alt="With members of Bosses United with &lsquo;Dear You&rsquo; movie poster" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>With members of Bosses United with &lsquo;Dear You&rsquo; movie poster</figcaption></figure></div></div></div></div>
-      <div class="row"><div class="time">22 Jul</div><div class="act"><div class="t">Friendly match — WorldFirst vs Bosses United <span class="pill done">Completed</span></div><div class="place">SAFRA, under floodlights. Our own fifteen in red.<div class="evpics"><figure><img src="assets/ev-0722-1.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-2.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-3.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-4.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure></div></div></div></div>
+      <div class="row"><div class="time">22 Jul</div><div class="act"><div class="t">Friendly match — WorldFirst vs Bosses United <span class="pill done">Completed</span></div><div class="place">SAFRA, under floodlights. Our own fifteen in red.<div class="evpics"><figure><img src="assets/ev-0722-1.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-2.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0722-4.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure><figure><img src="assets/ev-0807-2.jpg" alt="" loading="lazy" onerror="this.closest('figure').remove()"></figure></div></div></div></div>
     </div>
     <div class="day">
       <div class="day-top">
         <div class="daychip d2">AUG<small>2026</small></div>
         <div><h3>The partnership goes official</h3><div class="sub">Signing, stories, and the Cup</div></div>
       </div>
-      <div class="row"><div class="time">7 Aug</div><div class="act"><div class="t">Partnership signing ceremony <span class="pill done">Completed</span></div><div class="place">Wheeler's Estate — agreement signed, team bus unveiled with the WorldFirst lockup. MOS Dinesh attended.<div class="evpics"><figure><img src="assets/ev-0807-1.jpg" alt="Certificate presentation" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Certificate presentation</figcaption></figure><figure><img src="assets/ev-0807-2.jpg" alt="Group photo, Wheeler&rsquo;s Estate" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Group photo, Wheeler&rsquo;s Estate</figcaption></figure><figure><img src="assets/ev-0807-4.jpg" alt="The Bosses United team bus" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>The Bosses United team bus</figcaption></figure></div></div></div></div>
-      <div class="row"><div class="time">21 Aug</div><div class="act"><div class="t">Bosses United interview series <span class="pill done">Completed</span></div><div class="place">Nine founder interviews filmed multi-cam — the partnership's content engine: Bosses United founders Albert &amp; YZ; Brandon (Rigel); Andy (Eltraco); Andrew (Min Feng); Ben Toh (TEHC International); Alvin Chow (UPLEEV); Gary (Tour The Game); William (Friends of BUS); Mark Tan (Way Fengshui)<div class="intgrid"><figure><img src="assets/int-1-yz-albert.jpg" alt="Albert &amp; YZ of Bosses United founders" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Albert &amp; YZ</b><span>Bosses United founders</span></figcaption></figure><figure><img src="assets/int-2-rigel.jpg" alt="Brandon of Rigel" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Brandon</b><span>Rigel</span></figcaption></figure><figure><img src="assets/int-3-eltraco.jpg" alt="Andy of Eltraco" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Andy</b><span>Eltraco</span></figcaption></figure><figure><img src="assets/int-4-minfeng.jpg" alt="Andrew of Min Feng" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Andrew</b><span>Min Feng</span></figcaption></figure><figure><img src="assets/int-5-tehc.jpg" alt="Ben Toh of TEHC International" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Ben Toh</b><span>TEHC International</span></figcaption></figure><figure><img src="assets/int-6-upleev.jpg" alt="Alvin Chow of UPLEEV" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Alvin Chow</b><span>UPLEEV</span></figcaption></figure><figure><img src="assets/int-7-friends-of-bus.jpg" alt="William of Friends of BUS" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>William</b><span>Friends of BUS</span></figcaption></figure><figure><img src="assets/int-8-wayfengshui.jpg" alt="Mark Tan of Way Fengshui" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Mark Tan</b><span>Way Fengshui</span></figcaption></figure></div></div></div></div>
+      <div class="row"><div class="time">7 Aug</div><div class="act"><div class="t">Partnership signing ceremony <span class="pill done">Completed</span></div><div class="place">Wheeler's Estate — agreement signed, team bus unveiled with the WorldFirst lockup. MOS Dinesh attended.<div class="evpics"><figure><img src="assets/ev-0807-1.jpg" alt="Certificate presentation" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>Certificate presentation</figcaption></figure><figure><img src="assets/ev-0807-4.jpg" alt="The Bosses United team bus" loading="lazy" onerror="this.closest('figure').remove()"><figcaption>The Bosses United team bus</figcaption></figure></div></div></div></div>
+      <div class="row"><div class="time">21 Aug</div><div class="act"><div class="t">Bosses United interview series <span class="pill done">Completed</span></div><div class="place">Nine founder interviews filmed multi-cam — the partnership's content engine<div class="intgrid"><figure><img src="assets/int-1-yz-albert.jpg" alt="Interview in progress &mdash; Bosses United" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Bosses United</b></figcaption></figure><figure><img src="assets/int-2-rigel.jpg" alt="Interview in progress &mdash; Rigel" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Rigel</b></figcaption></figure><figure><img src="assets/int-3-eltraco.jpg" alt="Interview in progress &mdash; Eltraco" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Eltraco</b></figcaption></figure><figure><img src="assets/int-4-minfeng.jpg" alt="Interview in progress &mdash; Min Feng" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Min Feng</b></figcaption></figure><figure><img src="assets/int-5-tehc.jpg" alt="Interview in progress &mdash; TEHC International" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>TEHC International</b></figcaption></figure><figure><img src="assets/int-6-upleev.jpg" alt="Interview in progress &mdash; UPLEEV" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>UPLEEV</b></figcaption></figure><figure><div class="ph"><span>Not captured</span></div><figcaption><b>Tour The Game</b></figcaption></figure><figure><img src="assets/int-7-friends-of-bus.jpg" alt="Interview in progress &mdash; Friends of BUS" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Friends of BUS</b></figcaption></figure><figure><img src="assets/int-8-wayfengshui.jpg" alt="Interview in progress &mdash; Way Fengshui" loading="lazy" onerror="this.closest('figure').remove()"><figcaption><b>Way Fengshui</b></figcaption></figure></div></div></div></div>
       <div class="row"><div class="time">26 Aug</div><div class="act"><div class="t">Congress Cup Opening Ceremony <span class="pill hot">this Wednesday</span></div><div class="place">Pan Pacific Singapore — you are here</div></div></div>
-      <div class="row"><div class="time">28 Aug</div><div class="act"><div class="t">Exhibition match — WorldFirst vs Singapore Xin Hua Sports Club</div></div></div>
+      <div class="row"><div class="time">28 Aug</div><div class="act"><div class="t">Exhibition match — WorldFirst vs Singapore Xin Hua Sports Club</div><div class="place">Our Tampines Hub Football Field</div></div></div>
       <div class="row"><div class="time">30 Aug</div><div class="act"><div class="t">Congress Cup Closing Ceremony</div><div class="place">Winners' presentation — trophy presented to WorldFirst</div></div></div>
     </div>
     <div class="day">
       <div class="day-top">
         <div class="daychip d3">Q4<small>2026</small></div>
-        <div><h3>Where it converts</h3><div class="sub">October to December</div></div>
+        <div><h3>Where we engage closer</h3><div class="sub">October to December</div></div>
       </div>
-      <div class="row"><div class="time">Monthly</div><div class="act"><div class="t">WorldFirst topical clinics with curated bosses <span class="pill">20 pax per session</span></div><div class="place">Three sessions, up to 60 curated seats — small rooms, real treasury and FX problems</div></div></div>
+      <div class="row"><div class="time">Monthly</div><div class="act"><div class="t">WorldFirst topical clinics with curated bosses <span class="pill">20 pax per session</span></div><div class="place">Three sessions, up to 60 curated seats — small rooms, real cross-border FX and treasury problems</div></div></div>
     </div>
   </div></section>
 
-  <section class="alt" id="messages"><div class="wrap">
-    <div class="sec-h"><span class="eyebrow">Key messages</span><h2>What we all say on Wednesday</h2></div>
-    <div class="msg-grid">
-      <div class="msg"><h4>Every member is our customer</h4><p>150+ owner-run businesses. This isn't sponsorship at arm's length — the room is the target market.</p><p class="say">“There aren't many teams where the whole squad signs its own invoices.”</p></div>
-      <div class="msg"><h4>Use their words</h4><p>Their tagline is on their team bus.</p><p class="say">“Football is your passion, business is your mission — the second half is where we come in.”</p></div>
-      <div class="msg"><h4>They crossed the border first</h4><p>The Hong Kong MOU was their initiative. Credit it.</p><p class="say">“You signed Hong Kong before we ever brought it up.”</p></div>
-      <div class="msg"><h4>Qiaopi to WorldFirst</h4><p>From the July screening — remittance letters home are the ancestor of what we do.</p><p class="say">“We've been in that business ever since — just faster.”</p></div>
-    </div>
-  </div></section>
 
   <section id="questions"><div class="wrap">
     <div class="sec-h"><span class="eyebrow">If asked</span><h2>Quick answers</h2></div>
@@ -426,7 +415,7 @@
       </details>
       <details>
         <summary>What has the partnership actually done?</summary>
-        <div class="ans">Since 13 July: a 100+ guest film screening, a friendly match, a signing ceremony at Wheeler's Estate, and ten filmed founder interviews. The Cup runs this week; monthly clinics start October.</div>
+        <div class="ans">Since 13 July: a 100+ guest film screening, a friendly match, a signing ceremony at Wheeler's Estate, and nine filmed founder interviews. The Cup runs this week; monthly clinics start October.</div>
       </details>
       <details>
         <summary>Where's the cross-border angle?</summary>
