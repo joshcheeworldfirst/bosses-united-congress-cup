@@ -1,459 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="color-scheme" content="light" />
 <title>Bosses United</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ==========================================================================
-   WorldFirst Global Brand Guide (v. 29 May 2025) — applied.
-
-   COLOUR  Core Palette, read from the brand guide:
-     WorldFirst Red  #FF0051  (Pantone 192C)  — the hero. "#HeroTheWFRed"
-     Orange          #FF8000  (Pantone 164C)  — belt gradient only, NOT a hero
-     Purple          #32006E   Dark Purple    #13002D
-     Off-White       #FFFAF4   White          #FFFFFF
-     Light Grey      #DCD7D2   Grey           #484F56
-     WF Black        #1F2323   WF Light Grey  #ECEDEE
-     Accents         Turquoise #00D8C6  Yellow #F7FF80  Light Purple #D8C9E8
-   Hero band uses the brand RED GRADIENT (WF Red -> Dark Purple, 70/30).
-   Values marked "derived" are tints/shades not specified in the guide.
-
-   TYPE  Poppins. Headline + Sub-Head 1 Medium, tracking -3%. Sub-Head 2
-   SemiBold, tracking -2%. Body Regular and Captions Medium, tracking -1%.
-   Sentence case and left-aligned throughout, per the guide.
-   ========================================================================== */
-:root {
-  --ground:      #FFFAF4;  /* Off-White */
-  --surface:     #FFFFFF;  /* White */
-  --sunk:        #ECEDEE;  /* WF Light Grey */
-  --ink:         #1F2323;  /* WF Black */
-  --muted:       #484F56;  /* Grey */
-  --accent:      #FF0051;  /* WorldFirst Red */
-  --accent-soft: #FFE9EF;  /* derived tint of WF Red */
-  --accent-2:    #32006E;  /* Purple */
-  --line:        #DCD7D2;  /* Light Grey */
-  --line-hi:     #B3ADA7;  /* derived shade of Light Grey */
-  --hero-a:      #FF0051;  /* WF Red — hero panel, fixed in both themes */
-  --hero-deep:   #13002D;  /* Dark Purple — red gradient end */
-  --on-hero:     #13002D;  /* Dark Purple type on WF Red — 5.04:1 */
-  --on-deep:     #FFFAF4;  /* Off-White on Dark Purple chips */
-
-  --font: "Poppins", "Helvetica Neue", Arial, sans-serif;
-
-  --measure: 68ch;
-  --pad: clamp(1.15rem, 4vw, 3.25rem);
-  --nav-h: 3.25rem;
-  --r: 12px;   /* rounded corners — brand shape language */
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ground:      #13002D;  /* Dark Purple */
-    --surface:     #1C0838;  /* derived */
-    --sunk:        #0D0020;  /* derived */
-    --ink:         #FFFAF4;  /* Off-White */
-    --muted:       #D8C9E8;  /* Light Purple */
-    --accent:      #FF3D74;  /* derived lift of WF Red for dark grounds */
-    --accent-soft: #330E24;  /* derived */
-    --accent-2:    #D8C9E8;  /* Light Purple */
-    --line:        #32006E;  /* Purple */
-    --line-hi:     #5B3A8F;  /* derived */
-    --hero-a:      #FF0051;  /* hero stays the brand panel in dark mode */
-    --hero-deep:   #13002D;
-    --on-hero:     #13002D;
-    --on-deep:     #FFFAF4;
+  /* ===== WorldFirst brand palette (Global Brand Guide, 29 May 2025) ===== */
+  :root{
+    --wfred:#FF0051; --wfred-d:#D80045;   /* flagship — #HeroTheWFRed */
+    --magenta:#BC0050;                     /* core */
+    --plum:#7D0042;                        /* darkest core — secondary */
+    --orange:#FF8000; --orange-d:#E0490C;  /* core accent (gradient belt) */
+    --ink:#1F2323; --ink-soft:#3A3F42;
+    --bg:#FFFFFF; --bg-alt:#F8F8FB; --card:#FFFFFF;
+    --line:#ECEDEE; --muted:#6F6F6F;
+    --shadow:0 12px 34px rgba(125,0,66,.10);
+    --radius:18px;
   }
-}
-:root[data-theme="dark"] {
-  --ground:      #13002D;
-  --surface:     #1C0838;
-  --sunk:        #0D0020;
-  --ink:         #FFFAF4;
-  --muted:       #D8C9E8;
-  --accent:      #FF3D74;
-  --accent-soft: #330E24;
-  --accent-2:    #D8C9E8;
-  --line:        #32006E;
-  --line-hi:     #5B3A8F;
-  --hero-a:      #FF0051;
-  --hero-deep:   #13002D;
-  --on-hero:     #13002D;
-  --on-deep:     #FFFAF4;
-}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; color-scheme:light}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Poppins",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1060px; margin:0 auto; padding:0 20px}
+  .eyebrow{text-transform:uppercase; letter-spacing:.18em; font-size:12px; font-weight:700; color:var(--wfred)}
 
-*, *::before, *::after { box-sizing: border-box; }
+  /* HERO — Reverse on WF Red (secondary brand application) */
+  .hero{
+    position:relative; overflow:hidden; color:#fff;
+    background:
+      radial-gradient(120% 140% at 88% -20%, rgba(255,128,0,.38) 0%, rgba(255,128,0,0) 52%),
+      linear-gradient(118deg, var(--wfred) 0%, var(--wfred-d) 46%, #8E0031 100%);
+  }
+  .hero .wrap{max-width:1240px; padding:40px 20px 44px}
+  .hero-grid{display:flex; flex-wrap:wrap; gap:40px; align-items:center}
+  .hero-left{flex:1 1 430px; min-width:0}
+  .hero-kv{flex:1.45 1 600px; min-width:0}
+  .hero-kv figure{margin:0}
+  .hero-kv img{width:100%; aspect-ratio:3/2; object-fit:cover; object-position:center 40%; border-radius:20px; border:1px solid rgba(255,255,255,.28); box-shadow:0 24px 60px rgba(0,0,0,.42)}
+  .hero-kv figcaption{margin-top:12px; font-size:13px; color:#FCE4EC; text-align:center; font-weight:500}
+  .hero .eyebrow{color:#FFE1EC}
+  .itag{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    padding:4px 12px; border-radius:999px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.30); color:#fff; margin-bottom:14px}
+  .hero h1{font-size:clamp(30px,4.6vw,50px); line-height:1.04; margin:.18em 0 .14em; letter-spacing:-.02em; font-weight:800}
+  .hero h1 .accent{color:#fff; position:relative}
+  .hero h1 .accent::after{content:""; display:block; height:6px; width:132px; margin-top:10px; border-radius:99px;
+    background:linear-gradient(90deg,#fff,var(--orange)); opacity:.95}
+  .hero p.lede{font-size:clamp(16px,2.2vw,20px); color:#FFE7EF; max-width:46ch; margin:.35em 0 0; font-weight:400}
+  .facts{display:flex; flex-wrap:wrap; gap:12px; margin-top:22px}
+  .fact{background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.30); border-radius:14px; padding:11px 15px; min-width:138px}
+  .fact .k{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.82); font-weight:700}
+  .fact .v{font-size:18px; font-weight:700; margin-top:2px; color:#fff}
+  .fact .s{font-size:13px; color:rgba(255,255,255,.88); font-weight:400}
+  .cd-wrap{margin-top:22px}
+  .count-label{font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#FFD7E4; font-weight:700; margin:0 0 9px}
+  .count{display:flex; gap:10px; flex-wrap:wrap}
+  .count .box{background:rgba(0,0,0,.20); border:1px solid rgba(255,255,255,.22); border-radius:12px; padding:8px 14px; text-align:center; min-width:58px}
+  .count .n{font-size:23px; font-weight:800; line-height:1; font-variant-numeric:tabular-nums}
+  .count .l{font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:#FCE4EC; margin-top:4px; font-weight:600}
+  .count-msg{display:inline-block; font-size:17px; font-weight:700; color:#fff; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.30); padding:12px 18px; border-radius:12px}
 
-body {
-  margin: 0;
-  background: var(--ground);
-  color: var(--ink);
-  font-family: var(--font);
-  font-size: clamp(0.95rem, 0.91rem + 0.2vw, 1.05rem);
-  font-weight: 400;              /* Body: Regular */
-  line-height: 1.5;
-  letter-spacing: -0.01em;       /* Body: tracking -1% */
-  text-align: left;
-  -webkit-font-smoothing: antialiased;
-}
+  section{padding:54px 0}
+  section.alt{background:var(--bg-alt)}
+  .sec-h{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:24px}
+  .sec-h h2{font-size:clamp(23px,3.6vw,32px); margin:0; letter-spacing:-.01em; color:var(--wfred); font-weight:700}
+  .sec-h .note{color:var(--muted); font-size:14px}
 
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  /* day-style cards (programme / evening) */
+  .day{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:22px 22px 8px; margin-bottom:20px}
+  .day-top{display:flex; align-items:center; gap:14px; margin-bottom:6px}
+  .daychip{width:56px; height:56px; border-radius:14px; flex:0 0 auto; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:800; line-height:1}
+  .daychip small{font-size:10px; font-weight:700; letter-spacing:.08em; opacity:.92; margin-top:3px}
+  .d1{background:linear-gradient(135deg,var(--wfred),var(--wfred-d))}
+  .d2{background:linear-gradient(135deg,var(--magenta),var(--plum))}
+  .d3{background:linear-gradient(135deg,var(--orange),#E0490C)}
+  .day-top h3{margin:0; font-size:19px; font-weight:700; color:var(--ink)}
+  .day-top .sub{color:var(--muted); font-size:13px}
+  .row{display:grid; grid-template-columns:158px 1fr; gap:14px; padding:13px 4px; border-top:1px dashed var(--line)}
+  .row:first-of-type{border-top:0}
+  .time{font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums; white-space:nowrap}
+  .act .t{font-weight:600}
+  .act .place{font-size:14px; color:var(--muted); margin-top:2px; font-weight:400}
+  .pill{display:inline-block; font-size:11px; font-weight:700; padding:2px 9px; border-radius:999px; background:rgba(255,128,0,.16); color:#B85900; margin-left:6px; white-space:nowrap}
+  .pill.done{background:rgba(14,159,142,.15); color:#0A7D6F}
+  .pill.hot{background:rgba(255,0,81,.12); color:var(--wfred-d)}
+  @media (max-width:560px){ .row{grid-template-columns:1fr; gap:4px} }
 
-/* Headline / Sub-Head 1: Medium, tracking -3%. Sub-Head 2: SemiBold, -2%. */
-h1, h2 {
-  font-family: var(--font);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1.12;
-  margin: 0;
-  text-wrap: balance;
-}
-h3, h4 {
-  font-family: var(--font);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
-  margin: 0;
-  text-wrap: balance;
-}
-h2 { font-size: clamp(1.65rem, 1.3rem + 1.6vw, 2.5rem); }
-h3 { font-size: 1.1rem; }
+  /* venue-style cards (markets / dress) */
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px}
+  .venue{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; display:flex; flex-direction:column}
+  .venue .tag{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--wfred)}
+  .venue h4{margin:6px 0 4px; font-size:17px; font-weight:700; text-wrap:balance}
+  .venue .addr{font-size:13px; color:var(--muted); flex:1; font-weight:400; text-wrap:pretty}
 
-p { margin: 0 0 1.05em; }
-p:last-child { margin-bottom: 0; }
-a { color: var(--accent); text-underline-offset: 2px; }
-b, strong { font-weight: 600; }
+  /* industry panels with member chips (team-card pattern) */
+  .team-grid{display:grid; gap:14px; grid-template-columns:repeat(3,minmax(0,1fr))}
+  .team-card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:15px; box-shadow:var(--shadow)}
+  .team-card h4{margin:0 0 10px; color:var(--wfred); font-size:14px; text-transform:uppercase; letter-spacing:.06em}
+  .member-list{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; list-style:none; margin:0; padding:0}
+  .member-list li{background:var(--bg-alt); border-radius:8px; padding:7px 9px; color:var(--ink-soft); font-size:12px; font-weight:500; min-width:0}
+  .member-list li b{color:var(--ink); font-weight:600}
+  .member-list li.more{background:rgba(255,0,81,.07); color:var(--wfred-d); font-weight:600}
+  @media (max-width:860px){ .team-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:560px){ .team-grid{grid-template-columns:1fr} .member-list{grid-template-columns:1fr} }
 
-/* Captions / labels: Medium, tracking -1%, sentence case. */
-.eyebrow, .kv .k, .factcard dt, .ev-state, .s-name, .tfoot-note {
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-}
+  /* key messages */
+  .msg-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px}
+  .msg{background:var(--card); border:1px solid var(--line); border-top:4px solid var(--wfred); border-radius:14px; padding:18px; box-shadow:var(--shadow)}
+  .msg h4{margin:0 0 6px; font-size:15px; font-weight:700}
+  .msg p{margin:0; font-size:14px; color:var(--ink-soft)}
+  .msg .say{margin-top:10px; padding-top:10px; border-top:1px dashed var(--line); font-style:italic; font-size:14px; color:var(--plum); font-weight:500}
 
-/* ---------- shared ---------- */
+  /* Q&A */
+  .qa{display:grid; gap:12px}
+  .qa details{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:0 18px; box-shadow:var(--shadow)}
+  .qa details[open]{border-color:var(--wfred)}
+  .qa summary{cursor:pointer; list-style:none; padding:15px 0; font-size:15px; font-weight:600; display:flex; gap:12px; align-items:flex-start}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary::after{content:"+"; margin-left:auto; flex:none; font-size:21px; line-height:1; color:var(--wfred); font-weight:400}
+  .qa details[open] summary::after{content:"\2212"}
+  .qa .ans{padding:12px 0 16px; border-top:1px dashed var(--line); font-size:14px; color:var(--ink-soft)}
+  .qa .ans b{color:var(--ink)}
 
-.band { padding: clamp(2.4rem, 6vw, 4.25rem) var(--pad); scroll-margin-top: calc(var(--nav-h) + 1rem); }
-.band + .band { border-top: 1px solid var(--line); }
-.wrap { max-width: 78rem; margin: 0 auto; }
-.col { max-width: var(--measure); }
+  /* dress figures */
+  .dress-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px}
+  .dcard{margin:0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; display:flex; gap:16px; align-items:center}
+  .dfig{width:74px; flex:none}
+  .d-skin{fill:#F3C9A8}
+  .d-top{fill:#FFE1EC; stroke:var(--wfred); stroke-width:2}
+  .d-line{fill:none; stroke:var(--wfred); stroke-width:2; stroke-linecap:round}
+  .d-bottom{fill:#E8EAF0; stroke:#9AA0AC; stroke-width:1.5}
+  .d-shoe{fill:var(--ink)}
+  .dcard b{display:block; font-size:15px; margin-bottom:3px}
+  .dcard span{font-size:13.5px; color:var(--ink-soft)}
 
-.eyebrow { font-size: 0.79rem; color: var(--accent-2); margin: 0 0 0.85rem; }
-.eyebrow b { color: var(--accent); font-weight: 500; }
-
-.hdr { display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: clamp(1.8rem, 3.5vw, 2.7rem); }
-.lede { font-size: clamp(1.02rem, 0.98rem + 0.4vw, 1.18rem); line-height: 1.45; color: var(--muted); letter-spacing: -0.015em; }
-
-/* ---------- sticky nav ---------- */
-
-.nav {
-  position: sticky; top: 0; z-index: 20;
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-  height: var(--nav-h);
-  display: flex; align-items: center;
-  padding: 0 var(--pad);
-}
-.nav-in { max-width: 78rem; margin: 0 auto; width: 100%; display: flex; align-items: center; gap: 1rem; }
-.nav-brand { font-weight: 600; font-size: 0.88rem; letter-spacing: -0.02em; white-space: nowrap; display: flex; align-items: center; gap: 0.45rem; }
-.nav-brand::before { content: ""; width: 0.55rem; height: 0.55rem; background: var(--accent); border-radius: 50%; flex: none; }
-.nav-links { display: flex; gap: 0.15rem; overflow-x: auto; scrollbar-width: none; margin-left: auto; }
-.nav-links::-webkit-scrollbar { display: none; }
-@media (max-width: 60rem) {
-  .nav-links { -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent); }
-}
-.nav-links a {
-  font-size: 0.8rem; font-weight: 500; letter-spacing: -0.01em;
-  color: var(--muted); text-decoration: none;
-  padding: 0.4rem 0.62rem; white-space: nowrap; border-radius: 999px;
-}
-.nav-links a:hover { color: var(--accent-2); background: var(--accent-soft); }
-@media (max-width: 46rem) { .nav-brand { display: none; } }
-
-.itag {
-  display: inline-block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em;
-  padding: 0.22rem 0.6rem; border-radius: 999px; white-space: nowrap;
-  background: var(--accent-soft); color: var(--accent-2); border: 1px solid var(--accent);
-}
-.itag.inv { background: var(--hero-deep); color: var(--on-deep); border-color: var(--hero-deep); }
-
-/* ---------- hero: solid WF Red panel ---------- */
-
-.hero { background: var(--hero-a); color: var(--on-hero); }
-.hero .eyebrow { margin-bottom: 1.4rem; }
-.hero-grid { display: grid; gap: clamp(1.8rem, 4vw, 3.25rem); align-items: start; }
-@media (min-width: 64rem) { .hero-grid { grid-template-columns: minmax(0,1.5fr) minmax(19rem,0.9fr); } }
-
-.hero h1 {
-  font-size: clamp(2.2rem, 1.15rem + 4.8vw, 4rem);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  color: var(--on-hero);
-}
-.hero h1 em {
-  display: block; font-style: normal;
-  font-size: 0.34em; font-weight: 500; letter-spacing: -0.015em;
-  margin-top: 0.7em;
-}
-
-/* live countdown */
-.countdown {
-  display: flex; flex-wrap: wrap; gap: clamp(0.6rem, 2vw, 1.1rem);
-  margin-top: clamp(1.6rem, 3vw, 2.4rem);
-}
-.cd-cell {
-  background: var(--hero-deep); color: var(--on-deep);
-  border-radius: var(--r); min-width: 4.4rem;
-  padding: 0.8rem 0.9rem 0.7rem;
-  display: grid; gap: 0.1rem; justify-items: center;
-}
-.cd-cell b {
-  font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.5rem);
-  font-weight: 600; line-height: 1;
-  font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
-}
-.cd-cell span { font-size: 0.66rem; font-weight: 500; letter-spacing: 0.08em; opacity: 0.75; }
-.cd-cap { margin-top: 0.6rem; font-size: 0.78rem; font-weight: 500; color: var(--on-hero); opacity: 0.85; }
-
-.cd-live {
-  background: var(--hero-deep); color: var(--on-deep); border-radius: var(--r);
-  padding: 1rem 1.4rem; font-weight: 600; font-size: 1.05rem;
-}
-
-/* fact card */
-.factcard {
-  background: var(--surface); color: var(--ink);
-  border-radius: var(--r); padding: 1.4rem 1.5rem;
-}
-.factcard dl { margin: 0; display: grid; gap: 0.75rem; }
-.factcard div { display: grid; grid-template-columns: 6.2rem 1fr; gap: 0.6rem; align-items: baseline; }
-.factcard dt { font-size: 0.74rem; font-weight: 500; color: var(--muted); }
-.factcard dd { margin: 0; font-size: 0.96rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; }
-
-/* ---------- key/value ---------- */
-
-.brief { background: var(--sunk); }
-.kv { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
-.kv li { background: var(--surface); padding: 1.2rem clamp(1rem,2.4vw,1.7rem); display: grid; gap: 0.25rem; }
-.kv .k { font-size: 0.79rem; color: var(--accent-2); }
-.kv .v { font-size: 0.98rem; line-height: 1.5; }
-
-/* ---------- rows ---------- */
-
-.rows { border-top: 1px solid var(--line-hi); }
-.row { display: grid; gap: 0.28rem 1.6rem; padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
-@media (min-width: 46rem) { .row { grid-template-columns: 7rem minmax(0,1fr); } }
-.row-d { font-size: 0.85rem; font-weight: 600; color: var(--accent-2); font-variant-numeric: tabular-nums; padding-top: 0.2rem; letter-spacing: -0.01em; }
-.row-b { display: grid; gap: 0.32rem; }
-.row-b p { font-size: 0.94rem; color: var(--muted); }
-.row.key .row-d { color: var(--ink); font-weight: 700; }
-
-
-/* ---------- sectors + notable names ---------- */
-
-.roster { background: var(--surface); }
-
-.sectors { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.45rem; }
-.sectors li { display: grid; grid-template-columns: minmax(7rem, 11rem) 1fr; gap: 0.75rem; align-items: center; }
-.s-name { font-size: 0.79rem; color: var(--muted); }
-.s-bar { height: 9px; background: var(--sunk); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
-.s-bar i { display: block; height: 100%; background: var(--accent); }
-@media (max-width: 30rem) {
-  .sectors li { grid-template-columns: 1fr; gap: 0.25rem; }
-}
-.s-n { display: none; }
-
-.names { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
-.ncard {
-  background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent);
-  border-radius: var(--r); padding: 1rem 1.1rem; display: grid; gap: 0.3rem; align-content: start;
-}
-.ncard b { font-size: 0.95rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; }
-.ncard span { font-size: 0.83rem; line-height: 1.45; color: var(--muted); }
-
-.tfoot-note { font-size: 0.81rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.5; }
-
-/* ---------- dress code ---------- */
-
-.dress-grid { display: grid; gap: 1.1rem; }
-@media (min-width: 58rem) { .dress-grid { grid-template-columns: 1fr 1fr 1.2fr; align-items: stretch; } }
-.dcard {
-  margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
-  padding: 1.4rem 1.3rem; display: grid; gap: 1rem; justify-items: center; text-align: center;
-}
-.dfig { width: 7rem; height: auto; }
-.d-skin { fill: var(--sunk); stroke: var(--line-hi); stroke-width: 1.5; }
-.d-top { fill: var(--accent); opacity: 0.92; }
-.d-line { fill: none; stroke: var(--surface); stroke-width: 2; }
-.d-bottom { fill: var(--accent-2); }
-.d-shoe { fill: var(--ink); }
-.dcard figcaption { display: grid; gap: 0.3rem; }
-.dcard b { font-size: 0.98rem; letter-spacing: -0.02em; }
-.dcard span { font-size: 0.86rem; line-height: 1.5; color: var(--muted); }
-.dnote {
-  background: var(--accent-soft); border: 1px solid var(--accent); border-radius: var(--r);
-  padding: 1.4rem 1.4rem; display: grid; gap: 0.6rem; align-content: center;
-}
-.dnote p { font-size: 0.98rem; }
-
-.split { display: grid; gap: clamp(1.9rem,4vw,3rem); }
-@media (min-width: 58rem) { .split { grid-template-columns: minmax(0,1fr) minmax(0,1fr); } }
-
-/* ---------- programme ---------- */
-
-.prog { background: var(--sunk); }
-.ev { display: grid; gap: 0.42rem 1.5rem; padding: 1.35rem 0; border-bottom: 1px solid var(--line); }
-@media (min-width: 48rem) { .ev { grid-template-columns: 9.5rem minmax(0,1fr); } }
-.ev:first-of-type { border-top: 1px solid var(--line-hi); }
-.ev-rail { display: grid; gap: 0.2rem; align-content: start; }
-.ev-date { font-size: 1.28rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.03em; }
-.ev-state { font-size: 0.76rem; color: var(--muted); }
-.ev-body h3 { margin-bottom: 0.2rem; }
-.ev-body p { font-size: 0.94rem; color: var(--muted); }
-.ev-body p b { color: var(--ink); }
-.ev-ask { font-size: 0.89rem; }
-
-.ev.done .ev-date { color: var(--muted); }
-.ev.next .ev-date { color: var(--ink); }
-.ev.now {
-  background: var(--surface); border-left: 4px solid var(--accent);
-  border-radius: 0 var(--r) var(--r) 0;
-  padding-left: clamp(0.9rem, 2vw, 1.35rem); padding-right: clamp(0.9rem, 2vw, 1.35rem);
-  margin: 0.35rem 0;
-}
-.ev.now .ev-date { color: var(--accent); }
-.ev.now .ev-state { color: var(--accent-2); font-weight: 600; }
-
-/* ---------- markets ---------- */
-
-.markets { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; grid-template-columns: repeat(2, minmax(0,1fr)); }
-@media (min-width: 46rem) { .markets { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-@media (min-width: 68rem) { .markets { grid-template-columns: repeat(6, minmax(0,1fr)); } }
-.markets li { background: var(--surface); padding: 1.1rem 0.95rem; display: grid; gap: 0.22rem; align-content: start; }
-.mk-code { font-size: 1.5rem; font-weight: 500; line-height: 1; color: var(--accent); letter-spacing: -0.03em; }
-.mk-name { font-size: 0.9rem; font-weight: 600; letter-spacing: -0.02em; }
-.mk-note { font-size: 0.78rem; line-height: 1.4; color: var(--muted); }
-
-/* ---------- cards ---------- */
-
-.cards { display: grid; gap: 1.1rem; }
-@media (min-width: 54rem) { .cards { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-.card { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: var(--r); padding: clamp(1.15rem,2.6vw,1.6rem); display: grid; gap: 0.55rem; align-content: start; }
-.card p { font-size: 0.93rem; color: var(--muted); }
-.card .say { font-style: italic; color: var(--ink); font-size: 0.96rem; line-height: 1.45; border-top: 1px solid var(--line); padding-top: 0.58rem; }
-
-
-.pull { border-left: 3px solid var(--accent-2); padding: 0.22rem 0 0.22rem 1rem; margin: 0; font-size: 0.97rem; line-height: 1.5; }
-
-
-/* ---------- Q&A ---------- */
-
-.qa { display: grid; gap: 0.6rem; }
-.qa details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 0 clamp(1rem,2.4vw,1.4rem); }
-.qa details[open] { border-color: var(--accent); }
-.qa summary {
-  cursor: pointer; list-style: none; padding: 0.95rem 0;
-  font-size: 1rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.35;
-  display: flex; align-items: flex-start; gap: 0.8rem;
-}
-.qa summary::-webkit-details-marker { display: none; }
-.qa summary::after { content: "+"; margin-left: auto; flex: none; font-weight: 500; font-size: 1.35rem; line-height: 1; color: var(--accent-2); }
-.qa details[open] summary::after { content: "\2212"; }
-.qa .ans { padding: 0.85rem 0 1.05rem; font-size: 0.94rem; color: var(--muted); border-top: 1px solid var(--line); }
-.qa .ans p { font-size: 0.94rem; }
-.qa .ans b { color: var(--ink); }
-
-/* ---------- asks ---------- */
-
-.asks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
-.asks li { display: grid; grid-template-columns: 1.1rem 1fr; gap: 0.6rem; font-size: 0.96rem; align-items: start; }
-.asks li::before { content: ""; width: 0.5rem; height: 0.5rem; border: 2px solid var(--accent); border-radius: 50%; margin-top: 0.45rem; }
-
-
-footer.band { background: var(--sunk); font-size: 0.79rem; font-weight: 500; letter-spacing: -0.01em; color: var(--muted); }
-
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
-
+  .callout{background:linear-gradient(120deg, rgba(255,0,81,.08), rgba(255,128,0,.08)); border:1px solid var(--line); border-left:4px solid var(--wfred); border-radius:14px; padding:18px 20px; font-size:14px}
+  .callout b{color:var(--plum)}
+  .callout ul{margin:8px 0 0; padding-left:18px}
+  .callout li{margin:4px 0}
+  footer{padding:40px 20px 56px; color:var(--muted); font-size:13px; text-align:center; border-top:1px solid var(--line)}
+  .foot-logo{height:46px; width:auto; max-width:86%; margin:0 auto 18px; display:block}
+  footer .src{margin-top:6px}
 </style>
-<nav class="nav">
-  <div class="nav-in">
-    <span class="nav-brand">WorldFirst &times; Bosses United</span>
-    <span class="itag">Internal</span>
-    <div class="nav-links">
-      <a href="#event">The event</a>
-      <a href="#dress">Dress code</a>
-      <a href="#who">Bosses United</a>
-      <a href="#businesses">Businesses</a>
-      <a href="#programme">Programme</a>
-      <a href="#messages">Key messages</a>
-      <a href="#questions">If asked</a>
-      <a href="#open">Open items</a>
-    </div>
-  </div>
-</nav>
 
-<header class="band hero">
-  <div class="wrap">
-    <p class="eyebrow"><span class="itag inv">Internal briefing &middot; WorldFirst only</span></p>
-    <div class="hero-grid">
-      <div>
-        <h1>Congress Cup<br>Opening Ceremony<em>WorldFirst &times; Bosses United</em></h1>
-        <div class="countdown" id="countdown" aria-live="off">
-          <div class="cd-cell"><b id="cd-d">&ndash;</b><span>days</span></div>
-          <div class="cd-cell"><b id="cd-h">&ndash;</b><span>hrs</span></div>
-          <div class="cd-cell"><b id="cd-m">&ndash;</b><span>min</span></div>
-          <div class="cd-cell"><b id="cd-s">&ndash;</b><span>sec</span></div>
-        </div>
-        <p class="cd-cap">to report time &mdash; 5:15pm, Wednesday 26 August</p>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-left">
+      <span class="itag">Internal · WorldFirst only</span>
+      <div class="eyebrow">WorldFirst &times; Bosses United</div>
+      <h1>Congress Cup<br><span class="accent">Opening Ceremony</span></h1>
+      <p class="lede">One evening, six markets, 150+ business owners — and WorldFirst on stage as payment partner.</p>
+      <div class="facts">
+        <div class="fact"><div class="k">Date</div><div class="v">Wed 26 Aug</div><div class="s">2026</div></div>
+        <div class="fact"><div class="k">Report by</div><div class="v">5:15 PM</div><div class="s">sharp</div></div>
+        <div class="fact"><div class="k">Venue</div><div class="v">Pan Pacific</div><div class="s">Singapore · room TBC</div></div>
+        <div class="fact"><div class="k">Dress</div><div class="v">Business casual</div><div class="s">see guide below</div></div>
       </div>
-      <aside class="factcard">
-        <dl>
-          <div><dt>Date</dt><dd>Wednesday 26 August 2026</dd></div>
-          <div><dt>Report by</dt><dd>5:15pm sharp</dd></div>
-          <div><dt>Venue</dt><dd>Pan Pacific Singapore</dd></div>
-          <div><dt>Dress code</dt><dd>Business casual</dd></div>
-          <div><dt>Guest of honour</dt><dd>MOS Dinesh Vasu Dash</dd></div>
-          <div><dt>Room</dt><dd>TBC &mdash; check day-of comms</dd></div>
-          <div><dt>Ends</dt><dd>Approx. TBC</dd></div>
-          <div><dt>Day-of contact</dt><dd>TBC</dd></div>
-        </dl>
-      </aside>
+      <div class="cd-wrap">
+        <div class="count-label" id="cd-label">Until report time — 5:15 PM, 26 Aug 🏆</div>
+        <div class="count" id="countdown" aria-label="Countdown to the Opening Ceremony">
+          <div class="box"><div class="n" id="cd-d">–</div><div class="l">Days</div></div>
+          <div class="box"><div class="n" id="cd-h">–</div><div class="l">Hrs</div></div>
+          <div class="box"><div class="n" id="cd-m">–</div><div class="l">Min</div></div>
+          <div class="box"><div class="n" id="cd-s">–</div><div class="l">Sec</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-kv" id="hero-kv">
+      <figure>
+        <img id="kv-img" src="assets/team-kv.jpg" alt="WorldFirst and Bosses United on the pitch" loading="eager"
+             onerror="document.getElementById('hero-kv').style.display='none'">
+        <figcaption>WorldFirst &times; Bosses United — friendly match, SAFRA, 22 July</figcaption>
+      </figure>
     </div>
   </div>
 </header>
 
-<section class="band brief" id="event">
-  <div class="wrap">
-    <div class="hdr col">
-      <p class="eyebrow"><b>&#9646;</b> The event</p>
-      <h2>What happens on Wednesday</h2>
+<main>
+  <section id="evening"><div class="wrap">
+    <div class="sec-h"><span class="eyebrow">The evening</span><h2>Wednesday at a glance</h2><span class="note">All times SGT · full run-of-show to follow</span></div>
+    <div class="day">
+      <div class="day-top">
+        <div class="daychip d1">26<small>WED</small></div>
+        <div><h3>Congress Cup Opening Ceremony</h3><div class="sub">Pan Pacific Singapore · guest of honour: Minister of State Dinesh Vasu Dash</div></div>
+      </div>
+      <div class="row"><div class="time">5:15 PM</div><div class="act"><div class="t">Report at Pan Pacific Singapore</div><div class="place">Allow extra time for CBD evening traffic — the group photo is early in the programme</div></div></div>
+      <div class="row"><div class="time">Evening</div><div class="act"><div class="t">Opening ceremony <span class="pill hot">Minister on stage</span></div><div class="place">MOS Dinesh Vasu Dash (MCCY &amp; MOM; Mayor, South East District). His second appearance with this partnership — he attended the 7 Aug signing. Welcome him back; don't introduce him.</div></div></div>
+      <div class="row"><div class="time">On stage</div><div class="act"><div class="t">Token of appreciation <span class="pill">formal photo moment</span></div><div class="place">Presented on stage — details of the token and recipient to be confirmed</div></div></div>
+      <div class="row"><div class="time">TBC</div><div class="act"><div class="t">End time &amp; day-of contact</div><div class="place">Check day-of comms once the run-of-show is issued</div></div></div>
     </div>
-    <ul class="kv">
-      <li><span class="k">The occasion</span><span class="v">Opening ceremony of the Congress Cup, hosted with Bosses United &mdash; the business-owners' football community WorldFirst signed as official payment partner on 7 August.</span></li>
-      <li><span class="k">Guest of honour</span><span class="v"><b>Minister of State Dinesh Vasu Dash</b> (MCCY &amp; MOM; Mayor, South East District). His second appearance with this partnership &mdash; he attended the 7 Aug signing. Welcome him back; don't introduce him.</span></li>
-      <li><span class="k">The set piece</span><span class="v">A token of appreciation is presented on stage &mdash; expect a formal photo moment.</span></li>
-      <li><span class="k">Who's in the room</span><span class="v">Delegations from six markets (below), plus 150+ Bosses United member-owners &mdash; our exact customer.</span></li>
-    </ul>
-    <ul class="markets" style="margin-top:clamp(1.6rem,3vw,2.4rem)">
-      <li><span class="mk-code">SG</span><span class="mk-name">Singapore</span><span class="mk-note">Host — all local members</span></li>
-<li><span class="mk-code">MY</span><span class="mk-name">Malaysia</span><span class="mk-note">Member export corridor</span></li>
-<li><span class="mk-code">TH</span><span class="mk-name">Thailand</span><span class="mk-note">2023 tour; recruitment corridor</span></li>
-<li><span class="mk-code">JP</span><span class="mk-name">Japan</span><span class="mk-note">Franchise link; Honda meeting</span></li>
-<li><span class="mk-code">KR</span><span class="mk-name">Korea</span><span class="mk-note">New corridor</span></li>
-<li><span class="mk-code">HK</span><span class="mk-name">Hong Kong</span><span class="mk-note">HKAFA MOU + HK chapter</span></li>
-    </ul>
-  </div>
-</section>
+    <div class="grid" id="markets">
+      <div class="venue"><div class="tag">Host</div><h4>Singapore 🇸🇬</h4><div class="addr">Home market — the Bosses United community and all profiled members</div></div>
+      <div class="venue"><div class="tag">On site</div><h4>Malaysia 🇲🇾</h4><div class="addr">Nearest trade corridor — member exporters ship here today</div></div>
+      <div class="venue"><div class="tag">On site</div><h4>Thailand 🇹🇭</h4><div class="addr">2023 Bangkok tour; members recruit and source here</div></div>
+      <div class="venue"><div class="tag">On site</div><h4>Japan 🇯🇵</h4><div class="addr">Franchise links — and the squad once met Keisuke Honda</div></div>
+      <div class="venue"><div class="tag">On site</div><h4>Korea 🇰🇷</h4><div class="addr">New corridor — no member link yet; treat as forward-looking</div></div>
+      <div class="venue"><div class="tag">On site</div><h4>Hong Kong 🇭🇰</h4><div class="addr">HKAFA MOU (2025) plus a Bosses United Hong Kong chapter</div></div>
+    </div>
+  </div></section>
 
-<section class="band" id="dress">
-  <div class="wrap">
-    <div class="hdr col">
-      <p class="eyebrow"><b>&#9646;</b> Dress code</p>
-      <h2>Business casual</h2>
-      <p class="lede">Smart, comfortable, photo-ready &mdash; there will be a stage and a Minister.</p>
-    </div>
+  <section class="alt" id="dress"><div class="wrap">
+    <div class="sec-h"><span class="eyebrow">Dress code</span><h2>Business casual</h2><span class="note">There will be a stage, a Minister and cameras</span></div>
     <div class="dress-grid">
       <figure class="dcard">
-        <svg viewBox="0 0 120 150" role="img" aria-label="Men's business casual illustration" class="dfig">
+        <svg viewBox="0 0 120 150" role="img" aria-label="Men's business casual" class="dfig">
           <circle cx="60" cy="22" r="13" class="d-skin"/>
           <path d="M35 55 Q60 42 85 55 L88 100 L32 100 Z" class="d-top"/>
           <path d="M52 46 L60 56 L68 46" class="d-line"/>
@@ -462,243 +222,177 @@ footer.band { background: var(--sunk); font-size: 0.79rem; font-weight: 500; let
           <rect x="37" y="142" width="21" height="6" rx="3" class="d-shoe"/>
           <rect x="62" y="142" width="21" height="6" rx="3" class="d-shoe"/>
         </svg>
-        <figcaption>
-          <b>Gentlemen</b>
-          <span>Polo or open-collar shirt, chinos or tailored trousers, loafers or clean smart sneakers. Jacket optional. Skip tees, shorts and sandals.</span>
-        </figcaption>
+        <figcaption><b>Gentlemen</b><span>Polo or open-collar shirt, chinos or tailored trousers, loafers or clean sneakers. Jacket optional. Skip tees, shorts, sandals.</span></figcaption>
       </figure>
       <figure class="dcard">
-        <svg viewBox="0 0 120 150" role="img" aria-label="Ladies' business casual illustration" class="dfig">
+        <svg viewBox="0 0 120 150" role="img" aria-label="Ladies' business casual" class="dfig">
           <circle cx="60" cy="22" r="13" class="d-skin"/>
           <path d="M38 55 Q60 42 82 55 L80 92 L40 92 Z" class="d-top"/>
           <path d="M40 92 L34 138 L86 138 L80 92 Z" class="d-bottom"/>
           <rect x="42" y="140" width="15" height="6" rx="3" class="d-shoe"/>
           <rect x="63" y="140" width="15" height="6" rx="3" class="d-shoe"/>
         </svg>
-        <figcaption>
-          <b>Ladies</b>
-          <span>Blouse with slacks or a skirt, or a knee-length dress. Flats or low heels &mdash; you may be standing a while. A light layer for the aircon.</span>
-        </figcaption>
+        <figcaption><b>Ladies</b><span>Blouse with slacks or a skirt, or a knee-length dress. Flats or low heels — you may be standing a while. A light layer for the aircon.</span></figcaption>
       </figure>
-      <div class="dnote">
-        <p><b>Report by 5:15pm</b> at Pan Pacific Singapore &mdash; allow extra time for CBD evening traffic; the group photo is early in the programme.</p>
-        <p class="tfoot-note">If in doubt: what you'd wear to meet a customer, not what you'd wear to a match.</p>
-      </div>
     </div>
-  </div>
-</section>
+    <div class="callout" style="margin-top:16px"><b>If in doubt:</b> what you'd wear to meet a customer, not what you'd wear to a match.</div>
+  </div></section>
 
-<section class="band" id="who">
-  <div class="wrap">
-    <div class="hdr col">
-      <p class="eyebrow"><b>&#9646;</b> Who we're partnering</p>
-      <h2>Bosses United in sixty seconds</h2>
-    </div>
-    <div class="split">
-      <div>
-        <p>A competitive football team formed in <b>2022</b> from the Bosses Network Young Chapter &mdash; <b>150+ business owners and counting</b>, meeting weekly with a shared goal. Networking and community are the purpose; football is the mechanism. Their tagline, from the team bus: <b>&ldquo;Football is our passion. Business is our mission.&rdquo;</b></p>
-        <p>The football is real: organised fixtures, tours to Bangkok (2023) and Hong Kong (2025), time on the pitch with <b>Abbas Saad</b> and a meeting with <b>Keisuke Honda</b>. Spokesperson: <b>Albert Ng</b>.</p>
-        <p class="pull">In 2025 they signed an <b>MOU with the Hong Kong Amateur Football Association</b> &mdash; written wider than football, linking both cities' business communities. Their initiative. Credit it.</p>
+  <section id="who"><div class="wrap">
+    <div class="sec-h"><span class="eyebrow">Our partner</span><h2>Bosses United in sixty seconds</h2><span class="note">“Football is our passion. Business is our mission.”</span></div>
+    <div class="day">
+      <div class="day-top">
+        <div class="daychip d2">150<small>+ OWNERS</small></div>
+        <div><h3>A football team made of business owners</h3><div class="sub">Formed 2022 from the Bosses Network Young Chapter · spokesperson Albert Ng</div></div>
       </div>
-      <div>
-        <p class="eyebrow"><b>&#9646;</b> Lineage</p>
-        <div class="rows" style="border-top-color:var(--line-hi)">
-          <div class="row"><div class="row-d">1996</div><div class="row-b"><h3>The Bosses Network</h3><p>Business leaders united in lifelong learning.</p></div></div>
-          <div class="row"><div class="row-d">2015</div><div class="row-b"><h3>Young Chapter (BNYC)</h3><p>The same mission for owners aged 40 and under.</p></div></div>
-          <div class="row"><div class="row-d">2022</div><div class="row-b"><h3>Bosses United</h3><p>The network forms a competitive team.</p></div></div>
-        </div>
-        <p class="tfoot-note" style="margin-top:1rem">The team is four years old. The community behind it is thirty.</p>
-      </div>
+      <div class="row"><div class="time">1996</div><div class="act"><div class="t">The Bosses Network</div><div class="place">Business leaders united in lifelong learning</div></div></div>
+      <div class="row"><div class="time">2015</div><div class="act"><div class="t">Young Chapter (BNYC)</div><div class="place">The same mission for owners aged 40 and under</div></div></div>
+      <div class="row"><div class="time">2022</div><div class="act"><div class="t">Bosses United</div><div class="place">The network forms a competitive team — organised fixtures, tours to Bangkok (2023) and Hong Kong (2025), time on the pitch with Abbas Saad</div></div></div>
+      <div class="row"><div class="time">2025</div><div class="act"><div class="t">HKAFA MOU <span class="pill hot">their initiative — credit it</span></div><div class="place">Signed with the Hong Kong Amateur Football Association, written wider than football: it links both cities' business communities</div></div></div>
     </div>
-  </div>
-</section>
+  </div></section>
 
-<section class="band roster" id="businesses">
-  <div class="wrap">
-    <div class="hdr col">
-      <p class="eyebrow"><b>&#9646;</b> Profile of businesses</p>
-      <h2>Who's in the community</h2>
-      <p class="lede">Owner-run companies across food, construction, retail and services &mdash; many trading across borders every week.</p>
-    </div>
-
-    <div class="split">
-      <div>
-        <p class="eyebrow"><b>&#9646;</b> Industries present &mdash; relative mix of the profiled sample</p>
-        <ul class="sectors">
-          <li><span class="s-name">Food &amp; beverage</span><span class="s-bar"><i style="width:100%"></i></span><span class="s-n">9</span></li>
-<li><span class="s-name">Food trade</span><span class="s-bar"><i style="width:44%"></i></span><span class="s-n">4</span></li>
-<li><span class="s-name">Consumer retail</span><span class="s-bar"><i style="width:89%"></i></span><span class="s-n">8</span></li>
-<li><span class="s-name">Built environment</span><span class="s-bar"><i style="width:67%"></i></span><span class="s-n">6</span></li>
-<li><span class="s-name">Professional services</span><span class="s-bar"><i style="width:78%"></i></span><span class="s-n">7</span></li>
-<li><span class="s-name">Sports &amp; leisure</span><span class="s-bar"><i style="width:56%"></i></span><span class="s-n">5</span></li>
-<li><span class="s-name">Industrial trade</span><span class="s-bar"><i style="width:22%"></i></span><span class="s-n">2</span></li>
-<li><span class="s-name">Other services</span><span class="s-bar"><i style="width:44%"></i></span><span class="s-n">4</span></li>
+  <section class="alt" id="businesses"><div class="wrap">
+    <div class="sec-h"><span class="eyebrow">Who's in the community</span><h2>The businesses</h2><span class="note">150+ members · notable names below</span></div>
+    <div class="team-grid">
+      <article class="team-card"><h4>Food &amp; provisions</h4>
+        <ul class="member-list">
+          <li><b>Tong Seng Produce</b> · Song He Rice</li>
+          <li><b>Min Feng</b> · Golden Phoenix Rice</li>
+          <li><b>Jack's Place</b> · steaks since 1966</li>
+          <li><b>Two Men Bagel House</b></li>
+          <li class="more">+ snacks, kueh &amp; F&amp;B operators</li>
         </ul>
+      </article>
+      <article class="team-card"><h4>Built environment</h4>
+        <ul class="member-list">
+          <li><b>TEHC International</b> · landscaping, Gardens by the Bay</li>
+          <li><b>Eltraco International</b> · roofing &amp; facades since 1977</li>
+          <li><b>Rigel</b> · smart washroom tech, 10+ countries</li>
+          <li class="more">+ construction &amp; interiors</li>
+        </ul>
+      </article>
+      <article class="team-card"><h4>Services &amp; retail</h4>
+        <ul class="member-list">
+          <li><b>Way Fengshui Group</b> · since 1984</li>
+          <li><b>Luxe Montre</b> · pre-owned luxury watches</li>
+          <li><b>Three Star Brand</b> · since 1937</li>
+          <li class="more">+ consultancies, agencies &amp; clubs</li>
+        </ul>
+      </article>
+    </div>
+    <div class="callout" style="margin-top:16px"><b>Why they're our customer:</b> owner-run companies that already trade across borders — rice imported from nine countries, exports to Malaysia and Vietnam, subsidiaries across ASEAN, recruitment from three markets. Real FX and payments demand, documented.</div>
+  </div></section>
+
+  <section id="programme"><div class="wrap">
+    <div class="sec-h"><span class="eyebrow">The Road to WorldFirst</span><h2>How we got to Wednesday</h2><span class="note">Named by the banner at the July screening</span></div>
+    <div class="day">
+      <div class="day-top">
+        <div class="daychip d1">JUL<small>2026</small></div>
+        <div><h3>The opening moves</h3><div class="sub">Two events in nine days</div></div>
       </div>
-      <div>
-        <p class="eyebrow"><b>&#9646;</b> Why they're our customer</p>
-        <p>The cross-border demand is documented, not assumed: rice imported from nine source countries, exports to Malaysia and Vietnam, subsidiaries across ASEAN, workforce recruitment from three markets. Moving money across borders is already these members' weekly reality.</p>
+      <div class="row"><div class="time">13 Jul</div><div class="act"><div class="t">‘Dear You' client screening <span class="pill done">done</span></div><div class="place">Golden Village Suntec City — 100+ guests behind the “Road to WorldFirst” banner. The film is about qiaopi: remittance letters home. Our business, a century early.</div></div></div>
+      <div class="row"><div class="time">22 Jul</div><div class="act"><div class="t">Friendly match — WorldFirst XI vs Bosses United <span class="pill done">done</span></div><div class="place">SAFRA, under floodlights. Our own fifteen in red.</div></div></div>
+    </div>
+    <div class="day">
+      <div class="day-top">
+        <div class="daychip d2">AUG<small>2026</small></div>
+        <div><h3>The partnership goes official</h3><div class="sub">Signing, stories, and the Cup</div></div>
       </div>
+      <div class="row"><div class="time">7 Aug</div><div class="act"><div class="t">Partnership signing ceremony <span class="pill done">done</span></div><div class="place">Wheeler's Estate — agreement signed, team bus unveiled with the WorldFirst lockup. MOS Dinesh attended.</div></div></div>
+      <div class="row"><div class="time">21 Aug</div><div class="act"><div class="t">Bosses United interview series <span class="pill done">done</span></div><div class="place">Ten founder interviews filmed multi-cam — the partnership's content engine</div></div></div>
+      <div class="row"><div class="time">26 Aug</div><div class="act"><div class="t">Congress Cup Opening Ceremony <span class="pill hot">this Wednesday</span></div><div class="place">Pan Pacific Singapore — you are here</div></div></div>
+      <div class="row"><div class="time">28 Aug</div><div class="act"><div class="t">Exhibition match — WorldFirst vs Singapore Xin Hua Sports Club</div></div></div>
+      <div class="row"><div class="time">30 Aug</div><div class="act"><div class="t">Congress Cup Closing Ceremony</div><div class="place">Winners' presentation — trophy presented to WorldFirst</div></div></div>
     </div>
+    <div class="day">
+      <div class="day-top">
+        <div class="daychip d3">Q4<small>2026</small></div>
+        <div><h3>Where it converts</h3><div class="sub">October to December</div></div>
+      </div>
+      <div class="row"><div class="time">Monthly</div><div class="act"><div class="t">WorldFirst topical clinics with curated bosses <span class="pill">20 pax per session</span></div><div class="place">Three sessions, up to 60 curated seats — small rooms, real treasury and FX problems</div></div></div>
+    </div>
+  </div></section>
 
-    <div class="hdr col" style="margin-top:clamp(2rem,4vw,2.8rem)">
-      <p class="eyebrow"><b>&#9646;</b> Notable names</p>
+  <section class="alt" id="messages"><div class="wrap">
+    <div class="sec-h"><span class="eyebrow">Key messages</span><h2>What we all say on Wednesday</h2></div>
+    <div class="msg-grid">
+      <div class="msg"><h4>Every member is our customer</h4><p>150+ owner-run businesses. This isn't sponsorship at arm's length — the room is the target market.</p><p class="say">“There aren't many teams where the whole squad signs its own invoices.”</p></div>
+      <div class="msg"><h4>Use their words</h4><p>Their tagline is on their team bus.</p><p class="say">“Football is your passion, business is your mission — the second half is where we come in.”</p></div>
+      <div class="msg"><h4>They crossed the border first</h4><p>The Hong Kong MOU was their initiative. Credit it.</p><p class="say">“You signed Hong Kong before we ever brought it up.”</p></div>
+      <div class="msg"><h4>Qiaopi to WorldFirst</h4><p>From the July screening — remittance letters home are the ancestor of what we do.</p><p class="say">“We've been in that business ever since — just faster.”</p></div>
     </div>
-    <div class="names">
-      <div class="ncard"><b>Tong Seng Produce &middot; Song He Rice</b><span>Leading rice importer since 1990 &mdash; 9+ source countries, Singapore's only chilled rice warehouse.</span></div>
-      <div class="ncard"><b>Min Feng &middot; Golden Phoenix Rice</b><span>Rice wholesaler with 38 years in the trade.</span></div>
-      <div class="ncard"><b>TEHC International</b><span>Singapore's oldest and largest landscaping firm &mdash; Gardens by the Bay contractor.</span></div>
-      <div class="ncard"><b>Eltraco International</b><span>Roofing and facades group since 1977 &mdash; over 1M sqm of Singapore covered.</span></div>
-      <div class="ncard"><b>Rigel</b><span>Smart washroom technology in 10+ countries &mdash; Changi Airport, MBS, Gardens by the Bay.</span></div>
-      <div class="ncard"><b>Jack's Place</b><span>Steakhouse institution since 1966 &mdash; 13 outlets under JP Pepperdine.</span></div>
-      <div class="ncard"><b>Two Men Bagel House</b><span>Cult bagel brand since 2014 &mdash; five outlets and growing.</span></div>
-      <div class="ncard"><b>Way Fengshui Group</b><span>Singapore's largest fengshui consultancy, since 1984.</span></div>
-    </div>
-    <p class="tfoot-note">A sample of recognisable names, not a member list. Say <b>&ldquo;150+ members&rdquo;</b> for scale; never quote a smaller number as the community's size.</p>
-  </div>
-</section>
+  </div></section>
 
-<section class="band prog" id="programme">
-  <div class="wrap">
-    <div class="hdr col">
-      <p class="eyebrow"><b>&#9646;</b> How we got here</p>
-      <h2>The Road to WorldFirst</h2>
-      <p class="lede">Named on the July screening banner. Eight touchpoints; Wednesday sits at the midpoint.</p>
-    </div>
-    <article class="ev done"><div class="ev-rail"><span class="ev-date">13 Jul</span><span class="ev-state">Done</span></div><div class="ev-body"><h3>‘Dear You’ client screening</h3><p>Golden Village Suntec City — 100+ clients behind the “Road to WorldFirst” banner. The film’s subject is <b>qiaopi</b>: remittance letters home. Cross-border payments, a century early.</p></div></article>
-<article class="ev done"><div class="ev-rail"><span class="ev-date">22 Jul</span><span class="ev-state">Done</span></div><div class="ev-body"><h3>Friendly match</h3><p>SAFRA, under floodlights — a WorldFirst XI in red against Bosses United, covered by three photographers.</p></div></article>
-<article class="ev done"><div class="ev-rail"><span class="ev-date">7 Aug</span><span class="ev-state">Done</span></div><div class="ev-body"><h3>Partnership signing</h3><p>Wheeler’s Estate — agreement signed, team bus unveiled, MOS Dinesh Vasu Dash in attendance.</p></div></article>
-<article class="ev done"><div class="ev-rail"><span class="ev-date">21 Aug</span><span class="ev-state">Done</span></div><div class="ev-body"><h3>Interview series</h3><p>Ten founders filmed telling their growth stories — the content engine behind the partnership.</p></div></article>
-<article class="ev now"><div class="ev-rail"><span class="ev-date">26 Aug</span><span class="ev-state">The event</span></div><div class="ev-body"><h3>Congress Cup Opening Ceremony</h3><p><b>Pan Pacific Singapore, report 5:15pm.</b> MOS Dinesh Vasu Dash; token of appreciation; six markets in the room.</p></div></article>
-<article class="ev next"><div class="ev-rail"><span class="ev-date">28 Aug</span><span class="ev-state">Upcoming</span></div><div class="ev-body"><h3>Exhibition match</h3><p>WorldFirst vs Singapore Xin Hua Sports Club.</p></div></article>
-<article class="ev next"><div class="ev-rail"><span class="ev-date">30 Aug</span><span class="ev-state">Upcoming</span></div><div class="ev-body"><h3>Closing ceremony</h3><p>Winners’ presentation; trophy presented to WorldFirst.</p></div></article>
-<article class="ev next"><div class="ev-rail"><span class="ev-date">Oct–Dec</span><span class="ev-state">Upcoming</span></div><div class="ev-body"><h3>Topical clinics</h3><p>Monthly, 20 curated seats each — where the relationship converts.</p></div></article>
-  </div>
-</section>
-
-<section class="band" id="messages">
-  <div class="wrap">
-    <div class="hdr col">
-      <p class="eyebrow"><b>&#9646;</b> Key messages</p>
-      <h2>What we all say on Wednesday</h2>
-      <p class="lede">Everyone in the room represents the partnership. These lines work for anyone, not just the stage.</p>
-    </div>
-    <div class="cards">
-      <article class="card">
-        <h3>Use their words</h3>
-        <p>The team bus reads: <b>&ldquo;Football is our passion. Business is our mission.&rdquo;</b></p>
-        <p class="say">&ldquo;Football is your passion, business is your mission. The second half is where we come in.&rdquo;</p>
-      </article>
-      <article class="card">
-        <h3>Qiaopi to WorldFirst</h3>
-        <p>The film we screened in July is about the remittance letters overseas Chinese sent home &mdash; cross-border payments, a century early.</p>
-        <p class="say">&ldquo;We watched a film about qiaopi together in July. We've been in that business ever since &mdash; just faster.&rdquo;</p>
-      </article>
-      <article class="card">
-        <h3>They crossed the border first</h3>
-        <p>The HKAFA MOU was their initiative, and about more than fixtures.</p>
-        <p class="say">&ldquo;You signed Hong Kong before we ever brought it up. We'd like to be useful for what comes after.&rdquo;</p>
-      </article>
-      <article class="card">
-        <h3>Thirty years of community</h3>
-        <p>The Bosses Network since 1996, BNYC since 2015, the team since 2022.</p>
-        <p class="say">&ldquo;The team is four years old. The community behind it is thirty.&rdquo;</p>
-      </article>
-      <article class="card">
-        <h3>Name the trade, not the product</h3>
-        <p>A specific flow beats a feature list.</p>
-        <p class="say">&ldquo;Rice from nine countries, washroom tech in ten markets. That's our day job.&rdquo;</p>
-      </article>
-      <article class="card">
-        <h3>Point to the clinics</h3>
-        <p>Monthly clinics from October, 20 curated seats each &mdash; the natural &ldquo;what's next&rdquo; for any member who asks.</p>
-        <p class="say">&ldquo;Twenty seats a month from October. We'd rather have the right twenty than a full room.&rdquo;</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="band" id="questions">
-  <div class="wrap">
-    <div class="hdr col">
-      <p class="eyebrow"><b>&#9646;</b> If you're asked</p>
-      <h2>Quick answers</h2>
-    </div>
-    <div class="qa col" style="max-width:56rem">
+  <section id="questions"><div class="wrap">
+    <div class="sec-h"><span class="eyebrow">If asked</span><h2>Quick answers</h2></div>
+    <div class="qa">
       <details open>
-        <summary>How many members does Bosses United have?</summary>
-        <div class="ans"><p><b>150+ and counting.</b> Names like Tong Seng Produce, TEHC and Jack's Place are the recognisable tip, not the total.</p></div>
+        <summary>How big is Bosses United?</summary>
+        <div class="ans"><b>150+ members and counting.</b> Never quote a smaller number — the 40-odd businesses we profile are just the recognisable names, not the community's size.</div>
       </details>
       <details>
-        <summary>Why is WorldFirst partnering a football team?</summary>
-        <div class="ans"><p>Every player is an owner or director. We're not buying attention &mdash; we're joining a room that convenes our exact customer, weekly, by choice.</p></div>
+        <summary>Are we the “official” or “preferred” payment partner?</summary>
+        <div class="ans">Until it's confirmed against the signed agreement, say <b>“payment partner of Bosses United”</b>, unqualified.</div>
       </details>
       <details>
-        <summary>What have we done together so far?</summary>
-        <div class="ans"><p>Four touchpoints since 13 July: the &lsquo;Dear You&rsquo; screening (100+ clients), the SAFRA friendly, the partnership signing at Wheeler's Estate, and a ten-founder interview series.</p></div>
+        <summary>What has the partnership actually done?</summary>
+        <div class="ans">Since 13 July: a 100+ guest film screening, a friendly match, a signing ceremony at Wheeler's Estate, and ten filmed founder interviews. The Cup runs this week; monthly clinics start October.</div>
       </details>
       <details>
-        <summary>Where's the cross-border business?</summary>
-        <div class="ans"><p>Documented, not assumed &mdash; rice imports from nine countries, ASEAN subsidiaries, regional recruitment. The businesses section has the specifics.</p></div>
+        <summary>Where's the cross-border angle?</summary>
+        <div class="ans">Documented, not assumed — rice imports from nine countries, ASEAN subsidiaries, regional recruitment. The businesses section above has the names.</div>
       </details>
       <details>
-        <summary>What's the Hong Kong link?</summary>
-        <div class="ans"><p>Their own MOU with the Hong Kong Amateur Football Association, signed after their 2025 tour &mdash; deliberately wider than football.</p></div>
-      </details>
-      <details>
-        <summary>Are we the &ldquo;official&rdquo; or &ldquo;preferred&rdquo; payment partner?</summary>
-        <div class="ans"><p>Until it's confirmed against the signed agreement, say <b>&ldquo;payment partner of Bosses United&rdquo;</b>, unqualified.</p></div>
-      </details>
-      <details>
-        <summary>What's next after the Cup?</summary>
-        <div class="ans"><p>The exhibition match on 28 Aug, the closing ceremony and trophy on 30 Aug, then monthly clinics October&ndash;December &mdash; 20 curated seats each.</p></div>
+        <summary>Why is Korea represented?</summary>
+        <div class="ans">It's the one market with no existing member link — treat it as a forward-looking corridor rather than claiming a connection.</div>
       </details>
     </div>
-  </div>
-</section>
+  </div></section>
 
-<section class="band" id="open">
-  <div class="wrap">
-    <div class="hdr col">
-      <p class="eyebrow"><b>&#9646;</b> Before Wednesday</p>
-      <h2>Still open</h2>
-    </div>
-    <div class="col">
-      <ul class="asks">
-        <li><b>&ldquo;Official&rdquo; vs &ldquo;Preferred&rdquo; Payment Partner</b> &mdash; the launch screen and the team bus say different things; the signed agreement decides. <b>Until confirmed, say &ldquo;payment partner of Bosses United&rdquo;, unqualified.</b></li>
-        <li><b>Run-of-show</b> after the 5:15pm report time &mdash; room, end time, day-of contact, the token itself, and who receives it. These feed the TBC rows in the fact card.</li>
-        <li><b>150+ member count</b> &mdash; internal figure, not yet independently verified. Marketing to confirm before it is said on stage.</li>
-        <li><b>Interview series names</b> &mdash; ten founders filmed on 21 Aug, none identified yet.</li>
+  <section class="alt" id="open"><div class="wrap">
+    <div class="sec-h"><span class="eyebrow">Open items</span><h2>Still to confirm</h2></div>
+    <div class="callout"><b>Before Wednesday:</b>
+      <ul>
+        <li>Room / level at Pan Pacific, expected end time, and the day-of contact — the TBC rows above.</li>
+        <li>“Official” vs “Preferred” payment partner — check the signed agreement; until then say “payment partner”, unqualified.</li>
+        <li>The token of appreciation and who receives it.</li>
+        <li>150+ member count — internal figure; Marketing to confirm before it's said on stage.</li>
+        <li>Interview series footage and interviewee names (8 of 10 sessions documented).</li>
       </ul>
     </div>
-  </div>
-</section>
+  </div></section>
+</main>
 
-<footer class="band">
-  <div class="wrap">Internal briefing &middot; WorldFirst only &middot; Not for distribution &middot; Prepared 23 August 2026</div>
+<footer>
+  <img class="foot-logo" src="assets/logo-aiwf.png" alt="Ant International | WorldFirst"
+       onerror="this.style.display='none'">
+  <div>WorldFirst &times; Bosses United · Congress Cup Opening Ceremony · Wed 26 Aug 2026</div>
+  <div class="src">Internal briefing · WorldFirst only · not for distribution</div>
 </footer>
 
 <script>
-(function () {
-  var d = document.getElementById("cd-d"), h = document.getElementById("cd-h"),
-      m = document.getElementById("cd-m"), s = document.getElementById("cd-s"),
-      box = document.getElementById("countdown");
-  if (!box) { return; }
-  var target = Date.UTC(2026, 7, 26, 9, 15, 0); // 26 Aug 2026, 5:15pm SGT
-  function pad(n) { return n < 10 ? "0" + n : "" + n; }
-  function tick() {
-    var left = target - Date.now();
-    if (left <= 0) {
-      box.innerHTML = '<div class="cd-live">Under way &mdash; see you at Pan Pacific</div>';
+(function(){
+  // Countdown to report time: 26 Aug 2026, 5:15 PM SGT (UTC+8) = 09:15 UTC
+  var t = Date.UTC(2026, 7, 26, 9, 15, 0);
+  var cd = document.getElementById('countdown');
+  var lbl = document.getElementById('cd-label');
+  var timer, pad = function(n){ return (n < 10 ? '0' : '') + n; };
+  function tick(){
+    var diff = t - Date.now();
+    if(diff <= 0){
+      if(timer) clearInterval(timer);
+      if(lbl) lbl.style.display = 'none';
+      cd.innerHTML = '<div class="count-msg">It’s on — see you at Pan Pacific! 🏆</div>';
       return;
     }
-    var sec = Math.floor(left / 1000);
-    d.textContent = Math.floor(sec / 86400);
-    h.textContent = pad(Math.floor(sec % 86400 / 3600));
-    m.textContent = pad(Math.floor(sec % 3600 / 60));
-    s.textContent = pad(sec % 60);
-    setTimeout(tick, 1000);
+    document.getElementById('cd-d').textContent = Math.floor(diff/86400000);
+    document.getElementById('cd-h').textContent = pad(Math.floor(diff%86400000/3600000));
+    document.getElementById('cd-m').textContent = pad(Math.floor(diff%3600000/60000));
+    document.getElementById('cd-s').textContent = pad(Math.floor(diff%60000/1000));
   }
-  tick();
+  tick(); timer = setInterval(tick, 1000);
 })();
 </script>
+</body>
+</html>
