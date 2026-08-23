@@ -131,17 +131,23 @@
   .qa .ans{padding:12px 0 16px; border-top:1px dashed var(--line); font-size:14px; color:var(--ink-soft)}
   .qa .ans b{color:var(--ink)}
 
-  /* dress figures */
-  .dress-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px}
-  .dcard{margin:0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; display:flex; gap:16px; align-items:center}
-  .dfig{width:74px; flex:none}
-  .d-skin{fill:#F3C9A8}
-  .d-blazer{fill:#2E3A59}
-  .d-white{fill:#FFFFFF; stroke:#D8DBE2; stroke-width:1.5}
-  .d-black{fill:#23262B}
-  .d-shoe{fill:#17191D}
-  .dcard b{display:block; font-size:15px; margin-bottom:3px}
-  .dcard span{font-size:13.5px; color:var(--ink-soft)}
+  /* dress lookbook carousel */
+  .lookbook{display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 4px 14px; -webkit-overflow-scrolling:touch}
+  .look{flex:0 0 min(78%,300px); scroll-snap-align:start; margin:0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
+  .look img{width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top center; background:var(--bg-alt)}
+  .look figcaption{padding:12px 15px 14px}
+  .look b{display:block; font-size:14px}
+  .look span{font-size:12.5px; color:var(--muted)}
+  .look .tag{font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--wfred); display:block; margin-bottom:2px}
+  .lb-hint{font-size:12px; color:var(--muted); margin:2px 0 0}
+  @media (min-width:900px){ .lookbook{overflow:visible; flex-wrap:nowrap} .look{flex:1 1 0} .lb-hint{display:none} }
+
+  /* club photo strip */
+  .strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:20px}
+  .snap{margin:0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden}
+  .snap img{width:100%; aspect-ratio:4/3; object-fit:cover; display:block}
+  .snap figcaption{padding:10px 14px 12px; font-size:12.5px; color:var(--ink-soft)}
+  .snap figcaption b{color:var(--ink)}
 
   .callout{background:linear-gradient(120deg, rgba(255,0,81,.08), rgba(255,128,0,.08)); border:1px solid var(--line); border-left:4px solid var(--wfred); border-radius:14px; padding:18px 20px; font-size:14px}
   .callout b{color:var(--plum)}
@@ -180,9 +186,9 @@
     </div>
     <div class="hero-kv" id="hero-kv">
       <figure>
-        <img id="kv-img" src="assets/team-kv.jpg" alt="WorldFirst and Bosses United on the pitch" loading="eager"
-             onerror="document.getElementById('hero-kv').style.display='none'">
-        <figcaption>WorldFirst &times; Bosses United — friendly match, SAFRA, 22 July</figcaption>
+        <img id="kv-img" src="assets/team-kv.jpg" alt="Partnership signing with MOS Dinesh Vasu Dash at Wheeler's Estate" loading="eager"
+             onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://media.asiaone.com/sites/default/files/inline-images/bossesunitedworldfirstdinesh.jpg'}else{document.getElementById('hero-kv').style.display='none'}">
+        <figcaption>Partnership signing with MOS Dinesh Vasu Dash â Wheeler’s Estate, 7 August</figcaption>
       </figure>
     </div>
   </div>
@@ -223,36 +229,25 @@
 
   <section class="alt" id="dress"><div class="wrap">
     <div class="sec-h"><span class="eyebrow">Dress code</span><h2>Business casual</h2><span class="note">There will be a stage, a Minister and cameras</span></div>
-    <div class="dress-grid">
-      <figure class="dcard">
-        <svg viewBox="0 0 120 150" role="img" aria-label="Men's look: navy blazer over white tee, dark trousers" class="dfig">
-          <circle cx="60" cy="21" r="12" class="d-skin"/>
-          <path d="M48 44 L60 100 L72 44 L66 40 L54 40 Z" class="d-white"/>
-          <path d="M34 52 Q47 40 54 40 L60 62 L48 100 L33 100 Z" class="d-blazer"/>
-          <path d="M86 52 Q73 40 66 40 L60 62 L72 100 L87 100 Z" class="d-blazer"/>
-          <rect x="40" y="100" width="17" height="42" rx="3" class="d-black"/>
-          <rect x="63" y="100" width="17" height="42" rx="3" class="d-black"/>
-          <rect x="36" y="142" width="22" height="6" rx="3" class="d-shoe"/>
-          <rect x="62" y="142" width="22" height="6" rx="3" class="d-shoe"/>
-        </svg>
-        <figcaption><b>Gentlemen</b><span>Blazer over a plain tee or open-collar shirt, dark tailored trousers, dress shoes or clean leather sneakers. Skip shorts and sandals.</span></figcaption>
+    <div class="lookbook">
+      <figure class="look">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRssKdU_r78g6tj8RwPnKJHHlzPJjoyVKc6R_5_BaurQg&s=10" alt="Men's look: navy blazer over white tee" loading="lazy" onerror="this.closest('.look').style.display='none'">
+        <figcaption><span class="tag">Gentlemen &middot; look 1</span><b>Blazer over a plain tee</b><span>Navy blazer, white tee, dark trousers</span></figcaption>
       </figure>
-      <figure class="dcard">
-        <svg viewBox="0 0 120 150" role="img" aria-label="Ladies' look: blazer over white top or dress" class="dfig">
-          <circle cx="60" cy="21" r="12" class="d-skin"/>
-          <path d="M50 42 L60 96 L70 42 L66 39 L54 39 Z" class="d-white"/>
-          <path d="M37 52 Q48 39 54 39 L60 60 L49 98 L36 96 Z" class="d-blazer"/>
-          <path d="M83 52 Q72 39 66 39 L60 60 L71 98 L84 96 Z" class="d-blazer"/>
-          <path d="M47 96 L42 134 L78 134 L73 96 Z" class="d-white"/>
-          <path d="M50 134 L48 142 L56 142 L57 134 Z" class="d-skin"/>
-          <path d="M64 134 L63 142 L71 142 L72 134 Z" class="d-skin"/>
-          <path d="M46 142 L58 142 L58 148 L44 148 Z" class="d-shoe"/>
-          <path d="M62 142 L74 142 L76 148 L62 148 Z" class="d-shoe"/>
-        </svg>
-        <figcaption><b>Ladies</b><span>Blazer over a blouse with tailored trousers or a skirt — or a knee-length dress with a jacket. Heels or smart flats; a light layer for the aircon.</span></figcaption>
+      <figure class="look">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuyyusEH0B0DC6Zv_FEH8kOLD64Xm0FDknYUu8XL3Ksg&s=10" alt="Men's look: full length, blazer with dark trousers and dress shoes" loading="lazy" onerror="this.closest('.look').style.display='none'">
+        <figcaption><span class="tag">Gentlemen &middot; look 2</span><b>The full length</b><span>Dark trousers, dress shoes or clean leather sneakers</span></figcaption>
+      </figure>
+      <figure class="look">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI8y3ZFGT_KIJIerxTTiCS_TPv2MS_7Nt-v5BjX4H9og&s=10" alt="Ladies' look: navy blazer over white top" loading="lazy" onerror="this.closest('.look').style.display='none'">
+        <figcaption><span class="tag">Ladies &middot; look 1</span><b>Blazer over a blouse</b><span>With tailored trousers or a skirt</span></figcaption>
+      </figure>
+      <figure class="look">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWvpY5_e-sMsotmxsJ9ZqKX-qdAZiwUIK8K_Yms4hQrg&s=10" alt="Ladies' look: black blazer over white knee-length dress" loading="lazy" onerror="this.closest('.look').style.display='none'">
+        <figcaption><span class="tag">Ladies &middot; look 2</span><b>Dress and jacket</b><span>Knee-length dress, heels or smart flats</span></figcaption>
       </figure>
     </div>
-    <div class="callout" style="margin-top:16px"><b>If in doubt:</b> what you'd wear to meet a customer, not what you'd wear to a match.</div>
+    <p class="lb-hint">Swipe for more looks &rarr;</p>
   </div></section>
 
   <section id="who"><div class="wrap">
@@ -266,6 +261,11 @@
       <div class="row"><div class="time">2015</div><div class="act"><div class="t">Young Chapter (BNYC)</div><div class="place">The same mission for owners aged 40 and under</div></div></div>
       <div class="row"><div class="time">2022</div><div class="act"><div class="t">Bosses United</div><div class="place">The network forms a competitive team — organised fixtures, tours to Bangkok (2023) and Hong Kong (2025), time on the pitch with Abbas Saad</div></div></div>
       <div class="row"><div class="time">2025</div><div class="act"><div class="t">HKAFA MOU <span class="pill hot">their initiative — credit it</span></div><div class="place">Signed with the Hong Kong Amateur Football Association, written wider than football: it links both cities' business communities</div></div></div>
+    </div>
+    <div class="strip">
+      <figure class="snap"><img src="assets/bu-dialogue.jpg" alt="Dialogue session with Minister of State Dinesh Vasu Dash" loading="lazy" onerror="this.closest('.snap').style.display='none'"><figcaption><b>Ministerial dialogue.</b> MOS Dinesh Vasu Dash at Bosses United's SME workforce dialogue &mdash; his engagement with the club predates our partnership.</figcaption></figure>
+      <figure class="snap"><img src="assets/bu-fandi.jpg" alt="CSR youth training session with Fandi Ahmad" loading="lazy" onerror="this.closest('.snap').style.display='none'"><figcaption><b>Giving back.</b> CSR youth training with Singapore football legend Fandi Ahmad.</figcaption></figure>
+      <figure class="snap"><img src="assets/bu-social.jpg" alt="Bosses United social events" loading="lazy" onerror="this.closest('.snap').style.display='none'"><figcaption><b>Beyond the pitch.</b> The community's social calendar is where the networking actually happens.</figcaption></figure>
     </div>
   </div></section>
 
