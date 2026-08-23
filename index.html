@@ -47,7 +47,7 @@
   .kv-track::-webkit-scrollbar{display:none}
   .kv-track figure{margin:0; flex:0 0 100%; scroll-snap-align:center}
   .kv-track img{width:100%; aspect-ratio:3/2; object-fit:cover; object-position:center 40%; display:block;
-    border-radius:20px; border:1px solid rgba(255,255,255,.28); box-shadow:0 24px 60px rgba(0,0,0,.42)}
+    border-radius:20px; border:1px solid rgba(255,255,255,.28)}
   .kv-track figcaption{margin-top:12px; padding:0 8px; font-size:12.5px; line-height:1.5; color:#FCE4EC; font-weight:500; text-align:center}
   .kv-nav{position:absolute; top:38%; transform:translateY(-50%); width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,.45);
     background:rgba(0,0,0,.35); color:#fff; font-size:19px; line-height:1; cursor:pointer; display:none; align-items:center; justify-content:center}
@@ -150,8 +150,9 @@
   /* dress lookbook carousel */
   .lookbook{display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 4px 14px; -webkit-overflow-scrolling:touch}
   .look{flex:0 0 min(78%,300px); scroll-snap-align:start; margin:0; background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
-  .look img{width:100%; aspect-ratio:3/4; object-fit:cover; object-position:top center; background:var(--bg-alt)}
-  .look img.crop-wm{transform:scale(1.18); transform-origin:top center}
+  .look .media{aspect-ratio:3/4; overflow:hidden; background:var(--bg-alt)}
+  .look .media img{width:100%; height:100%; object-fit:cover; object-position:top center; display:block}
+  .look .media.crop img{height:114%}
   .look figcaption{padding:12px 15px 14px}
   .look b{display:block; font-size:14px}
   .look span{font-size:12.5px; color:var(--muted)}
@@ -185,11 +186,11 @@
       <span class="itag">Internal · WorldFirst only</span>
       <div class="eyebrow">WorldFirst &amp; Bosses United</div>
       <h1>Congress Cup<br><span class="accent">Opening Ceremony</span></h1>
-      <p class="lede">One evening, six markets, 150+ business owners — and WorldFirst on stage as payment partner.</p>
+      <p class="lede">One evening, six markets, 150+ business owners — and WorldFirst on stage as official payment partner.</p>
       <div class="facts">
         <div class="fact"><div class="k">Date</div><div class="v">Wed 26 Aug</div><div class="s">2026</div></div>
         <div class="fact"><div class="k">Report by</div><div class="v">5:00 PM</div><div class="s">sharp</div></div>
-        <div class="fact"><div class="k">Venue</div><div class="v">Pan Pacific</div><div class="s">7 Raffles Blvd · Marina Square</div></div>
+        <div class="fact"><div class="k">Venue</div><div class="v">Pan Pacific</div><div class="s">Banquet hall · 7 Raffles Blvd</div></div>
         <div class="fact"><div class="k">Dress</div><div class="v">Business casual</div><div class="s">see guide below</div></div>
       </div>
       <div class="cd-wrap">
@@ -252,7 +253,7 @@
         <div style="flex:1 1 260px">
           <div class="tag">Venue</div>
           <h4>Pan Pacific Singapore</h4>
-          <div class="addr">7 Raffles Boulevard, Marina Square, Singapore 039595 &middot; room/level TBC &mdash; check day-of comms</div>
+          <div class="addr">7 Raffles Boulevard, Marina Square, Singapore 039595 &middot; Banquet hall</div>
         </div>
         <a class="maplink" href="https://www.google.com/maps/search/?api=1&amp;query=Pan%20Pacific%20Singapore%207%20Raffles%20Boulevard" target="_blank" rel="noopener">Open in Maps &rarr;</a>
       </div>
@@ -271,30 +272,29 @@
     <div class="sec-h"><span class="eyebrow">Dress code</span><h2>Business casual</h2><span class="note">There will be a stage, a Minister and cameras</span></div>
     <div class="lookbook">
       <figure class="look">
-        <img class="crop-wm" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRssKdU_r78g6tj8RwPnKJHHlzPJjoyVKc6R_5_BaurQg&s=10" alt="Men's look: navy blazer over white tee" loading="lazy" onerror="this.closest('.look').style.display='none'">
+        <div class="media crop"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRssKdU_r78g6tj8RwPnKJHHlzPJjoyVKc6R_5_BaurQg&s=10" alt="Men's look: navy blazer over white tee" loading="lazy" onerror="this.closest('.look').style.display='none'"></div>
         <figcaption><span class="tag">Gentlemen &middot; look 1</span><b>Blazer over a plain tee</b><span>Navy blazer, white tee, dark trousers</span></figcaption>
       </figure>
       <figure class="look">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuyyusEH0B0DC6Zv_FEH8kOLD64Xm0FDknYUu8XL3Ksg&s=10" alt="Men's look: full length, blazer with dark trousers and dress shoes" loading="lazy" onerror="this.closest('.look').style.display='none'">
+        <div class="media"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuyyusEH0B0DC6Zv_FEH8kOLD64Xm0FDknYUu8XL3Ksg&s=10" alt="Men's look: full length, blazer with dark trousers and dress shoes" loading="lazy" onerror="this.closest('.look').style.display='none'"></div>
         <figcaption><span class="tag">Gentlemen &middot; look 2</span><b>The full length</b><span>Dark trousers, dress shoes or clean leather sneakers</span></figcaption>
       </figure>
       <figure class="look">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI8y3ZFGT_KIJIerxTTiCS_TPv2MS_7Nt-v5BjX4H9og&s=10" alt="Ladies' look: navy blazer over white top" loading="lazy" onerror="this.closest('.look').style.display='none'">
+        <div class="media"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI8y3ZFGT_KIJIerxTTiCS_TPv2MS_7Nt-v5BjX4H9og&s=10" alt="Ladies' look: navy blazer over white top" loading="lazy" onerror="this.closest('.look').style.display='none'"></div>
         <figcaption><span class="tag">Ladies &middot; look 1</span><b>Blazer over a blouse</b><span>With tailored trousers or a skirt</span></figcaption>
       </figure>
       <figure class="look">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWvpY5_e-sMsotmxsJ9ZqKX-qdAZiwUIK8K_Yms4hQrg&s=10" alt="Ladies' look: black blazer over white knee-length dress" loading="lazy" onerror="this.closest('.look').style.display='none'">
+        <div class="media"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWvpY5_e-sMsotmxsJ9ZqKX-qdAZiwUIK8K_Yms4hQrg&s=10" alt="Ladies' look: black blazer over white knee-length dress" loading="lazy" onerror="this.closest('.look').style.display='none'"></div>
         <figcaption><span class="tag">Ladies &middot; look 2</span><b>Dress and jacket</b><span>Knee-length dress, heels or smart flats</span></figcaption>
       </figure>
     </div>
     <p class="lb-hint">Swipe for more looks &rarr;</p>
-    <div class="callout" style="margin-top:16px"><b>All WorldFirst representatives will don an Ant International pin on their blazer.</b><br>If in doubt: what you'd wear to meet a customer, not what you'd wear to a match.</div>
+    <div class="callout" style="margin-top:16px"><b>All WorldFirst representatives will don an Ant International pin on their blazer.</b></div>
   </div></section>
 
   <section id="who"><div class="wrap">
     <div class="sec-h"><span class="eyebrow">Our partner</span><h2>Bosses United in sixty seconds</h2><span class="note">“Football is our passion. Business is our mission.”</span></div>
-    <p style="max-width:72ch; font-size:15px; color:var(--ink-soft); margin:0 0 22px">Bosses United is a Singapore football club founded in 2022 whose players are all business owners &mdash; profiled by AsiaOne as a club that mixes passion with mission, using the game to help owners stay active, form genuine friendships, share knowledge and give back. Grown out of the Bosses Network Young Chapter, it now counts <b>150+ members</b> playing organised fixtures and overseas tours, built on the club&rsquo;s stated values of <b>dedication, discipline and unity</b> &mdash; the friendships formed on the pitch carry into business.
-    <span style="display:block; margin-top:6px; font-size:12px; color:var(--muted)">Sources: AsiaOne, &ldquo;Mixing passion with mission&rdquo; (Aug 2026) &middot; bossesunited.com</span></p>
+    <p style="font-size:15px; color:var(--ink-soft); margin:0 0 22px; max-width:100ch">Bosses United is a Singapore football club founded in 2022 whose players are all business owners &mdash; a club that mixes passion with mission, using the game to help owners stay active, form genuine friendships, share knowledge and give back. Grown out of the Bosses Network Young Chapter, it now counts <b>150+ members</b> playing organised fixtures and overseas tours, built on values of <b>dedication, discipline and unity</b> &mdash; the friendships formed on the pitch carry into business.</p>
     <div class="day">
       <div class="day-top">
         <div class="daychip d2 wide">150+<small>owners</small></div>
@@ -303,7 +303,7 @@
       <div class="row"><div class="time">1996</div><div class="act"><div class="t">The Bosses Network</div><div class="place">Business leaders united in lifelong learning</div></div></div>
       <div class="row"><div class="time">2015</div><div class="act"><div class="t">Young Chapter (BNYC)</div><div class="place">The same mission for owners aged 40 and under</div></div></div>
       <div class="row"><div class="time">2022</div><div class="act"><div class="t">Bosses United</div><div class="place">The network forms a competitive team — organised fixtures, tours to Bangkok (2023) and Hong Kong (2025), time on the pitch with Abbas Saad</div></div></div>
-      <div class="row"><div class="time">2025</div><div class="act"><div class="t">HKAFA MOU <span class="pill hot">their initiative — credit it</span></div><div class="place">Signed with the Hong Kong Amateur Football Association, written wider than football: it links both cities' business communities</div></div></div>
+      <div class="row"><div class="time">2025</div><div class="act"><div class="t">HKAFA MOU</div><div class="place">Signed with the Hong Kong Amateur Football Association, written wider than football: it links both cities' business communities</div></div></div>
     </div>
     <div class="strip">
       <figure class="snap"><img src="assets/bu-dialogue.jpg" alt="Dialogue session with Minister of State Dinesh Vasu Dash" loading="lazy" onerror="this.closest('.snap').style.display='none'"><figcaption><b>Ministerial dialogue.</b> MOS Dinesh Vasu Dash at Bosses United's SME workforce dialogue &mdash; his engagement with the club predates our partnership.</figcaption></figure>
@@ -370,7 +370,7 @@
         <div><h3>The partnership goes official</h3><div class="sub">Signing, stories, and the Cup</div></div>
       </div>
       <div class="row"><div class="time">7 Aug</div><div class="act"><div class="t">Partnership signing ceremony <span class="pill done">done</span></div><div class="place">Wheeler's Estate — agreement signed, team bus unveiled with the WorldFirst lockup. MOS Dinesh attended.<div class="evpics"><img src="assets/ev-0807-1.jpg" alt="" loading="lazy" onerror="this.remove()"><img src="assets/ev-0807-2.jpg" alt="" loading="lazy" onerror="this.remove()"></div></div></div></div>
-      <div class="row"><div class="time">21 Aug</div><div class="act"><div class="t">Bosses United interview series <span class="pill done">done</span></div><div class="place">Ten founder interviews filmed multi-cam — the partnership's content engine<div class="evpics"><img src="assets/ev-0821-1.jpg" alt="" loading="lazy" onerror="this.remove()"><img src="assets/ev-0821-2.jpg" alt="" loading="lazy" onerror="this.remove()"></div></div></div></div>
+      <div class="row"><div class="time">21 Aug</div><div class="act"><div class="t">Bosses United interview series <span class="pill done">done</span></div><div class="place">Nine founder interviews filmed multi-cam — the partnership's content engine: Bosses United founders Albert &amp; YZ; Brandon (Rigel); Andy (Eltraco); Andrew (Min Feng); Ben Toh (TEHC International); Alvin Chow (UPLEEV); Gary (Tour The Game); William (Friends of BUS); Mark Tan (Way Fengshui)<div class="evpics"><img src="assets/ev-0821-1.jpg" alt="" loading="lazy" onerror="this.remove()"><img src="assets/ev-0821-2.jpg" alt="" loading="lazy" onerror="this.remove()"></div></div></div></div>
       <div class="row"><div class="time">26 Aug</div><div class="act"><div class="t">Congress Cup Opening Ceremony <span class="pill hot">this Wednesday</span></div><div class="place">Pan Pacific Singapore — you are here</div></div></div>
       <div class="row"><div class="time">28 Aug</div><div class="act"><div class="t">Exhibition match — WorldFirst vs Singapore Xin Hua Sports Club</div></div></div>
       <div class="row"><div class="time">30 Aug</div><div class="act"><div class="t">Congress Cup Closing Ceremony</div><div class="place">Winners' presentation — trophy presented to WorldFirst</div></div></div>
@@ -399,11 +399,11 @@
     <div class="qa">
       <details open>
         <summary>How big is Bosses United?</summary>
-        <div class="ans"><b>150+ members and counting.</b> Never quote a smaller number — the 40-odd businesses we profile are just the recognisable names, not the community's size.</div>
+        <div class="ans"><b>150+ members and counting, across all chapters.</b> Never quote a smaller number — the businesses we profile are just the recognisable names, not the community's size.</div>
       </details>
       <details>
         <summary>Are we the “official” or “preferred” payment partner?</summary>
-        <div class="ans">Until it's confirmed against the signed agreement, say <b>“payment partner of Bosses United”</b>, unqualified.</div>
+        <div class="ans"><b>Official payment partner of Bosses United</b> — confirmed, signed 7 August.</div>
       </details>
       <details>
         <summary>What has the partnership actually done?</summary>
@@ -420,17 +420,6 @@
     </div>
   </div></section>
 
-  <section class="alt" id="open"><div class="wrap">
-    <div class="sec-h"><span class="eyebrow">Open items</span><h2>Still to confirm</h2></div>
-    <div class="callout"><b>Before Wednesday:</b>
-      <ul>
-        <li>Room / level at Pan Pacific, expected end time, and the day-of contact — the TBC rows above.</li>
-        <li>“Official” vs “Preferred” payment partner — check the signed agreement; until then say “payment partner”, unqualified.</li>
-        <li>150+ member count — internal figure; Marketing to confirm before it's said on stage.</li>
-        <li>Interview series footage and interviewee names (8 of 10 sessions documented).</li>
-      </ul>
-    </div>
-  </div></section>
 </main>
 
 <footer>
@@ -500,6 +489,7 @@ document.getElementById('kv-track').addEventListener('scroll', function(){
   clearTimeout(window.kvScrollT); window.kvScrollT = setTimeout(kvMark, 120);
 });
 window.addEventListener('load', kvInit);
+setTimeout(kvInit, 900);
 kvInit();
 </script>
 </body>
