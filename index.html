@@ -158,15 +158,15 @@
 
 
   /* about us */
-  .about-grid{display:grid; gap:20px; align-items:start; grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .about-grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
   .about{background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
     box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
   .about-media{background:var(--bg-alt); overflow:hidden}
   .about-media img{width:100%; aspect-ratio:16/9; object-fit:cover; display:block}
-  .about-body{padding:20px 22px 22px}
+  .about-body{padding:20px 22px 22px; flex:1; display:flex; flex-direction:column}
   .about-body h3{margin:0 0 8px; font-size:19px; font-weight:700; color:var(--ink)}
-  .about-body p{margin:0; font-size:14.5px; color:var(--ink-soft)}
-  .about-body .btn-solid{display:inline-block; margin-top:16px; text-decoration:none}
+  .about-body p{margin:0 0 16px; font-size:14.5px; color:var(--ink-soft)}
+  .about-body .btn-solid{display:inline-block; margin-top:auto; align-self:flex-start; text-decoration:none}
 
   /* registration CTA + modal */
   .cta-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:22px}
